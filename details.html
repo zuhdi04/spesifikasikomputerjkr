@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Details - ZSMS</title>
+<link rel="stylesheet" href="css/mystyle.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css">
+
+
+
+</head>
+
+<body>
+    <div class="top-bar">
+        <img class="icon" src="img/2w9fq6opwdyc8wk4c4.png" alt="Avatar" class="avatar">
+        <a onclick="alert('You are going to logout')" class="logout" href="login.html">Logout</a>
+    </div>
+    
+    <div class="menu-bar">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="details.html">Details</a>
+    </div>
+    
+    <div class="content">
+        <h1>SPESIFIKASI KOMPUTER KAKITANGAN JKR KEDAH BAHAGIAN/UNIT/DAERAH: UNIT PENTADBIRAN&KEWANGAN</h1>
+        <a href="details-form.html">Add</a>
+        <table id="printTable" class="display">
+            <thead>
+                <tr>
+                    <th>NO.</th>
+                    <th>NAMA PENUH</th>
+                    <th>BAHAGIAN/ CAWANGAN/ DAERAH</th>
+                    <th>JAWATAN DAN GRED</th>
+                    <th>KAKITANGAN PERSEKUTUAN/ NEGERI</th>
+                    <th>JENIS KOMPUTER: PERSEKUTUAN/ SUK/ PROJEK</th>
+                    <th>UMUR KOMPUTER</th>
+                    <th>JENIS PROCESSOR: i3/i5/i7</th>
+                    <th>RAM: 2GB/ 4GB/ 6GB/ 8GB</th>
+                    <th>SYSTEM TYPE: 32BIT/64BIT</th>
+                    <th>ANTIVIRUS</th>
+                    <th>IPV4 ADDRESS</th>
+                    <th>CATATAN</th>
+                </tr>
+            </thead>
+            <tbody id="stafflist">
+                <!-- <tr>
+                    <td>1</td>
+                </tr> -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+    <!-- <script src="js/page-content.js"></script> -->
+    <script src="js/homepage.js"></script>
+    <script>details();</script>
+</body>
+</html>
