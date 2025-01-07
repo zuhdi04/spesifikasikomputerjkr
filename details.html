@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8" />
-<title>Details - ZSMS</title>
-<link rel="stylesheet" href="css/mystyle.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css">
+    <meta charset="utf-8" />
+    <title>Details - ZSMS</title>
+    <link rel="stylesheet" href="css/mystyle.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css">
 
 
 
@@ -12,19 +13,21 @@
 
 <body>
     <div class="top-bar">
-        <img class="icon" src="img/2w9fq6opwdyc8wk4c4.png" alt="Avatar" class="avatar">
+        <img class="icon" src="img/logo.png" alt="Avatar" class="avatar" width="100px" height="100px">
         <a onclick="alert('You are going to logout')" class="logout" href="login.html">Logout</a>
     </div>
-    
-    <div class="menu-bar">
-        <a href="dashboard.html">Dashboard</a>
-        <a href="details.html">Details</a>
-    </div>
-    
-    <div class="content">
-        <h1>SPESIFIKASI KOMPUTER KAKITANGAN JKR KEDAH BAHAGIAN/UNIT/DAERAH: UNIT PENTADBIRAN&KEWANGAN</h1>
-        <a href="details-form.html">Add</a>
-        <table id="printTable" class="display">
+
+    <!-- Navigation Menu -->
+    <nav class="menu-bar">
+        <ul>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="details.html">Details</a></li>
+        </ul>
+    </nav>
+
+    <div class="content1">
+        <h1>SPESIFIKASI KOMPUTER KAKITANGAN JKR KEDAH BAHAGIAN/UNIT/DAERAH: UNIT PENTADBIRAN & KEWANGAN</h1>
+        <table id="printTable" class="display" border="display">
             <thead>
                 <tr>
                     <th>NO.</th>
@@ -48,6 +51,9 @@
                 </tr> -->
             </tbody>
         </table>
+        <br>
+        <a href="details-form.html" class="btnAdd">Add</a>
+
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -55,5 +61,7 @@
     <!-- <script src="js/page-content.js"></script> -->
     <script src="js/homepage.js"></script>
     <script>details();</script>
+
 </body>
+
 </html>
