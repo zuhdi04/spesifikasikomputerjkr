@@ -2,7 +2,7 @@
 // update.php
 header('Content-Type: application/json');
 
-if (isset($_POST['SAVE'])) {
+if (isset($_POST['SAVE'])||$_POST['NamaPenuh']!="") {
 
 $conn = new mysqli('localhost', 'root', '', 'zuhdiscmsdb');
 
@@ -37,7 +37,7 @@ if ($stmt->execute()) {
 $stmt->close();
 $conn->close();
 
-header("Location: details-form.html");
+header("Location: details.html");
 exit;
 }
 else {
