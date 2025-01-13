@@ -27,7 +27,7 @@ function details(){
                     <td>`+item.antivirus+`</td>
                     <td>`+item.ipv4_address+`</td>
                     <td>`+item.catatan+`</td>
-                    <td><a href="details-edit.php?form=`+item.id+`">Edit</a><a id="delete_details" href="details-edit.php?form=`+item.id+`">Delete</a></td>
+                    <td><a href="details-edit.php?form=`+item.id+`">Edit</a><a href="#" class="delete_details" data-id="`+item.id+`" onclick="return false;">Delete</a></td>
                 </tr>`);
         });
         refreshTable();
@@ -44,3 +44,30 @@ function validateDetails(){
 function refreshTable(){
     $('#printTable').DataTable();
 }
+
+$('#printTable').on('click','.delete_details',function(){
+    let p = $(this).data('id');
+    if(confirm("Adakah anda mahu memadam maklumat ini?")){
+        // Perform AJAX request
+        $.ajax({
+            url: 'deleteList.php', // Replace with your API endpoint
+            method: 'POST', // Use POST for updates
+            data: {
+                target: p
+            },
+            success: function(response) {
+                // Handle successful response
+                console.log('Update successful:', response);
+                alert('Maklumat telah dipadam!');
+                // details();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                // Handle error
+                console.error('Update failed:', textStatus, errorThrown);
+                alert('Error updating data.');
+            }
+        });
+    }
+    details();
+});
+
