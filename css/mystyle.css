@@ -21,6 +21,24 @@ body {
   color: white;
 }
 
+.btnAdd {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+  background-color: #46acf0;
+  border-radius: 4px;
+  cursor: pointer;
+  align-items: center;
+  transition: background-color 0.3s;
+}
+
+.btnAdd:hover {
+  background-color: #5194c0;
+}
+
 .logout {
   text-decoration: none;
   color: white;
@@ -66,7 +84,7 @@ body {
 /* Content */
 .content {
   padding: 20px;
-  margin: 20px auto;
+  margin: 30px auto;
   max-width: 800px;
   background-color: white;
   border-radius: 8px;
@@ -76,7 +94,7 @@ body {
 /* Content */
 .content1 {
   padding: 20px;
-  margin: 20px auto;
+  margin: 30px auto;
   max-width: auto;
   background-color: white;
   border-radius: 8px;
@@ -87,6 +105,10 @@ h1 {
   color: #0056b3;
   text-align: center;
   margin-bottom: 20px;
+}
+
+h2 {
+  color: #aa6a15;
 }
 
 .form-container {
@@ -133,19 +155,21 @@ textarea {
   background-color: #023d0cc2;
 }
 
-.btnAdd {
-  width: 100%;
+/* Buttons */
+button, .btnAdd, .reset, .btnBack {
   padding: 10px;
   font-size: 16px;
   font-weight: bold;
-  text-decoration: none;
   color: white;
-  font-weight: bold;
-  background-color: #46acf0;
+  border: none;
   border-radius: 4px;
   cursor: pointer;
-  align-items: center;
   transition: background-color 0.3s;
+  width: 100%;
+}
+
+.btnAdd {
+  background-color: #46acf0;
 }
 
 .btnAdd:hover {
@@ -153,16 +177,7 @@ textarea {
 }
 
 .reset {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  font-weight: bold;
-  color: white;
   background-color: #e04720c2;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
 }
 
 .reset:hover {

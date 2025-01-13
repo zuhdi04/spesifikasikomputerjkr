@@ -1,12 +1,11 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8" />
-<title>Details - ZSMS</title>
-<link rel="stylesheet" href="css/mystyle.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
-
+    <meta charset="utf-8" />
+    <title>Admin Dashboard - ZSMS</title>
+    <link rel="stylesheet" href="css/mystyle.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -14,7 +13,7 @@
         <img class="icon" src="img/logo.png" alt="Avatar" width="100px" height="100px">
         <a onclick="alert('You are going to logout')" class="logout" href="login.html">Logout</a>
     </div>
-    
+
     <!-- Navigation Menu -->
     <nav class="menu-bar">
         <ul>
@@ -22,11 +21,65 @@
             <li><a href="details.html">Details</a></li>
         </ul>
     </nav>
-    
+
     <div class="content">
-        <h1>SPESIFIKASI KOMPUTER KAKITANGAN JKR KEDAH BAHAGIAN/UNIT/DAERAH: UNIT PENTADBIRAN & KEWANGAN</h1>
+        <div class="form-container">
+            <h1>SPESIFIKASI KOMPUTER KAKITANGAN JKR KEDAH BAHAGIAN/UNIT/DAERAH: UNIT PENTADBIRAN & KEWANGAN</h1>
+            <h2>Admin Management</h2>
+            <form class="form-container">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter Username">
+
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter Password" >
+
+                <label for="cawangan">Cawangan</label>
+                <input type="text" id="cawangan" name="cawangan" placeholder="Enter Cawangan" >
+
+                <button type="submit" name="addadmin" class="btnAdd">Add Admin</button><br>
+            </form>
+
+            <div class="admin-list" id="admin-list">
+                <h2>Admin Accounts</h2>
+                <!-- Admin items will appear here -->
+            </div>
+        </div>
     </div>
 
-    
+    <script>
+        // Handle form submission
+        const adminForm = document.getElementById('admin-form');
+        const adminList = document.getElementById('admin-list');
+
+        adminForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const cawangan = document.getElementById('cawangan').value;
+
+            if (username && password && cawangan) {
+                // Create a new admin item
+                const adminItem = document.createElement('div');
+                adminItem.classList.add('admin-item');
+                adminItem.innerHTML = `
+          <span><strong>Username:</strong> ${username} | <strong>Cawangan:</strong> ${cawangan}</span>
+          <button class="delete-btn">Delete</button>
+        `;
+
+                // Add delete functionality
+                adminItem.querySelector('.delete-btn').addEventListener('click', function () {
+                    adminList.removeChild(adminItem);
+                });
+
+                // Append to the list
+                adminList.appendChild(adminItem);
+
+                // Clear the form
+                adminForm.reset();
+            }
+        });
+    </script>
 </body>
+
 </html>

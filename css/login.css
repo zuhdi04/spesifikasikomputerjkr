@@ -1,81 +1,143 @@
-/* Bordered form */
-form {
-  border: 3px solid #f1f1f1;
-}
-
-/* Full-width inputs */
-input[type=text], input[type=password] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
-/* Set a style for all buttons */
-button {
-  background-color: #04AA6D;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
+/* Body Styling */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa;
+  background-image: url(../img/lakipmpuanweb.png);
+  background-size: cover; /* Ensures the image covers the entire background */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents repeating the image */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Login Form Styling */
+.login-form {
+  background: white;
   width: 100%;
+  max-width: 400px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  border: 3px solid #134881;
 }
 
-/* Add a hover effect for buttons */
-button:hover {
-  opacity: 0.8;
-}
-
-/* Extra style for the cancel button (red) */
-.cancelbtn {
-  width: auto;
-  padding: 10px 18px;
-  background-color: #f44336;
-}
-
-.loginform {
-  margin: auto;
-  width: 50%;
-  min-width: 256px;
-  max-width: 512px;
-  border: 3px solid rgb(209, 143, 0);
+.img-container {
+  text-align: center;
+  background: #134881;
   padding: 10px;
 }
 
-/* Center the avatar image inside this container */
-.imgcontainer {
-  text-align: center;
-  margin: 24px 0 12px 0;
-}
-
-/* Avatar image */
-img.avatar {
-  width: 40%;
-  max-width: 200px;
+.img-container img {
+  width: 100px;
+  height: auto;
   border-radius: 50%;
 }
 
-/* Add padding to containers */
-.container {
-  padding: 16px;
+.form-container {
+  padding: 20px;
 }
 
-/* The "Forgot password" text */
-span.psw {
-  float: right;
-  padding-top: 16px;
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
 }
 
-/* Change styles for span and cancel button on extra small screens */
-@media screen and (max-width: 300px) {
-  span.psw {
-    display: block;
-    float: none;
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+input[type="text"], input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.btn-login {
+  width: 100%;
+  padding: 10px;
+  background-color: #55a34e;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-login:hover {
+  background-color: #3c7437;
+}
+
+.remember {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.remember input {
+  margin-right: 5px;
+}
+
+.footer-container {
+  padding: 10px;
+  text-align: center;
+  background: #f1f1f1;
+}
+
+.btn-cancel {
+  background-color: #e04720;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-cancel:hover {
+  background-color: #b02a37;
+}
+
+.forgot-psw {
+  display: block;
+  margin-top: 10px;
+}
+
+.forgot-psw a {
+  color: #007BFF;
+  text-decoration: none;
+}
+
+.forgot-psw a:hover {
+  text-decoration: underline;
+}
+
+/* Media Queries for Smaller Screens */
+@media (max-width: 768px) {
+  body {
+    background-size: contain; /* Adjusts the image to fit smaller screens */
+    background-attachment: fixed; /* Keeps the background fixed while scrolling */
   }
-  .cancelbtn {
-    width: 100%;
+}
+
+@media (max-width: 480px) {
+  body {
+    background-size: contain;
+    background-position: top; /* Adjust the position for very small screens */
   }
 }
