@@ -36,8 +36,9 @@
 
         <!-- Form Section -->
         <form id="detailsform" method="POST" action="setList.php" class="form-container">
+            <input id="targetid" type="text" name="id" hidden>
             <label for="fullname">Nama Penuh:</label>
-            <input type="text" name="NamaPenuh" id="fullname" placeholder="Masukkan nama penuh" required>
+            <input type="text" name="NamaPenuh" id="fullname" placeholder="Masukkan nama penuh" required autofocus>
 
             <label for="bahagian">Bahagian / Cawangan / Daerah:</label>
             <input type="text" name="bahagian" id="bahagian" placeholder="Bahagian atau daerah">

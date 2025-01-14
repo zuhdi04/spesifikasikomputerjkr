@@ -12,7 +12,7 @@ if (isset($_POST["signin"])) {
         die("Connection failed: " . $con->connect_error);
     }
 
-    $sql = "SELECT username,password FROM admin WHERE username = ?";
+    $sql = "SELECT username,password_encrypt FROM admin WHERE username = ?";
     // Prepare the statement
     if ($stmt = $con->prepare($sql)) {
         // Bind parameters to the prepared statement
@@ -30,7 +30,7 @@ if (isset($_POST["signin"])) {
             $row = $result->fetch_array(MYSQLI_ASSOC);
 
             // Verify the password using password_verify() function
-            if (password_verify($key, $row['password'])) {
+            if (password_verify($key, $row['password_encrypt'])) {
                 // Password is correct, store user data in cookies and redirect
                 if ($remember_user!=null) ;
                 // setcookie("user", $row['username'], time() + (86400 * 30 * 30), "/");

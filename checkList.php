@@ -34,7 +34,7 @@ if ($conn->connect_error) {
 //     $res = json_encode($data);
 // }
 $target = $_GET['content'];
-$sql = "SELECT nama_penuh FROM pc WHERE nama_penuh=?";
+$sql = "SELECT id FROM pc WHERE nama_penuh=?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s",$target);
 $stmt->execute();
@@ -43,9 +43,10 @@ $stmt->bind_result($data);
 $stmt->fetch();
 $stmt->close();
 $conn->close();
-if ($data!=$target) echo json_encode(null);
-else echo json_encode(!null);
+// if ($data!=$target) echo json_encode(null);
+// else echo json_encode(!null);
 $res = json_encode($data);
+echo $res;
 
 // echo $res;
 

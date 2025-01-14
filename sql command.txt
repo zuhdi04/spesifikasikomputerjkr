@@ -1,2 +1,9 @@
 ALTER TABLE `t2` ADD `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   ADD PRIMARY KEY (`id`);
+
+//edit table admin structures
+ALTER TABLE `admin` CHANGE `area` `cawangan` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+ CHANGE `password` `password_encrypt` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL;
+
+ALTER TABLE `admin` ADD `password` TEXT NOT NULL AFTER `cawangan`;
+//edit table admin structures END

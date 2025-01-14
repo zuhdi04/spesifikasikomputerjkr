@@ -37,6 +37,8 @@ if ($stmt->execute()) {
 $stmt->close();
 $conn->close();
 
+setcookie("alert", "success_add", time() + (30), "/");
+
 header("Location: details.html");
 exit;
 }

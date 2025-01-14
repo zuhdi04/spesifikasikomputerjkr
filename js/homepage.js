@@ -2,6 +2,34 @@ let idx=0;
 let namelist = [];
 // let table = new DataTable('#printTable');
 
+function setCookie(cname, cvalue, exdays) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60));
+    let expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+    let name = cname + "=";
+    let ca = document.cookie.split(';');
+    for(let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+function deleteCookie(cname) {
+    const d = new Date();
+    d.setTime(d.getTime() - 1);
+    let expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=;" + expires + ";path=/";
+}
+
 function details(){
     idx=0;
     // namelist=[];
@@ -15,7 +43,7 @@ function details(){
             $('#stafflist').append(`
                 <tr>
                     <td>`+idx+`</td>
-                    <td>`+item.nama_penuh+`</td>
+                    <td id="pc_`+item.id+`">`+item.nama_penuh+`</td>
                     <td>`+item.bahagian_cawangan_daerah+`</td>
                     <td>`+item.jawatan_gred+`</td>
                     <td>`+item.jenis_kakitangan+`</td>
@@ -47,7 +75,11 @@ function refreshTable(){
 
 $('#printTable').on('click','.delete_details',function(){
     let p = $(this).data('id');
-    if(confirm("Adakah anda mahu memadam maklumat ini?")){
+    let targetelem="pc_"+p.toString();
+    // console.log(document.getElementById(targetelem));
+    
+    let n = document.getElementById(targetelem).innerText;
+    if(confirm("Adakah anda mahu memadam maklumat: "+n+"?")){
         // Perform AJAX request
         $.ajax({
             url: 'deleteList.php', // Replace with your API endpoint
@@ -59,7 +91,7 @@ $('#printTable').on('click','.delete_details',function(){
                 // Handle successful response
                 console.log('Update successful:', response);
                 alert('Maklumat telah dipadam!');
-                // details();
+                details();
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 // Handle error
@@ -71,3 +103,16 @@ $('#printTable').on('click','.delete_details',function(){
     details();
 });
 
+function showAlert(){
+    let popup = getCookie("alert");
+    if(popup=="success_add"){
+        alert("Maklumat berjaya ditambah.");
+        deleteCookie("alert");
+    }
+    else if (popup=="success_edit"){
+        alert("Maklumat berjaya dikemaskini.");
+        deleteCookie("alert");
+    }
+    
+    deleteCookie("alert");
+}

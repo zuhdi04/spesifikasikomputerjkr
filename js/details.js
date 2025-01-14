@@ -9,10 +9,18 @@ document.getElementById('detailsform').addEventListener('submit', function(e) {
         success: function(response) {
             if(response!=""){
                 let item =  JSON.parse(response);
+                // console.log(item);
+                
                 if(item==null)
                     document.getElementById('detailsform').submit();
-                else alert("Update details?");
-                // console.log(item);
+                else {
+                    if (confirm("Maklumat pengguna tersedia. Kemaskini maklumat pengguna?")){
+                        $("#targetid").val(item);
+                        $("#detailsform").attr("action","editList.php");
+                        document.getElementById('detailsform').submit();
+                    }
+                    else $("#targetid").val("");
+                }
             }
             else{
             }
