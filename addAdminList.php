@@ -2,7 +2,7 @@
 // update.php
 header('Content-Type: application/json');
 
-if (isset($_POST['addadmin'])) {
+if (isset($_POST['addadmin'])||$_POST['username']!="") {
 
 $conn = new mysqli('localhost', 'root', '', 'zuhdiscmsdb');
 
@@ -29,7 +29,7 @@ if ($stmt->execute()) {
 
 $stmt->close();
 $conn->close();
-
+setcookie("alert", "success_add", time() + (30), "/");
 header("Location: dashboard.html");
 exit;
 }

@@ -2,45 +2,17 @@ let idx=0;
 let namelist = [];
 // let table = new DataTable('#printTable');
 
-function setCookie(cname, cvalue, exdays) {
-    const d = new Date();
-    d.setTime(d.getTime() + (exdays*24*60*60));
-    let expires = "expires="+ d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
-
-function getCookie(cname) {
-    let name = cname + "=";
-    let ca = document.cookie.split(';');
-    for(let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) == ' ') {
-        c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-        return c.substring(name.length, c.length);
-        }
-    }
-    return "";
-}
-function deleteCookie(cname) {
-    const d = new Date();
-    d.setTime(d.getTime() - 1);
-    let expires = "expires=" + d.toUTCString();
-    document.cookie = cname + "=;" + expires + ";path=/";
-}
-
 function details(){
     idx=0;
     // namelist=[];
-    $('#stafflist').empty();
     const xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
         var response = JSON.parse(this.responseText);
+        $('#computerlist').empty();
         response.forEach(item => {
             idx+=1;
             namelist.push(item.nama_penuh);
-            $('#stafflist').append(`
+            $('#computerlist').append(`
                 <tr>
                     <td>`+idx+`</td>
                     <td id="pc_`+item.id+`">`+item.nama_penuh+`</td>
@@ -102,17 +74,3 @@ $('#printTable').on('click','.delete_details',function(){
     }
     details();
 });
-
-function showAlert(){
-    let popup = getCookie("alert");
-    if(popup=="success_add"){
-        alert("Maklumat berjaya ditambah.");
-        deleteCookie("alert");
-    }
-    else if (popup=="success_edit"){
-        alert("Maklumat berjaya dikemaskini.");
-        deleteCookie("alert");
-    }
-    
-    deleteCookie("alert");
-}

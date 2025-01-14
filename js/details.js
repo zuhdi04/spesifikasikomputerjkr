@@ -7,11 +7,10 @@ document.getElementById('detailsform').addEventListener('submit', function(e) {
         url: 'checkList.php?content='+target, // Replace with your API endpoint
         method: 'GET',
         success: function(response) {
-            if(response!=""){
-                let item =  JSON.parse(response);
-                // console.log(item);
+            if(response!=""){ // use "response" for single variable 
+                // let item =  JSON.parse(response);
                 
-                if(item==null)
+                if(response==null)
                     document.getElementById('detailsform').submit();
                 else {
                     if (confirm("Maklumat pengguna tersedia. Kemaskini maklumat pengguna?")){

@@ -28,13 +28,13 @@
             <h2>Admin Management</h2>
             <form class="form-container" method="POST" action="addAdminList.php" id="admin-form">
                 <label for="username">Username</label>
-                <input type="text" id="username" name="username" placeholder="Enter Username">
+                <input type="text" id="username" name="username" placeholder="Enter Username" required>
 
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Enter Password" >
+                <input type="password" id="password" name="password" placeholder="Enter Password" required>
 
                 <label for="cawangan">Cawangan</label>
-                <input type="text" id="cawangan" name="cawangan" placeholder="Enter Cawangan" >
+                <input type="text" id="cawangan" name="cawangan" placeholder="Enter Cawangan" required>
 
                 <button type="submit" name="addadmin" class="btnAdd">Add Admin</button><br>
             </form>
@@ -42,14 +42,29 @@
             <div class="admin-list" id="admin-list">
                 <h2>Admin Accounts</h2>
                 <!-- Admin items will appear here -->
+                <table id="printTable" class="display" border="display">
+                    <thead>
+                        <tr>
+                            <th>USERNAME</th>
+                            <th>BAHAGIAN/ CAWANGAN/ DAERAH</th>
+                            <th>OPERASI</th>
+                        </tr>
+                    </thead>
+                    <tbody id="stafflist">
+                        <!-- <tr>
+                            <td>1</td>
+                        </tr> -->
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
         // Handle form submission
         const adminForm = document.getElementById('admin-form');
-        const adminList = document.getElementById('admin-list');
+        // const adminList = document.getElementById('admin-list');
 
         adminForm.addEventListener('submit', function (e) {
             e.preventDefault();
@@ -58,28 +73,57 @@
             const password = document.getElementById('password').value;
             const cawangan = document.getElementById('cawangan').value;
 
-            if (username && password && cawangan) {
-                // Create a new admin item
-                const adminItem = document.createElement('div');
-                adminItem.classList.add('admin-item');
-                adminItem.innerHTML = `
-          <span><strong>Username:</strong> ${username} | <strong>Cawangan:</strong> ${cawangan}</span>
-          <button class="delete-btn">Delete</button>
-        `;
+        //     if (username && password && cawangan) {
+        //         // Create a new admin item
+        //         const adminItem = document.createElement('div');
+        //         adminItem.classList.add('admin-item');
+        //         adminItem.innerHTML = `
+        //   <span><strong>Username:</strong> ${username} | <strong>Cawangan:</strong> ${cawangan}</span>
+        //   <button class="delete-btn">Delete</button>
+        // `;
 
-                // Add delete functionality
-                adminItem.querySelector('.delete-btn').addEventListener('click', function () {
-                    adminList.removeChild(adminItem);
-                });
+        //         // Add delete functionality
+        //         adminItem.querySelector('.delete-btn').addEventListener('click', function () {
+        //             adminList.removeChild(adminItem);
+        //         });
 
-                // Append to the list
-                adminList.appendChild(adminItem);
+        //         // Append to the list
+        //         adminList.appendChild(adminItem);
 
-                // Clear the form
-                adminForm.reset();
-            }
+        //         // Clear the form
+        //         adminForm.reset();
+        //     }
+            $.ajax({
+                url: 'checkstaffList.php?content='+username, // Replace with your API endpoint
+                method: 'GET',
+                success: function(response) {
+                    if(response!=""){ // use "response" for single variable 
+                        // or use "item = JSON.parse(response)" for multiple variable
+                        // let item =  JSON.parse(response);
+                        
+                        if(response==null)
+                            adminForm.submit();
+                        else {
+                            alert("Username telah ada!")
+                        }
+                    }
+                    else{
+                    }
+                },
+                
+                error: function(jqXHR, textStatus, errorThrown) {
+                    // document.getElementById('username').innerHTML="";
+                }
+            });
         });
     </script>
+    
+    <script src="js/dashboard.js"></script>
+    <script src="js/pagecookie.js"></script>
+
+    <script src="js/myAlert.js"></script>
+    
+    <script>details();showAlert();</script>
 </body>
 
 </html>
