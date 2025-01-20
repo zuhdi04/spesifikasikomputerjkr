@@ -1,0 +1,150 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Unit - ADMIN</title>
+<link rel="stylesheet" href="css/mystyle.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<style>
+    /* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+</style>
+
+</head>
+
+<body>
+    <div class="top-bar">
+        <img class="icon" src="img/logo.png" alt="Avatar" width="100px" height="100px">
+        <a onclick="alert('You are going to logout')" class="logout" href="login.html">Logout</a>
+    </div>
+    
+    <!-- Navigation Menu -->
+    <nav class="menu-bar">
+        <ul>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="details.html">Details</a></li>
+        </ul>
+    </nav>
+    
+    <div class="content">
+        <!-- <h1>SPESIFIKASI KOMPUTER KAKITANGAN JKR KEDAH BAHAGIAN/UNIT/DAERAH: UNIT PENTADBIRAN & KEWANGAN</h1> -->
+        
+        
+        <table id="table_unit" class="display" border="display">
+            <thead>
+                <tr>
+                    <th>UNIT/BAHAGIAN</th>
+                    <th>OPERASI</th>
+                </tr>
+            </thead>
+            <tbody id="list_unit">
+                <!-- <tr>
+                    <td>1</td>
+                </tr> -->
+            </tbody>
+        </table>
+        <button id="tambahunit" class="btnAdd">Tambah Unit/Bahagian</button>
+    </div>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+        <span class="close">&times;</span>
+        <!-- <p>Masukkan Unit/Bahagian:</p> -->
+        <input type="text" placeholder="Unit/Bahagian">
+        <button class="btnAdd">Tambah</button>
+        </div>
+    
+    </div>
+
+    <script>
+        $.ajax({
+            url: 'getUnitList.php', // Replace with your API endpoint
+            method: 'GET',
+            success: function(response) {
+                if(response!=""){ // use "response" for single variable 
+                    // or use "item = JSON.parse(response)" for multiple variable
+                    // let item =  JSON.parse(response);
+                    
+                    response.forEach(item => {
+                        $('#list_unit').append(`
+                            <tr>
+                                <td><a href="details.html#`+item.unit+`">`+item.unit+`</a></td>
+                                <td><a href="#" class="delete_details" data-id="`+item.id+`" onclick="return false;">Delete</a></td>
+                            </tr>`);
+                    });
+                }
+                else{
+                }
+            },
+            
+            error: function(jqXHR, textStatus, errorThrown) {
+                // document.getElementById('username').innerHTML="";
+            }
+        });
+
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("tambahunit");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on the button, open the modal
+    btn.onclick = function() {
+    modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+    modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+    }
+    </script>
+</body>
+</html>

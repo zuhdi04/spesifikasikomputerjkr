@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Admin Dashboard - ZSMS</title>
+    <title>Staf - ADMIN</title>
     <link rel="stylesheet" href="css/mystyle.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
@@ -46,7 +46,7 @@
                     <thead>
                         <tr>
                             <th>USERNAME</th>
-                            <th>CAWANGAN/ DAERAH</th>
+                            <th>CAWANGAN/ DAERAH/ UNIT/ BAHAGIAN</th>
                             <th>OPERASI</th>
                         </tr>
                     </thead>
@@ -118,12 +118,44 @@
         });
     </script>
     
-    <script src="js/dashboard.js"></script>
+    <!-- <script src="js/dashboard.js"></script> -->
     <script src="js/pagecookie.js"></script>
 
     <script src="js/myAlert.js"></script>
     
-    <script>details();showAlert();</script>
+    <script>
+    showAlert();
+    function details(){
+    $.ajax({
+        url: 'allAdminList.php', // Replace with your API endpoint
+        method: 'GET',
+        success: function(response) {
+            if(response!=""){ // use "response" for single variable 
+                // or use "item = JSON.parse(response)" for multiple variable
+                console.log(response);
+                
+                // let item =  JSON.parse(response);
+                
+                response.forEach(item => {
+                    $('#stafflist').append(`
+                        <tr>
+                            <td>`+item.username+`</td>
+                            <td>`+item.nama+`</td>
+                            <td><a href="staff-edit.php?form=`+item.id+`" onclick="return false">Edit</a>
+                            <a href="delete" class="delete_details" data-name="`+item.username+`" onclick="return false;">Delete</a></td>
+                        </tr>`);
+                });
+            }
+            else{
+            }
+        },
+        
+        error: function(jqXHR, textStatus, errorThrown) {
+            // document.getElementById('username').innerHTML="";
+        }
+    });}
+    details();
+    </script>
 </body>
 
 </html>

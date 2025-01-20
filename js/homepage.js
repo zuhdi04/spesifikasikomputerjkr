@@ -72,5 +72,5 @@ $('#printTable').on('click','.delete_details',function(){
             }
         });
     }
-    details();
+    // details();
 });

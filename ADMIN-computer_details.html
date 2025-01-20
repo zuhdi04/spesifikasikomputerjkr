@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Spesifikasi - ADMIN</title>
+    <link rel="stylesheet" href="css/mystyle.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css">
+
+</head>
+
+<body>
+    <div class="top-bar">
+        <img class="icon" src="img/logo.png" alt="Avatar" class="avatar" width="100px" height="100px">
+        <a onclick="alert('You are going to logout')" class="logout" href="login.html">Logout</a>
+    </div>
+
+    <!-- Navigation Menu -->
+    <nav class="menu-bar">
+        <ul>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="details.html">Details</a></li>
+        </ul>
+    </nav>
+
+    <div class="content1">
+        <h1>SPESIFIKASI KOMPUTER KAKITANGAN JKR KEDAH BAHAGIAN/UNIT/DAERAH: <span id="nama_unit"></span></h1>
+        <a href="details-form.html" class="btnAdd">Tambah maklumat</a>
+        <!-- <div style="overflow-x:auto;"> -->
+        <table id="printTable" class="display" border="display">
+            <thead>
+                <tr>
+                    <th>NAMA PENUH</th>
+                    <th>JAWATAN DAN GRED</th>
+                    <th>KAKITANGAN PERSEKUTUAN/ NEGERI</th>
+                    <th>JENIS KOMPUTER: PERSEKUTUAN/ SUK/ PROJEK</th>
+                    <th>UMUR KOMPUTER</th>
+                    <th>JENIS PROCESSOR: i3/i5/i7</th>
+                    <th>RAM: 2GB/ 4GB/ 6GB/ 8GB</th>
+                    <th>SYSTEM TYPE: 32BIT/64BIT</th>
+                    <th>ANTIVIRUS</th>
+                    <th>IPV4 ADDRESS</th>
+                    <th>CATATAN</th>
+                    <th>OPERASI</th>
+                </tr>
+            </thead>
+            <tbody id="computerlist">
+                <!-- <tr>
+                    <td>1</td>
+                </tr> -->
+            </tbody>
+        </table>
+        <!-- </div> -->
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+    
+    <!-- <script src="js/homepage.js"></script> -->
+     <script>function maklumat(){
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function() {
+            var response = JSON.parse(this.responseText);
+            $('#computerlist').empty();
+            response.forEach(item => {
+                $('#computerlist').append(`
+                    <tr>
+                        <td id="pc_`+item.id+`">`+item.nama_penuh+`</td>
+                        <td>`+item.jawatan_gred+`</td>
+                        <td>`+item.jenis_kakitangan+`</td>
+                        <td>`+item.jenis_komputer+`</td>
+                        <td>`+item.umur_komputer+`</td>
+                        <td>`+item.jenis_processor+`</td>
+                        <td>`+item.saiz_ram+`</td>
+                        <td>`+item.jenis_sistem+`</td>
+                        <td>`+item.antivirus+`</td>
+                        <td>`+item.ipv4_address+`</td>
+                        <td>`+item.catatan+`</td>
+                        <td><a href="details-edit.php?form=`+item.id+`">Edit</a><a href="#" class="delete_details" data-id="`+item.id+`" onclick="return false;">Delete</a></td>
+                    </tr>`);
+            });
+            $('#printTable').DataTable();
+        }
+        xhttp.open("GET", "getList.php", true);
+        xhttp.send();
+    }
+
+    $('#printTable').on('click','.delete_details',function(){
+    let p = $(this).data('id');
+    let targetelem="pc_"+p.toString();
+    // console.log(document.getElementById(targetelem));
+    
+    let n = document.getElementById(targetelem).innerText;
+    if(confirm("Adakah anda mahu memadam maklumat: "+n+"?")){
+        // Perform AJAX request
+        $.ajax({
+            url: 'deleteList.php', // Replace with your API endpoint
+            method: 'POST', // Use POST for updates
+            data: {
+                target: p
+            },
+            success: function(response) {
+                // Handle successful response
+                console.log('Update successful:', response);
+                alert('Maklumat telah dipadam!');
+                maklumat();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                // Handle error
+                console.error('Update failed:', textStatus, errorThrown);
+                alert('Error updating data.');
+            }
+        });
+    }
+});</script>
+
+    <script src="js/pagecookie.js"></script>
+    <script src="js/myAlert.js"></script>
+
+
+    
+    <script>document.getElementById('nama_unit').innerText="UNIT PENTADBIRAN & KEWANGAN"</script>
+    <script>maklumat();showAlert();</script>
+
+</body>
+
+</html>
