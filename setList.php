@@ -1,4 +1,7 @@
 <?php
+if ( isset( $_GET["u"] ) ) {
+// session_start();
+$bahagian = $_GET["u"];
 // update.php
 header('Content-Type: application/json');
 
@@ -11,7 +14,7 @@ if ($conn->connect_error) {
 }
 
 $staffname = $_POST['NamaPenuh'];
-$second = $_POST['bahagian'];
+// $second = $_POST['bahagian'];
 $third = $_POST['jawatangred'];
 $kakitangan = $_POST['kakitangan'];
 $fifth = $_POST['jenispc'];
@@ -23,10 +26,10 @@ $antivirus = $_POST['antivirus'];
 $ipaddress = $_POST['ipaddress'];
 $catatan = $_POST['catatan'];
 
-$sql = "INSERT INTO pc(nama_penuh,bahagian_cawangan_daerah,jawatan_gred,jenis_kakitangan,jenis_komputer,umur_komputer,jenis_processor,saiz_ram,jenis_sistem,antivirus,ipv4_address,catatan)
+$sql = "INSERT INTO pc(nama_penuh,unitID,jawatan_gred,jenis_kakitangan,jenis_komputer,umur_komputer,jenis_processor,saiz_ram,jenis_sistem,antivirus,ipv4_address,catatan)
 VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("ssssssssssss", $staffname, $second, $third, $kakitangan, $fifth, $pcage, $proc, $ram, $systemtype, $antivirus, $ipaddress, $catatan);
+$stmt->bind_param("sissssssssss", $staffname, $bahagian, $third, $kakitangan, $fifth, $pcage, $proc, $ram, $systemtype, $antivirus, $ipaddress, $catatan);
 
 if ($stmt->execute()) {
     echo json_encode(['message' => 'Update successful']);
@@ -38,13 +41,15 @@ $stmt->close();
 $conn->close();
 
 setcookie("alert", "success_add", time() + (30), "/");
-
-header("Location: details.html");
+if ($bahagian===0) 
+    header("Location: ADMIN-computer_details.html?u=".$bahagian);
+else if ($bahagian>0) 
+    header("Location: STAFF-computer_details.html?u=".$bahagian);
 exit;
 }
 else {
-    header("Location: details-form.html");
+    header("Location: details-form.html?u=".$bahagian);
     exit;
 }
-
+}
 ?>

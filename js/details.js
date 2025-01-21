@@ -10,12 +10,15 @@ document.getElementById('detailsform').addEventListener('submit', function(e) {
             if(response!=""){ // use "response" for single variable 
                 // let item =  JSON.parse(response);
                 
-                if(response==null)
+                if(response==null){
+                    $("#detailsform").attr("action","setList.php"+location.search);
                     document.getElementById('detailsform').submit();
+                } 
+                
                 else {
                     if (confirm("Maklumat pengguna tersedia. Kemaskini maklumat pengguna?")){
                         $("#targetid").val(item);
-                        $("#detailsform").attr("action","editList.php");
+                        $("#detailsform").attr("action","editList.php"+location.search);
                         document.getElementById('detailsform').submit();
                     }
                     else $("#targetid").val("");

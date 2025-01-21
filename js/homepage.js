@@ -12,11 +12,12 @@ function details(){
         response.forEach(item => {
             idx+=1;
             namelist.push(item.nama_penuh);
+            $("#nama_bahagian").html(item.nama)
             $('#computerlist').append(`
                 <tr>
                     <td>`+idx+`</td>
                     <td id="pc_`+item.id+`">`+item.nama_penuh+`</td>
-                    <td>`+item.bahagian_cawangan_daerah+`</td>
+                    <td>`+item.nama+`</td>
                     <td>`+item.jawatan_gred+`</td>
                     <td>`+item.jenis_kakitangan+`</td>
                     <td>`+item.jenis_komputer+`</td>
@@ -32,7 +33,7 @@ function details(){
         });
         refreshTable();
     }
-    xhttp.open("GET", "getList.php", true);
+    xhttp.open("GET", "getList.php"+location.search, true);
     xhttp.send();
 }
 

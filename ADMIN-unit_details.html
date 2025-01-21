@@ -56,8 +56,9 @@
     <!-- Navigation Menu -->
     <nav class="menu-bar">
         <ul>
-            <li><a href="dashboard.html">Dashboard</a></li>
-            <li><a href="details.html">Details</a></li>
+            <li><a href="ADMIN-staff_details.html">Admin</a></li>
+            <li><a href="ADMIN-unit_details.html">Unit</a></li>
+            <li><a href="ADMIN-computer_details.html">Details</a></li>
         </ul>
     </nav>
     
@@ -69,6 +70,7 @@
             <thead>
                 <tr>
                     <th>CAWANGAN/DAERAH/UNIT/BAHAGIAN</th>
+                    <th>JUMLAH</th>
                     <th>OPERASI</th>
                 </tr>
             </thead>
@@ -107,7 +109,8 @@
                         $('#list_unit').append(`
                             <tr>
                                 <td><a href="details.html#`+item.nama+`">`+item.nama+`</a></td>
-                                <td><a href="#" class="delete_details" data-id="`+item.id+`" onclick="return false;">Delete</a></td>
+                                <td></td>
+                                <td><a href="#" class="delete_details" data-id="`+item.id+`" onclick="return false;">Padam</a></td>
                             </tr>`);
                     });
                 }

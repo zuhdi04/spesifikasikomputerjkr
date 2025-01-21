@@ -17,8 +17,9 @@
     <!-- Navigation Menu -->
     <nav class="menu-bar">
         <ul>
-            <li><a href="dashboard.html">Dashboard</a></li>
-            <li><a href="details.html">Details</a></li>
+            <li><a href="ADMIN-staff_details.html">Admin</a></li>
+            <li><a href="ADMIN-unit_details.html">Unit</a></li>
+            <li><a href="ADMIN-computer_details.html">Details</a></li>
         </ul>
     </nav>
 
@@ -46,6 +47,7 @@
                     <thead>
                         <tr>
                             <th>USERNAME</th>
+                            <th>PASS</th>
                             <th>CAWANGAN/ DAERAH/ UNIT/ BAHAGIAN</th>
                             <th>OPERASI</th>
                         </tr>
@@ -140,6 +142,7 @@
                     $('#stafflist').append(`
                         <tr>
                             <td>`+item.username+`</td>
+                            <td></td>
                             <td>`+item.nama+`</td>
                             <td><a href="staff-edit.php?form=`+item.id+`" onclick="return false">Edit</a>
                             <a href="delete" class="delete_details" data-name="`+item.username+`" onclick="return false;">Delete</a></td>

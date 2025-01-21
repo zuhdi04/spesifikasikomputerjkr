@@ -1,5 +1,6 @@
 <?php
 if (isset($_POST["signin"])) {
+    session_start();
     $username = $_POST['uname'];
     $key = $_POST['psw'];
     $remember_user = isset($_POST['remember'])?$_POST['remember']:null;
@@ -12,7 +13,7 @@ if (isset($_POST["signin"])) {
         die("Connection failed: " . $con->connect_error);
     }
 
-    $sql = "SELECT username,password_encrypt FROM admin WHERE username = ?";
+    $sql = "SELECT username,password_encrypt,unitID FROM admin WHERE username = ?";
     // Prepare the statement
     if ($stmt = $con->prepare($sql)) {
         // Bind parameters to the prepared statement
@@ -31,6 +32,7 @@ if (isset($_POST["signin"])) {
 
             // Verify the password using password_verify() function
             if (password_verify($key, $row['password_encrypt'])) {
+                $_SESSION[$row['username']] = true;
                 // Password is correct, store user data in cookies and redirect
                 if ($remember_user!=null) ;
                 // setcookie("user", $row['username'], time() + (86400 * 30 * 30), "/");
@@ -38,7 +40,10 @@ if (isset($_POST["signin"])) {
                 // Redirect to the homepage after login
                 $stmt->close();
                 $con->close();
-                header("Location: index.html");
+                if($row['unitID']===0)
+                    header("Location: ADMIN-staff_details.html?u=".$row['unitID']);
+                else
+                    header("Location: STAFF-computer_details.html?u=".$row['unitID']);
                 exit;
             } else {
                 // Invalid password

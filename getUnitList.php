@@ -10,7 +10,7 @@ if ($conn->connect_error) {
     exit;
 }
 
-$stmt = $conn->prepare("SELECT * FROM unit");
+$stmt = $conn->prepare("SELECT nama FROM unit ORDER BY nama");
 $stmt->execute();
 $result = $stmt->get_result();
 $data = $result->fetch_all(MYSQLI_ASSOC);
