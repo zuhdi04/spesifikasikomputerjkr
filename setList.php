@@ -42,9 +42,10 @@ $conn->close();
 
 setcookie("alert", "success_add", time() + (30), "/");
 if ($bahagian===0) 
-    header("Location: ADMIN-computer_details.html?u=".$bahagian);
+    header("Location: ADMIN-computer_details.html");
 else if ($bahagian>0) 
-    header("Location: STAFF-computer_details.html?u=".$bahagian);
+    header("Location: STAFF-computer_details.html");
+    // header("Location: STAFF-computer_details.html?u=".$bahagian);
 exit;
 }
 else {

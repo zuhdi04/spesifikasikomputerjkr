@@ -1,6 +1,6 @@
 <?php
 if (isset($_POST["signin"])) {
-    session_start();
+    // session_start();
     $username = $_POST['uname'];
     $key = $_POST['psw'];
     $remember_user = isset($_POST['remember'])?$_POST['remember']:null;
@@ -32,7 +32,7 @@ if (isset($_POST["signin"])) {
 
             // Verify the password using password_verify() function
             if (password_verify($key, $row['password_encrypt'])) {
-                $_SESSION[$row['username']] = true;
+                // $_SESSION[$row['username']] = true;
                 // Password is correct, store user data in cookies and redirect
                 if ($remember_user!=null) ;
                 // setcookie("user", $row['username'], time() + (86400 * 30 * 30), "/");
@@ -40,10 +40,11 @@ if (isset($_POST["signin"])) {
                 // Redirect to the homepage after login
                 $stmt->close();
                 $con->close();
+                setcookie("unitID", $row['unitID'], time() + (30), "/");
                 if($row['unitID']===0)
-                    header("Location: ADMIN-staff_details.html?u=".$row['unitID']);
+                    header("Location: ADMIN-staff_details.html");
                 else
-                    header("Location: STAFF-computer_details.html?u=".$row['unitID']);
+                    header("Location: STAFF-computer_details.html");
                 exit;
             } else {
                 // Invalid password

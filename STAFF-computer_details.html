@@ -11,7 +11,7 @@
 <body>
     <div class="top-bar">
         <img class="icon" src="img/logo.png" alt="Avatar" class="avatar" width="100px" height="100px">
-        <a onclick="alert('You are going to logout')" class="logout" href="login.html">Logout</a>
+        <a onclick="if (confirm('You are going to logout'))sessionStorage.removeItem('unitID');" class="logout" href="login.html">Logout</a>
     </div>
 
     <!-- Navigation Menu -->
@@ -62,9 +62,21 @@
     <script src="js/pagecookie.js"></script>
     <script src="js/myAlert.js"></script>
     
-    <script>details();showAlert();
-    const queryString = location.search;
-    $("#tambahButton").attr("href","details-form.html"+queryString);
+    <script>
+    let unitID = getCookie("unitID");
+    deleteCookie("unitID");
+    if (sessionStorage.unitID!=""){
+        $("#tambahButton").attr("href","details-form.html");
+    }
+    if(unitID!=""){
+        $("#tambahButton").attr("href","details-form.html");
+        sessionStorage.unitID = unitID;
+        // $("head").val(unitID);
+        // history.replaceState(unitID,"");
+    }
+    
+    details();showAlert();
+    
     </script>
 
 </body>

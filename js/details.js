@@ -11,14 +11,14 @@ document.getElementById('detailsform').addEventListener('submit', function(e) {
                 // let item =  JSON.parse(response);
                 
                 if(response==null){
-                    $("#detailsform").attr("action","setList.php"+location.search);
+                    $("#detailsform").attr("action","setList.php?u="+sessionStorage.unitID);
                     document.getElementById('detailsform').submit();
                 } 
                 
                 else {
                     if (confirm("Maklumat pengguna tersedia. Kemaskini maklumat pengguna?")){
                         $("#targetid").val(item);
-                        $("#detailsform").attr("action","editList.php"+location.search);
+                        $("#detailsform").attr("action","editList.php?u="+sessionStorage.unitID);
                         document.getElementById('detailsform').submit();
                     }
                     else $("#targetid").val("");

@@ -33,7 +33,7 @@ function details(){
         });
         refreshTable();
     }
-    xhttp.open("GET", "getList.php"+location.search, true);
+    xhttp.open("GET", "getList.php?u="+sessionStorage.unitID, true);
     xhttp.send();
 }
 
