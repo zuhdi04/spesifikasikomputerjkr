@@ -13,7 +13,7 @@ if (isset($_POST["signin"])) {
         die("Connection failed: " . $con->connect_error);
     }
 
-    $sql = "SELECT username,password_encrypt,unitID FROM admin WHERE username = ?";
+    $sql = "SELECT username,password_encrypt,unitID,unitCode FROM admin LEFT JOIN unit ON unitID=unit.id WHERE username = ?";
     // Prepare the statement
     if ($stmt = $con->prepare($sql)) {
         // Bind parameters to the prepared statement
@@ -40,11 +40,14 @@ if (isset($_POST["signin"])) {
                 // Redirect to the homepage after login
                 $stmt->close();
                 $con->close();
-                setcookie("unitID", $row['unitID'], time() + (30), "/");
-                if($row['unitID']===0)
-                    header("Location: ADMIN-staff_details.html");
-                else
+                if($row['unitID']===0){
+                    setcookie("j_Tab", "test", time() + (30), "/");
+                    header("Location: admin/ADMIN-staff_details.html");
+                }
+                else{
+                    setcookie("j_Tab", $row['unitCode'], time() + (30), "/");
                     header("Location: STAFF-computer_details.html");
+                }
                 exit;
             } else {
                 // Invalid password

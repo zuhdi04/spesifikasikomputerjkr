@@ -11,7 +11,7 @@ if ($conn->connect_error) {
 }
 
 $target = $_POST['target'];
-$stmt = $conn->prepare("DELETE FROM pc WHERE id=?");
+$stmt = $conn->prepare("DELETE FROM pc WHERE pcID=?");
 $stmt ->bind_param("i", $target);
 if ($stmt->execute()) {
     echo json_encode(['message' => 'Update successful']);

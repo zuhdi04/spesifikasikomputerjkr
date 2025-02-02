@@ -2,44 +2,72 @@ let idx=0;
 let namelist = [];
 // let table = new DataTable('#printTable');
 
-function details(){
+
+// # convert to ajax
+function details(target){
     idx=0;
     // namelist=[];
-    const xhttp = new XMLHttpRequest();
-    xhttp.onload = function() {
-        var response = JSON.parse(this.responseText);
-        $('#computerlist').empty();
-        response.forEach(item => {
-            idx+=1;
-            namelist.push(item.nama_penuh);
-            $("#nama_bahagian").html(item.nama)
-            $('#computerlist').append(`
-                <tr>
-                    <td>`+idx+`</td>
-                    <td id="pc_`+item.id+`">`+item.nama_penuh+`</td>
-                    <td>`+item.nama+`</td>
-                    <td>`+item.jawatan_gred+`</td>
-                    <td>`+item.jenis_kakitangan+`</td>
-                    <td>`+item.jenis_komputer+`</td>
-                    <td>`+item.umur_komputer+`</td>
-                    <td>`+item.jenis_processor+`</td>
-                    <td>`+item.saiz_ram+`</td>
-                    <td>`+item.jenis_sistem+`</td>
-                    <td>`+item.antivirus+`</td>
-                    <td>`+item.ipv4_address+`</td>
-                    <td>`+item.catatan+`</td>
-                    <td><a href="details-edit.php?form=`+item.id+`">Edit</a><a href="#" class="delete_details" data-id="`+item.id+`" onclick="return false;">Delete</a></td>
-                </tr>`);
-        });
-        refreshTable();
-    }
-    xhttp.open("GET", "getList.php?u="+sessionStorage.unitID, true);
-    xhttp.send();
+    $.ajax({
+        url: 'getList.php?u='+target, // Replace with your API endpoint
+        success: function(response) {
+            if(response){ // use "response" for single variable 
+                // or use "item = JSON.parse(response)" for multiple variable
+                // let item =  JSON.parse(response);
+                $('#computerlist').empty();
+                response.forEach(item => {
+                    idx+=1;
+                    namelist.push(item.nama_penuh);
+                    $("#nama_bahagian").html(item.nama)
+                    $('#computerlist').append(`
+                        <tr>
+                            <td id="pc_`+item.pcID+`">`+item.nama_penuh+`</td>
+                            <td>`+item.jawatan_gred+`</td>
+                            <td>`+item.jenis_kakitangan+`</td>
+                            <td>`+item.jenis_komputer+`</td>
+                            <td>`+item.umur_komputer+`</td>
+                            <td>`+item.jenis_processor+`</td>
+                            <td>`+item.saiz_ram+`</td>
+                            <td>`+item.jenis_sistem+`</td>
+                            <td>`+item.antivirus+`</td>
+                            <td>`+item.ipv4_address+`</td>
+                            <td>`+item.catatan+`</td>
+                            <td><a href="details-edit.php?form=`+item.pcID+`">Edit</a><a href="#" class="delete_details" data-id="`+item.pcID+`" onclick="return false;">Delete</a></td>
+                        </tr>`);
+                });
+                refreshTable();
+            }
+            else{
+            }
+        },
+        
+        error: function(jqXHR, textStatus, errorThrown) {
+            // document.getElementById('username').innerHTML="";
+        }
+    });
 }
 
-function validateDetails(){
-    // xhttp
-    return false;
+
+function validateUser(target){
+    $.ajax({
+        url: 'checkUnit.php?t='+target, // Replace with your API endpoint
+        success: function(response) {
+            if(response){ // use "response" for single variable 
+                // or use "item = JSON.parse(response)" for multiple variable
+                // let item =  JSON.parse(response);
+                
+                $(("body")).removeAttr("hidden");
+                sessionStorage.setItem("j_Tab",target);
+                details(target);
+            }
+            else{
+                // location.href="login.html";
+            }
+        },
+        
+        error: function(jqXHR, textStatus, errorThrown) {
+            // document.getElementById('username').innerHTML="";
+        }
+    });
 }
 
 function refreshTable(){
@@ -47,8 +75,9 @@ function refreshTable(){
 }
 
 $('#printTable').on('click','.delete_details',function(){
+
     let p = $(this).data('id');
-    let targetelem="pc_"+p.toString();
+    let targetelem="pc_"+p.toString(); //# use data-val eg:let p = $(this).data('id');
     // console.log(document.getElementById(targetelem));
     
     let n = document.getElementById(targetelem).innerText;
@@ -64,7 +93,7 @@ $('#printTable').on('click','.delete_details',function(){
                 // Handle successful response
                 console.log('Update successful:', response);
                 alert('Maklumat telah dipadam!');
-                details();
+                details(sessionStorage.getItem('j_Tab'));
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 // Handle error

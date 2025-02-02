@@ -13,7 +13,7 @@ if ($conn->connect_error) {
     exit;
 }
 
-$sql = "SELECT * FROM pc WHERE id=?";
+$sql = "SELECT * FROM pc WHERE pcID=?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i",$id);
 $stmt->execute();
@@ -60,12 +60,12 @@ $conn->close();
 
         <!-- Form Section -->
         <form id="editdetailsform" method="POST" action="editList.php" class="form-container">
-            <input type="text" name="id" value="<?php echo $data['id']; ?>" hidden>
+            <input type="text" name="id" value="<?php echo $data['pcID']; ?>" hidden>
             <label for="fullname">Nama Penuh:</label>
             <input type="text" name="NamaPenuh" id="fullname" placeholder="Masukkan nama penuh" value="<?php echo $data['nama_penuh']; ?>" required>
 
-            <label for="bahagian">Bahagian / Cawangan / Daerah:</label>
-            <input type="text" name="bahagian" id="bahagian" placeholder="Bahagian atau daerah" value="<?php echo $data['bahagian_cawangan_daerah']; ?>">
+            <label for="bahagian" hidden>Bahagian / Cawangan / Daerah:</label>
+            <input type="text" name="bahagian" id="bahagian" placeholder="Bahagian atau daerah" value="" hidden>
 
             <label for="jawatangred">Jawatan dan Gred:</label>
             <input type="text" name="jawatangred" id="jawatangred" placeholder="Jawatan dan gred" value="<?php echo $data['jawatan_gred']; ?>">

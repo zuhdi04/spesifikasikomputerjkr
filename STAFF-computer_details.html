@@ -8,10 +8,11 @@
 
 </head>
 
-<body>
+<body hidden>
     <div class="top-bar">
         <img class="icon" src="img/logo.png" alt="Avatar" class="avatar" width="100px" height="100px">
-        <a onclick="if (confirm('You are going to logout'))sessionStorage.removeItem('unitID');" class="logout" href="login.html">Logout</a>
+        <!-- <a onclick="sessionStorage.removeItem('j_Tab');alert('You are going to logout');" class="logout" href="login.html">Logout</a> -->
+        <a onclick="if(confirm('You are about to be logout'))sessionStorage.removeItem('j_Tab');else return false;" class="logout" href="login.html">Logout</a>
     </div>
 
     <!-- Navigation Menu -->
@@ -28,9 +29,7 @@
         <table id="printTable" class="display" border="display">
             <thead>
                 <tr>
-                    <th>NO.</th>
                     <th>NAMA PENUH</th>
-                    <th>BAHAGIAN/ CAWANGAN/ DAERAH</th>
                     <th>JAWATAN DAN GRED</th>
                     <th>KAKITANGAN PERSEKUTUAN/ NEGERI</th>
                     <th>JENIS KOMPUTER: PERSEKUTUAN/ SUK/ PROJEK</th>
@@ -63,19 +62,23 @@
     <script src="js/myAlert.js"></script>
     
     <script>
-    let unitID = getCookie("unitID");
-    deleteCookie("unitID");
-    if (sessionStorage.unitID!=""){
-        $("#tambahButton").attr("href","details-form.html");
+    let j_Tab = getCookie("j_Tab");
+    deleteCookie("j_Tab");
+
+    // #use unique value checkup
+    if(j_Tab!=""){ // directed from login.html / cookie
+        validateUser(j_Tab);
+        
+        // $("head").val(j_Tab);
+        // history.replaceState(j_Tab,"");
     }
-    if(unitID!=""){
-        $("#tambahButton").attr("href","details-form.html");
-        sessionStorage.unitID = unitID;
-        // $("head").val(unitID);
-        // history.replaceState(unitID,"");
+    else if (sessionStorage.getItem("j_Tab")!=null){ 
+        validateUser(sessionStorage.getItem("j_Tab"));
     }
-    
-    details();showAlert();
+    else{
+        location.href="login.html";        
+    }
+    showAlert();
     
     </script>
 

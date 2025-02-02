@@ -4,14 +4,14 @@
 <head>
     <meta charset="utf-8" />
     <title>Staf - ADMIN</title>
-    <link rel="stylesheet" href="css/mystyle.css">
+    <link rel="stylesheet" href="../css/mystyle.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <body>
     <div class="top-bar">
-        <img class="icon" src="img/logo.png" alt="Avatar" width="100px" height="100px">
-        <a onclick="alert('You are going to logout')" class="logout" href="login.html">Logout</a>
+        <img class="icon" src="../img/logo.png" alt="Avatar" width="100px" height="100px">
+        <a onclick="if(confirm('You are about to be logout'))sessionStorage.removeItem('j_Tab');else return false;" class="logout" href="../login.html">Logout</a>
     </div>
 
     <!-- Navigation Menu -->
@@ -35,7 +35,10 @@
                 <input type="password" id="password" name="password" placeholder="Enter Password" required>
 
                 <label for="cawangan">Cawangan</label>
-                <input type="text" id="cawangan" name="cawangan" placeholder="Enter Cawangan" required>
+                <select name="cawangan" id="unit_select">
+                    <!-- <option value="volvo">Volvo</option> -->
+                </select>
+                <!-- <input type="text" id="cawangan" name="cawangan" placeholder="Enter Cawangan" required> -->
 
                 <button type="submit" name="addadmin" class="btnAdd">Add Admin</button><br>
             </form>
@@ -62,8 +65,26 @@
         </div>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
+        $.ajax({
+            url: 'getUnitList.php', // Replace with your API endpoint
+            success: function(response) {
+                if(response){ // use "response" for single variable 
+                    // or use "item = JSON.parse(response)" for multiple variable
+                    // let item =  JSON.parse(response);
+                    response.forEach(item => {
+                        // $("#nama_bahagian").html(item.nama);
+                        $('#unit_select').append(`<option>`+item.nama+`</option>`);
+                    });
+                }
+                else{
+                }
+            },
+            
+            error: function(jqXHR, textStatus, errorThrown) {
+                // document.getElementById('username').innerHTML="";
+            }
+        });
         // Handle form submission
         const adminForm = document.getElementById('admin-form');
         // const adminList = document.getElementById('admin-list');
@@ -72,29 +93,6 @@
             e.preventDefault();
 
             const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const cawangan = document.getElementById('cawangan').value;
-
-        //     if (username && password && cawangan) {
-        //         // Create a new admin item
-        //         const adminItem = document.createElement('div');
-        //         adminItem.classList.add('admin-item');
-        //         adminItem.innerHTML = `
-        //   <span><strong>Username:</strong> ${username} | <strong>Cawangan:</strong> ${cawangan}</span>
-        //   <button class="delete-btn">Delete</button>
-        // `;
-
-        //         // Add delete functionality
-        //         adminItem.querySelector('.delete-btn').addEventListener('click', function () {
-        //             adminList.removeChild(adminItem);
-        //         });
-
-        //         // Append to the list
-        //         adminList.appendChild(adminItem);
-
-        //         // Clear the form
-        //         adminForm.reset();
-        //     }
             $.ajax({
                 url: 'checkstaffList.php?content='+username, // Replace with your API endpoint
                 method: 'GET',
@@ -120,12 +118,28 @@
         });
     </script>
     
-    <!-- <script src="js/dashboard.js"></script> -->
-    <script src="js/pagecookie.js"></script>
+    <script src="../js/pagecookie.js"></script>
 
-    <script src="js/myAlert.js"></script>
+    <script src="../js/myAlert.js"></script>
     
     <script>
+    let j_Tab = getCookie("j_Tab");
+    deleteCookie("j_Tab");
+
+    // #use uniqeu value checkup
+    if(j_Tab!=""){
+        $(("body")).removeAttr("hidden");
+        sessionStorage.setItem("j_a_Tab",j_Tab);
+        // $("head").val(j_Tab);
+        // history.replaceState(j_Tab,"");
+    }
+    else if (sessionStorage.getItem("j_a_Tab")!=null){
+        $(("body")).removeAttr("hidden");
+    }
+    else{
+        location.href="../login.html";
+        
+    }
     showAlert();
     function details(){
     $.ajax({

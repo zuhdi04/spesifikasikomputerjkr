@@ -26,10 +26,21 @@ $antivirus = $_POST['antivirus'];
 $ipaddress = $_POST['ipaddress'];
 $catatan = $_POST['catatan'];
 
+$sql = "SELECT id FROM unit WHERE unitCode=?";
+$check = $conn->prepare($sql);
+$check->bind_param("s",$bahagian);
+$check->execute();
+$check->store_result();
+$check->bind_result($data);
+$check->fetch();
+$check->close();
+
+
+// # handle null result
 $sql = "INSERT INTO pc(nama_penuh,unitID,jawatan_gred,jenis_kakitangan,jenis_komputer,umur_komputer,jenis_processor,saiz_ram,jenis_sistem,antivirus,ipv4_address,catatan)
 VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("sissssssssss", $staffname, $bahagian, $third, $kakitangan, $fifth, $pcage, $proc, $ram, $systemtype, $antivirus, $ipaddress, $catatan);
+$stmt->bind_param("sissssssssss", $staffname, $data, $third, $kakitangan, $fifth, $pcage, $proc, $ram, $systemtype, $antivirus, $ipaddress, $catatan);
 
 if ($stmt->execute()) {
     echo json_encode(['message' => 'Update successful']);

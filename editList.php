@@ -11,7 +11,7 @@ if ($conn->connect_error) {
 }
 
 $staffname = $_POST['NamaPenuh'];
-$second = $_POST['bahagian'];
+// $second = $_POST['bahagian'];
 $third = $_POST['jawatangred'];
 $kakitangan = $_POST['kakitangan'];
 $fifth = $_POST['jenispc'];
@@ -25,7 +25,6 @@ $catatan = $_POST['catatan'];
 $id = isset($_POST['id'])?intval($_POST['id']):0;
 
 $sql = "UPDATE pc SET nama_penuh=?,
-bahagian_cawangan_daerah=?,
 jawatan_gred=?,
 jenis_kakitangan=?,
 jenis_komputer=?,
@@ -36,9 +35,9 @@ jenis_sistem=?,
 antivirus=?,
 ipv4_address=?,
 catatan=?
-WHERE id=?";
+WHERE pcID=?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("ssssssssssssi", $staffname, $second, $third, $kakitangan, $fifth, $pcage, $proc, $ram, $systemtype, $antivirus, $ipaddress, $catatan, $id);
+$stmt->bind_param("sssssssssssi", $staffname, $third, $kakitangan, $fifth, $pcage, $proc, $ram, $systemtype, $antivirus, $ipaddress, $catatan, $id);
 
 if ($stmt->execute()) {
     echo json_encode(['message' => 'Update successful']);
@@ -51,11 +50,11 @@ $conn->close();
 
 setcookie("alert", "success_edit", time() + (30), "/");
 
-header("Location: details.html");
+header("Location: Staff-computer_details.html");
 exit;
 }
 else {
-    header("Location: details-edit.html");
+    header("Location: details-edit.php");
     exit;
 }
 

@@ -19,8 +19,8 @@ if ($conn->connect_error) {
 //     $stmt->close();
 // }
 if(isset($_GET['u'])){
-    $stmt = $conn->prepare("SELECT * FROM pc INNER JOIN unit ON pc.unitID=unit.id WHERE unitID=? ORDER BY nama_penuh");
-    $stmt->bind_param("i", $_GET['u']);
+    $stmt = $conn->prepare("SELECT * FROM pc INNER JOIN unit ON pc.unitID=unit.id WHERE unitCode=? ORDER BY nama_penuh");
+    $stmt->bind_param("s", $_GET['u']);
     $stmt->execute();
     $result = $stmt->get_result();
     $data = $result->fetch_all(MYSQLI_ASSOC);

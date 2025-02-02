@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add - ZSMS</title>
-    <link rel="stylesheet" href="css/mystyle.css">
+    <link rel="stylesheet" href="../css/mystyle.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
@@ -13,18 +13,19 @@
     <!-- Top Bar -->
     <header class="top-bar">
         <div class="logo-section">
-            <img class="icon" src="img/logo.png" alt="Company Logo" width="100px" height="100px">
+            <img class="icon" src="../img/logo.png" alt="Company Logo" width="100px" height="100px">
         </div>
         <div>
-            <a href="STAFF-computer_details.html" class="btnBack">Back</a>
-            <a onclick="if(confirm('You are about to be logout'))sessionStorage.removeItem('j_Tab');else return false;" class="logout" href="login.html">Logout</a>
-    </div>
+            <a href="details.html" class="btnBack">Back</a>
+            <a onclick="alert('You are going to logout')" class="logout" href="login.html">Logout</a>
+        </div>
     </header>
 
     <!-- Navigation Menu -->
     <nav class="menu-bar">
         <ul>
-            <li><a href="STAFF-computer_details.html">Spesifikasi</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="details.html">Details</a></li>
         </ul>
     </nav>
 
@@ -38,6 +39,11 @@
             <input id="targetid" type="text" name="id" hidden>
             <label for="fullname">Nama Penuh:</label>
             <input type="text" name="NamaPenuh" id="fullname" placeholder="Masukkan nama penuh" required autofocus>
+
+            <label for="bahagian">Bahagian / Cawangan / Daerah:</label>
+            <select name="" id="unit_select">
+
+            </select>
 
             <label for="bahagian">Bahagian / Cawangan / Daerah:</label>
             <input type="text" name="bahagian" id="bahagian" placeholder="Bahagian atau daerah">
@@ -100,7 +106,9 @@
         <p>&copy; 2025 Jabatan Kerja Raya. All rights reserved.</p>
     </footer>
 
-    <script src="js/details.js"></script>
+        <script>
+            
+    </script>
 </body>
 
 </html>

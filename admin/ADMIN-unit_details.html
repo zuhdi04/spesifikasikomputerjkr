@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <title>Unit - ADMIN</title>
-<link rel="stylesheet" href="css/mystyle.css">
+<link rel="stylesheet" href="../css/mystyle.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <style>
     /* The Modal (background) */
@@ -49,26 +49,27 @@
 
 <body>
     <div class="top-bar">
-        <img class="icon" src="img/logo.png" alt="Avatar" width="100px" height="100px">
-        <a onclick="alert('You are going to logout')" class="logout" href="login.html">Logout</a>
+        <img class="icon" src="../img/logo.png" alt="Avatar" width="100px" height="100px">
+        <a onclick="if(confirm('You are about to be logout'))sessionStorage.removeItem('j_Tab');else return false;" class="logout" href="../login.html">Logout</a>
     </div>
     
     <!-- Navigation Menu -->
     <nav class="menu-bar">
         <ul>
-            <li><a href="dashboard.html">Dashboard</a></li>
-            <li><a href="details.html">Details</a></li>
+            <li><a href="ADMIN-staff_details.html">Admin</a></li>
+            <li><a href="ADMIN-unit_details.html">Unit</a></li>
+            <li><a href="ADMIN-computer_details.html">Details</a></li>
         </ul>
     </nav>
     
     <div class="content">
-        <!-- <h1>SPESIFIKASI KOMPUTER KAKITANGAN JKR KEDAH BAHAGIAN/UNIT/DAERAH: UNIT PENTADBIRAN & KEWANGAN</h1> -->
-        
+        <h1>SPESIFIKASI KOMPUTER KAKITANGAN JKR KEDAH</h1>
         
         <table id="table_unit" class="display" border="display">
             <thead>
                 <tr>
-                    <th>UNIT/BAHAGIAN</th>
+                    <th>CAWANGAN/DAERAH/UNIT/BAHAGIAN</th>
+                    <th>JUMLAH</th>
                     <th>OPERASI</th>
                 </tr>
             </thead>
@@ -88,7 +89,7 @@
         <div class="modal-content">
         <span class="close">&times;</span>
         <!-- <p>Masukkan Unit/Bahagian:</p> -->
-        <input type="text" placeholder="Unit/Bahagian">
+        <input type="text" placeholder="CAWANGAN/DAERAH/UNIT/BAHAGIAN">
         <button class="btnAdd">Tambah</button>
         </div>
     
@@ -106,8 +107,9 @@
                     response.forEach(item => {
                         $('#list_unit').append(`
                             <tr>
-                                <td><a href="details.html#`+item.unit+`">`+item.unit+`</a></td>
-                                <td><a href="#" class="delete_details" data-id="`+item.id+`" onclick="return false;">Delete</a></td>
+                                <td><a href="details.html#`+item.nama+`">`+item.nama+`</a></td>
+                                <td></td>
+                                <td><a href="#" class="delete_details" data-id="`+item.id+`" onclick="return false;">Padam</a></td>
                             </tr>`);
                     });
                 }

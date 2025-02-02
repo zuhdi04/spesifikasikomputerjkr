@@ -34,7 +34,7 @@ if ($conn->connect_error) {
 //     $res = json_encode($data);
 // }
 $target = $_GET['content'];
-$sql = "SELECT id FROM pc WHERE nama_penuh=?";
+$sql = "SELECT pcID FROM pc WHERE nama_penuh=?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s",$target);
 $stmt->execute();
