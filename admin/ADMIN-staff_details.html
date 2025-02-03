@@ -6,12 +6,148 @@
     <title>Staf - ADMIN</title>
     <link rel="stylesheet" href="../css/mystyle.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        /* The Modal (background) */
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+        }
+
+        /* Modal Content/Box */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            /* Could be more or less, depending on screen size */
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .title {
+            font-size: large;
+            font-weight: bold;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            color: rgba(240, 203, 41, 0.993);
+        }
+
+        /* Table Styling */
+        #staffTable,
+        #printTable {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+        }
+
+        /* Table Header */
+        #staffTable thead tr,
+        #printTable thead tr {
+            background-color: #003366;
+            color: white;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        #staffTable th {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+
+
+        /* Table Rows */
+        #staffTable tbody tr,
+        #printTable tbody tr {
+            border-bottom: 1px solid #ddd;
+        }
+
+        /* Alternating Row Colors */
+        #staffTable tbody tr:nth-child(even),
+        #printTable tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Hover Effect */
+        #staffTable tbody tr:hover,
+        #printTable tbody tr:hover {
+            background-color: #e6f7ff;
+        }
+
+        /* Table Cells */
+        #staffTable td,
+        #printTable td {
+            padding: 10px;
+        }
+
+        /* Buttons inside the table */
+        #staffTable a,
+        #printTable a {
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin: 2px;
+            font-size: 14px;
+        }
+
+        /* Edit Button */
+        #staffTable a[href*='edit'],
+        #printTable a[href*='edit'] {
+            background-color: #28a745;
+            color: white;
+        }
+
+        /* Delete Button */
+        #staffTable a[href*='delete'],
+        #printTable a[href*='delete'] {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        /* Button Hover */
+        #staffTable a:hover,
+        #printTable a:hover {
+            opacity: 0.8;
+        }
+    </style>
 </head>
 
 <body>
     <div class="top-bar">
         <img class="icon" src="../img/logo.png" alt="Avatar" width="100px" height="100px">
-        <a onclick="if(confirm('You are about to be logout'))sessionStorage.removeItem('j_Tab');else return false;" class="logout" href="../login.html">Logout</a>
+        <h3 class="title">JABATAN KERJA RAYA NEGERI KEDAH DARUL AMAN</h3>
+        <a onclick="if(confirm('You are about to be logout'))sessionStorage.removeItem('j_Tab');else return false;"
+            class="logout" href="../login.html">Logout</a>
     </div>
 
     <!-- Navigation Menu -->
@@ -45,6 +181,7 @@
 
             <div class="admin-list" id="admin-list">
                 <h2>Admin Accounts</h2>
+                <br>
                 <!-- Admin items will appear here -->
                 <table id="staffTable" class="display" border="display">
                     <thead>
@@ -68,20 +205,20 @@
     <script>
         $.ajax({
             url: 'getUnitList.php', // Replace with your API endpoint
-            success: function(response) {
-                if(response){ // use "response" for single variable 
+            success: function (response) {
+                if (response) { // use "response" for single variable 
                     // or use "item = JSON.parse(response)" for multiple variable
                     // let item =  JSON.parse(response);
                     response.forEach(item => {
                         // $("#nama_bahagian").html(item.nama);
-                        $('#unit_select').append(`<option>`+item.nama+`</option>`);
+                        $('#unit_select').append(`<option>` + item.nama + `</option>`);
                     });
                 }
-                else{
+                else {
                 }
             },
-            
-            error: function(jqXHR, textStatus, errorThrown) {
+
+            error: function (jqXHR, textStatus, errorThrown) {
                 // document.getElementById('username').innerHTML="";
             }
         });
@@ -94,85 +231,92 @@
 
             const username = document.getElementById('username').value;
             $.ajax({
-                url: 'checkstaffList.php?content='+username, // Replace with your API endpoint
+                url: 'checkstaffList.php?content=' + username, // Replace with your API endpoint
                 method: 'GET',
-                success: function(response) {
-                    if(response!=""){ // use "response" for single variable 
+                success: function (response) {
+                    if (response != "") { // use "response" for single variable 
                         // or use "item = JSON.parse(response)" for multiple variable
                         // let item =  JSON.parse(response);
-                        
-                        if(response==null)
+
+                        if (response == null)
                             adminForm.submit();
                         else {
                             alert("Username telah ada!")
                         }
                     }
-                    else{
+                    else {
                     }
                 },
-                
-                error: function(jqXHR, textStatus, errorThrown) {
+
+                error: function (jqXHR, textStatus, errorThrown) {
                     // document.getElementById('username').innerHTML="";
                 }
             });
         });
     </script>
-    
+
     <script src="../js/pagecookie.js"></script>
 
     <script src="../js/myAlert.js"></script>
-    
-    <script>
-    let j_Tab = getCookie("j_Tab");
-    deleteCookie("j_Tab");
 
-    // #use uniqeu value checkup
-    if(j_Tab!=""){
-        $(("body")).removeAttr("hidden");
-        sessionStorage.setItem("j_a_Tab",j_Tab);
-        // $("head").val(j_Tab);
-        // history.replaceState(j_Tab,"");
-    }
-    else if (sessionStorage.getItem("j_a_Tab")!=null){
-        $(("body")).removeAttr("hidden");
-    }
-    else{
-        location.href="../login.html";
-        
-    }
-    showAlert();
-    function details(){
-    $.ajax({
-        url: 'allAdminList.php', // Replace with your API endpoint
-        method: 'GET',
-        success: function(response) {
-            if(response!=""){ // use "response" for single variable 
-                // or use "item = JSON.parse(response)" for multiple variable
-                console.log(response);
-                
-                // let item =  JSON.parse(response);
-                
-                response.forEach(item => {
-                    $('#stafflist').append(`
-                        <tr>
-                            <td>`+item.username+`</td>
-                            <td></td>
-                            <td>`+item.nama+`</td>
-                            <td><a href="staff-edit.php?form=`+item.id+`" onclick="return false">Edit</a>
-                            <a href="delete" class="delete_details" data-name="`+item.username+`" onclick="return false;">Delete</a></td>
-                        </tr>`);
-                });
-            }
-            else{
-            }
-        },
-        
-        error: function(jqXHR, textStatus, errorThrown) {
-            // document.getElementById('username').innerHTML="";
+    <script>
+        let j_Tab = getCookie("j_Tab");
+        deleteCookie("j_Tab");
+
+        // #use uniqeu value checkup
+        if (j_Tab != "") {
+            $(("body")).removeAttr("hidden");
+            sessionStorage.setItem("j_a_Tab", j_Tab);
+            // $("head").val(j_Tab);
+            // history.replaceState(j_Tab,"");
         }
-    });}
-    details();
+        else if (sessionStorage.getItem("j_a_Tab") != null) {
+            $(("body")).removeAttr("hidden");
+        }
+        else {
+            location.href = "../login.html";
+
+        }
+        showAlert();
+        function details() {
+            $.ajax({
+                url: 'allAdminList.php', // Replace with your API endpoint
+                method: 'GET',
+                success: function (response) {
+                    if (response != "") { // use "response" for single variable 
+                        // or use "item = JSON.parse(response)" for multiple variable
+                        console.log(response);
+
+                        // let item =  JSON.parse(response);
+
+                        response.forEach(item => {
+                            $('#stafflist').append(`
+                        <tr>
+                            <td>`+ item.username + `</td>
+                            <td></td>
+                            <td>`+ item.nama + `</td>
+                            <td><a href="staff-edit.php?form=`+ item.id + `" onclick="return false">Edit</a>
+                            <a href="delete" class="delete_details" data-name="`+ item.username + `" onclick="return false;">Delete</a></td>
+                        </tr>`);
+                        });
+                    }
+                    else {
+                    }
+                },
+
+                error: function (jqXHR, textStatus, errorThrown) {
+                    // document.getElementById('username').innerHTML="";
+                }
+            });
+        }
+        details();
     </script>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 Jabatan Kerja Raya. All rights reserved.</p>
+    </footer>
+
 </body>
 
 </html>
