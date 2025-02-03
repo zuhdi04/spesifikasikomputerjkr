@@ -162,19 +162,39 @@
     <div id="myModal" class="modal">
 
         <!-- Modal content -->
-        <div class="modal-content">
+        <div class="modal-content content">
             <span class="close">&times;</span>
-            <div>
-                <!-- <p>Masukkan Unit/Bahagian:</p> -->
-                <input type="text" placeholder="CAWANGAN/DAERAH/UNIT/BAHAGIAN">
-            </div>
-            <br>
-            <button class="btnAdd">Tambah</button>
+            <h2>Admin Management</h2>
+            <form class="form-container" method="POST" action="addNewUnit.php" id="admin-form">
+                <input type="text" name="cawangan" placeholder="CAWANGAN/DAERAH/UNIT/BAHAGIAN">
+                <button type="submit" name="addunit" class="btnAdd">Tambah</button><br>
+            </form>
         </div>
 
     </div>
 
     <script>
+        function getPCcount(target){
+            const countCellName = '#unit_count_'+target;
+            $.ajax({
+                url: 'countUnitPC.php?t='+target, // Replace with your API endpoint
+                success: function (response) {
+                    if (response != "") { // use "response" for single variable 
+                    // or use "item = JSON.parse(response)" for multiple variable
+                    // let item =  JSON.parse(response);
+                        $(countCellName).html(response);
+                    }
+                    else {
+                        $(countCellName).html("0");
+                    }
+                },
+                
+                error: function (jqXHR, textStatus, errorThrown) {
+                    // document.getElementById('username').innerHTML="";
+                }
+            });
+        }
+        
         $.ajax({
             url: 'getUnitList.php', // Replace with your API endpoint
             method: 'GET',
@@ -187,9 +207,10 @@
                         $('#list_unit').append(`
                             <tr>
                                 <td><a href="details.html#`+ item.nama + `">` + item.nama + `</a></td>
-                                <td></td>
+                                <td id="unit_count_`+item.id+`"></td>
                                 <td><a href="#" class="delete_details" data-id="`+ item.id + `" onclick="return false;">Padam</a></td>
                             </tr>`);
+                        getPCcount(item.id);
                     });
                 }
                 else {

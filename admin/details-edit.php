@@ -29,7 +29,7 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add - ZSMS</title>
-    <link rel="stylesheet" href="css/mystyle.css">
+    <link rel="stylesheet" href="../css/mystyle.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
@@ -37,29 +37,29 @@ $conn->close();
     <!-- Top Bar -->
     <header class="top-bar">
         <div class="logo-section">
-            <img class="icon" src="img/logo.png" alt="Company Logo" width="100px" height="100px">
+            <img class="icon" src="../img/logo.png" alt="Company Logo" width="100px" height="100px">
         </div>
         <div>
             <h3 class="title">JABATAN KERJA RAYA NEGERI KEDAH DARUL AMAN</h3>
         </div>
         <div>
-            <a href="STAFF-computer_details.html" class="btnBack">Back</a>
-            <a onclick="if(confirm('You are about to be logout'))sessionStorage.removeItem('j_Tab');else return false;"
-                class="logout" href="login.html">Logout</a>
+            <a href="ADMIN-computer_details.html" class="btnBack">Back</a>
+            <a onclick="if(confirm('You are about to be logout'))sessionStorage.removeItem('j_Tab');else return false;" class="logout" href="login.html">Logout</a>
         </div>
     </header>
 
     <!-- Navigation Menu -->
     <nav class="menu-bar">
         <ul>
-            <li><a href="STAFF-computer_details.html">Spesifikasi</a></li>
+        <li><a href="ADMIN-staff_details.html">Admin</a></li>
+            <li><a href="ADMIN-unit_details.html">Unit</a></li>
+            <li><a href="ADMIN-computer_details.html">Details</a></li>
         </ul>
     </nav>
 
     <!-- Main Content -->
     <main class="content">
-        <h1>SPESIFIKASI KOMPUTER KAKITANGAN JKR KEDAH BAHAGIAN/CAWANGAN/UNIT/DAERAH: <span id="nama_bahagian">UNIT
-        PENTADBIRAN & KEWANGAN</span></h1>
+        <h1>SPESIFIKASI KOMPUTER KAKITANGAN JKR KEDAH</h1>
 
         <!-- Form Section -->
         <form id="editdetailsform" method="POST" action="editList.php" class="form-container">
@@ -67,8 +67,10 @@ $conn->close();
             <label for="fullname">Nama Penuh:</label>
             <input type="text" name="NamaPenuh" id="fullname" placeholder="Masukkan nama penuh" value="<?php echo $data['nama_penuh']; ?>" required>
 
-            <label for="bahagian" hidden>Bahagian / Cawangan / Daerah:</label>
+            <label for="bahagian">Bahagian / Cawangan / Daerah:</label>
             <input type="text" name="bahagian" id="bahagian" placeholder="Bahagian atau daerah" value="" hidden>
+            <select name="cawangan" id="unit_select">
+            </select>
 
             <label for="jawatangred">Jawatan dan Gred:</label>
             <input type="text" name="jawatangred" id="jawatangred" placeholder="Jawatan dan gred" value="<?php echo $data['jawatan_gred']; ?>">
@@ -134,19 +136,21 @@ $conn->close();
     <script>document.getElementById("<?php echo $data['jenis_sistem'] ?>").checked=true;</script>
     <script>
         $.ajax({
-            url: 'getUnitName.php?u=' + sessionStorage.getItem('j_Tab'), // Replace with your API endpoint
-            success: function (response) {
-                if (response) { // use "response" for single variable 
+            url: 'getUnitList.php', // Replace with your API endpoint
+            success: function(response) {
+                if(response){ // use "response" for single variable 
                     // or use "item = JSON.parse(response)" for multiple variable
                     // let item =  JSON.parse(response);
-                    $("#nama_bahagian").html(response);
-                    
+                    response.forEach(item => {
+                        // $("#nama_bahagian").html(item.nama);
+                        $('#unit_select').append(`<option>`+item.nama+`</option>`);
+                    });
                 }
-                else {
+                else{
                 }
             },
-
-            error: function (jqXHR, textStatus, errorThrown) {
+            
+            error: function(jqXHR, textStatus, errorThrown) {
                 // document.getElementById('username').innerHTML="";
             }
         });

@@ -16,8 +16,11 @@
             <img class="icon" src="img/logo.png" alt="Company Logo" width="100px" height="100px">
         </div>
         <div>
-            <a href="STAFF-computer_details.html" class="btnBack">Back</a>
             <h3 class="title">JABATAN KERJA RAYA NEGERI KEDAH DARUL AMAN</h3>
+        </div>
+        <div>
+            <!-- <h3 class="title">JABATAN KERJA RAYA NEGERI KEDAH DARUL AMAN</h3> -->
+            <a href="STAFF-computer_details.html" class="btnBack">Back</a>
             <a onclick="if(confirm('You are about to be logout'))sessionStorage.removeItem('j_Tab');else return false;"
                 class="logout" href="login.html">Logout</a>
         </div>
@@ -32,8 +35,8 @@
 
     <!-- Main Content -->
     <main class="content">
-        <h1>Spesifikasi Komputer Kakitangan</h1>
-        <h1>Bahagian/Unit/Daerah: Unit Pentadbiran & Kewangan</h1>
+        <h1>SPESIFIKASI KOMPUTER KAKITANGAN JKR KEDAH BAHAGIAN/CAWANGAN/UNIT/DAERAH: <span id="nama_bahagian">UNIT
+            PENTADBIRAN & KEWANGAN</span></h1>
 
         <!-- Form Section -->
         <form id="detailsform" method="POST" action="setList.php" class="form-container">
@@ -41,8 +44,8 @@
             <label for="fullname">Nama Penuh:</label>
             <input type="text" name="NamaPenuh" id="fullname" placeholder="Masukkan nama penuh" required autofocus>
 
-            <label for="bahagian">Bahagian / Cawangan / Daerah:</label>
-            <input type="text" name="bahagian" id="bahagian" placeholder="Bahagian atau daerah">
+            <label for="bahagian" hidden>Bahagian / Cawangan / Daerah:</label>
+            <input type="text" name="bahagian" id="bahagian" placeholder="Bahagian atau daerah" hidden>
 
             <label for="jawatangred">Jawatan dan Gred:</label>
             <input type="text" name="jawatangred" id="jawatangred" placeholder="Jawatan dan gred">
@@ -103,6 +106,25 @@
     </footer>
 
     <script src="js/details.js"></script>
+    <script>
+        $.ajax({
+            url: 'getUnitName.php?u=' + sessionStorage.getItem('j_Tab'), // Replace with your API endpoint
+            success: function (response) {
+                if (response) { // use "response" for single variable 
+                    $("#nama_bahagian").html(response);
+                    // or use "item = JSON.parse(response)" for multiple variable
+                    // let item =  JSON.parse(response);
+                    
+                }
+                else {
+                }
+            },
+
+            error: function (jqXHR, textStatus, errorThrown) {
+                // document.getElementById('username').innerHTML="";
+            }
+        });
+    </script>
 </body>
 
 </html>

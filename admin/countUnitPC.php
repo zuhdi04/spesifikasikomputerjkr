@@ -10,22 +10,21 @@ if ($conn->connect_error) {
     exit;
 }
 
-$stmt = $conn->prepare("SELECT nama,id FROM unit ORDER BY nama");
+$target = $_GET['t'];
+$sql = "SELECT COUNT(unitID) FROM pc WHERE unitID=?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i",$target);
 $stmt->execute();
-$result = $stmt->get_result();
-$data = $result->fetch_all(MYSQLI_ASSOC);
+$stmt->store_result();
+$stmt->bind_result($data);
+$stmt->fetch();
 $stmt->close();
-$res = json_encode($data);
-
 $conn->close();
-
+// if ($data!=$target) echo json_encode(null);
+// else echo json_encode(!null);
+$res = json_encode($data);
 echo $res;
+// echo $data;
 
-// Get the result
 
-// Fetch all results
-
-// Return the results as a JSON array
-
-// Close the statement and connection
 ?>

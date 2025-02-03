@@ -11,7 +11,7 @@ if ($conn->connect_error) {
 }
 
 // $stmt = $conn->prepare("SELECT DISTINCT adminNo, admin.username, unit.nama FROM cawangan_admin RIGHT JOIN admin ON cawangan_admin.adminNo=admin.id RIGHT JOIN unit ON cawangan_admin.unitNo=unit.id");
-$stmt = $conn->prepare("SELECT username, unit.nama FROM admin INNER JOIN unit ON admin.unitID=unit.id ORDER BY unit.nama");
+$stmt = $conn->prepare("SELECT username, unit.nama, password FROM admin INNER JOIN unit ON admin.unitID=unit.id ORDER BY unit.nama");
 $stmt->execute();
 $result = $stmt->get_result();
 $data = $result->fetch_all(MYSQLI_ASSOC);
