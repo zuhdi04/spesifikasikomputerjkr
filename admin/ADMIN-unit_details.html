@@ -133,7 +133,7 @@
         <ul>
             <li><a href="ADMIN-staff_details.html">Admin</a></li>
             <li><a href="ADMIN-unit_details.html">Unit</a></li>
-            <li><a href="ADMIN-computer_details.html">Details</a></li>
+            <li><a href="ADMIN-computer_details.html">Spesifikasi</a></li>
         </ul>
     </nav>
 
@@ -206,7 +206,7 @@
                     response.forEach(item => {
                         $('#list_unit').append(`
                             <tr>
-                                <td><a href="details.html#`+ item.nama + `">` + item.nama + `</a></td>
+                                <td><a href="ADMIN-computer_details.html#`+ item.nama + `">` + item.nama + `</a></td>
                                 <td id="unit_count_`+item.id+`"></td>
                                 <td><a href="#" class="delete_details" data-id="`+ item.id + `" onclick="return false;">Padam</a></td>
                             </tr>`);

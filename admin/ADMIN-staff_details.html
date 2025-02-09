@@ -156,7 +156,7 @@
         <ul>
             <li><a href="ADMIN-staff_details.html">Admin</a></li>
             <li><a href="ADMIN-unit_details.html">Unit</a></li>
-            <li><a href="ADMIN-computer_details.html">Details</a></li>
+            <li><a href="ADMIN-computer_details.html">Spesifikasi</a></li>
         </ul>
     </nav>
 
@@ -250,8 +250,8 @@
         }
         else {
             location.href = "../login.html";
-
         }
+
         showAlert();
         function details() {
             $.ajax({
@@ -263,22 +263,21 @@
                     console.log(response);
                     
                     // let item =  JSON.parse(response);
+                    // <a href="staff-edit.php?form=`+ item.id + `" onclick="return false">Edit</a>
                     $('#stafflist').empty();
                     response.forEach(item => {
                         $('#stafflist').append(`
-                        <tr>
-                            <td>`+ item.username + `</td>
-                            <td><input type="password" value="`+item.password+`" id="password-field-`+item.username+`" disabled><span toggle="#password-field-`+item.username+`" class="fa fa-fw fa-eye field-icon toggle-password" value="1"></span></td>
-                            <td>`+ item.nama + `</td>
-                            <td><a href="staff-edit.php?form=`+ item.id + `" onclick="return false">Edit</a>
-                                <a href="delete" class="delete_details" data-name="`+ item.username + `" onclick="return false;">Delete</a></td>
-                                </tr>`);
-                            });
-                        }
-                        else {
-                        }
-                    },
-                    
+                            <tr>
+                                <td>`+ item.username + `</td>
+                                <td><input type="password" value="`+item.password+`" id="password-field-`+item.username+`" disabled><span toggle="#password-field-`+item.username+`" class="fa fa-fw fa-eye field-icon toggle-password" value="1"></span></td>
+                                <td>`+ item.nama + `</td>
+                                <td><a href="delete" class="delete_details" data-name="`+ item.username + `" onclick="return false;">Delete</a></td>
+                            </tr>`);
+                    });
+                    }
+                    else {
+                    }
+                },
                     error: function (jqXHR, textStatus, errorThrown) {
                         // document.getElementById('username').innerHTML="";
                 }

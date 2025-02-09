@@ -29,7 +29,7 @@
         <ul>
             <li><a href="ADMIN-staff_details.html">Admin</a></li>
             <li><a href="ADMIN-unit_details.html">Unit</a></li>
-            <li><a href="ADMIN-computer_details.html">Details</a></li>
+            <li><a href="ADMIN-computer_details.html">Spesifikasi</a></li>
         </ul>
     </nav>
 
@@ -51,11 +51,16 @@
             <label for="jawatangred">Jawatan dan Gred :</label>
             <input type="text" name="jawatangred" id="jawatangred" placeholder="Jawatan dan gred">
 
-            <label for="kakitangan">Kakitangan Persekutuan / Negeri :</label>
+            <!-- <label for="kakitangan">Kakitangan Persekutuan / Negeri :</label>
             <select name="kakitangan" id="kakitangan">
-                <option value="PC NEGERI">PC Negeri</option>
-                <option value="PC PERSEKUTUAN">PC Persekutuan</option>
-            </select>
+                <option value="NEGERI">Negeri</option>
+                <option value="PERSEKUTUAN">Persekutuan</option>
+            </select> -->
+            <label>Kakitangan Persekutuan / Negeri:</label>
+            <div class="radio-group">
+                <input type="radio" name="kakitangan" value="NEGERI" id="negeri"><label for="negeri">Negeri</label>
+                <input type="radio" name="kakitangan" value="PERSEKUTUAN" id="persekutuan"><label for="persekutuan">Persekutuan</label>
+            </div>
 
             <label for="jenispc">Jenis Komputer :</label>
             <input type="text" name="jenispc" id="jenispc" placeholder="Jenis komputer">
@@ -68,9 +73,9 @@
                 <input type="radio" name="proc" value="i3" id="i3"><label for="i3">i3</label>
                 <input type="radio" name="proc" value="i5" id="i5"><label for="i5">i5</label>
                 <input type="radio" name="proc" value="i7" id="i7"><label for="i7">i7</label>
-                <input type="radio" name="proc" id="otherProcRadio">
+                <input type="radio" name="proc" id="otherProcRadio" value=" ">
                 <label for="otherProcRadio">Others:</label>
-                <input type="text" id="otherProcTxtBox" disabled>
+                <input type="text" id="otherProcTxtBox" disabled onkeyup="setOtherProcValue()">
             </div>
 
             <label for="ram">RAM :</label>
@@ -126,6 +131,20 @@
                 // document.getElementById('username').innerHTML="";
             }
         });
+
+        // toggle processor textbox
+        $("input[type='radio']").click(function(){
+            const otherProc = $("input[id='otherProcRadio']:checked").val();
+            if (otherProc){
+                $("#otherProcTxtBox").removeAttr("disabled").focus();
+            }
+            else $("#otherProcTxtBox").attr("disabled",true);
+        })
+
+        // update other process value
+        function setOtherProcValue(){
+            $("#otherProcRadio").val( $("#otherProcTxtBox").val() );
+        }
     </script>
 </body>
 

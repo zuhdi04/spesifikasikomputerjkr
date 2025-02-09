@@ -16,7 +16,7 @@ if ($conn->connect_error) {
 $staffname = $_POST['NamaPenuh'];
 $second = $_POST['cawangan'];
 $third = $_POST['jawatangred'];
-$kakitangan = $_POST['kakitangan'];
+$kakitangan = isset($_POST['kakitangan'])?$_POST['kakitangan']:"";
 $fifth = $_POST['jenispc'];
 $pcage = $_POST['tahun'];
 $proc = isset($_POST['proc'])?$_POST['proc']:"";

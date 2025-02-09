@@ -20,7 +20,7 @@ function details(target) {
                     $("#nama_bahagian").html(item.nama)
                     $('#computerlist').append(`
                         <tr>
-                            <td id="pc_`+ item.pcID + `">` + item.nama_penuh + `</td>
+                            <td>` + item.nama_penuh + `</td>
                             <td>`+ item.jawatan_gred + `</td>
                             <td>`+ item.jenis_kakitangan + `</td>
                             <td>`+ item.jenis_komputer + `</td>
@@ -31,7 +31,7 @@ function details(target) {
                             <td>`+ item.antivirus + `</td>
                             <td>`+ item.ipv4_address + `</td>
                             <td>`+ item.catatan + `</td>
-                            <td><a href="details-edit.php?form=`+ item.pcID + `">Edit</a><a href="#" class="delete_details" data-id="` + item.pcID + `" onclick="return false;">Delete</a></td>
+                            <td><a href="details-edit.php?form=`+ item.pcID + `">Edit</a><a href="#" class="delete_details" data-nama="` + item.nama_penuh + `" data-id="` + item.pcID + `" onclick="return false;">Delete</a></td>
                         </tr>`);
                 });
                 refreshTable();
@@ -60,7 +60,6 @@ function validateUser(target) {
                 details(target);
             }
             else {
-                // location.href="login.html";
             }
         },
 
@@ -77,10 +76,8 @@ function refreshTable() {
 $('#printTable').on('click', '.delete_details', function () {
 
     let p = $(this).data('id');
-    let targetelem = "pc_" + p.toString(); //# use data-val eg:let p = $(this).data('id');
-    // console.log(document.getElementById(targetelem));
+    let n = $(this).data('nama');
 
-    let n = document.getElementById(targetelem).innerText;
     if (confirm("Adakah anda mahu memadam maklumat: " + n + "?")) {
         // Perform AJAX request
         $.ajax({

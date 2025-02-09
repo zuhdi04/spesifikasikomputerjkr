@@ -73,11 +73,16 @@ $conn->close();
             <label for="jawatangred">Jawatan dan Gred:</label>
             <input type="text" name="jawatangred" id="jawatangred" placeholder="Jawatan dan gred" value="<?php echo $data['jawatan_gred']; ?>">
 
-            <label for="kakitangan">Kakitangan Persekutuan / Negeri:</label>
+            <!-- <label for="kakitangan">Kakitangan Persekutuan / Negeri:</label>
             <select name="kakitangan" id="kakitangan">
                 <option id="PC NEGERI" value="PC NEGERI">PC Negeri</option>
                 <option id="PC PERSEKUTUAN" value="PC PERSEKUTUAN">PC Persekutuan</option>
-            </select>
+            </select> -->
+            <label>Kakitangan Persekutuan / Negeri:</label>
+            <div class="radio-group">
+                <input type="radio" name="kakitangan" value="NEGERI" id="NEGERI"><label for="negeri">Negeri</label>
+                <input type="radio" name="kakitangan" value="PERSEKUTUAN" id="PERSEKUTUAN"><label for="persekutuan">Persekutuan</label>
+            </div>
 
             <label for="jenispc">Jenis Komputer:</label>
             <input type="text" name="jenispc" id="jenispc" placeholder="Jenis komputer" value="<?php echo $data['jenis_komputer']; ?>">
@@ -128,11 +133,50 @@ $conn->close();
         <p>&copy; 2025 ZSMS. All rights reserved.</p>
     </footer>
 
-    <script>document.getElementById("<?php echo $data['jenis_kakitangan'] ?>").selected=true;</script>
+    <script>document.getElementById("<?php echo $data['jenis_kakitangan'] ?>").checked=true;</script>
     <script>document.getElementById("<?php echo $data['jenis_processor'] ?>").checked=true;</script>
     <script>document.getElementById("ram_<?php echo $data['saiz_ram'] ?>").selected=true;</script>
     <script>document.getElementById("<?php echo $data['jenis_sistem'] ?>").checked=true;</script>
+    <script src="js/pagecookie.js"></script>
     <script>
+        let j_Tab = getCookie("j_Tab");
+        deleteCookie("j_Tab");
+
+        // #use unique value checkup
+        if (j_Tab != "") { // directed from login.html / cookie
+            validateUser(j_Tab);
+
+            // $("head").val(j_Tab);
+            // history.replaceState(j_Tab,"");
+        }
+        else if (sessionStorage.getItem("j_Tab") != null) {
+            validateUser(sessionStorage.getItem("j_Tab"));
+        }
+        else {
+            location.href = "login.html";
+        }
+        function validateUser(target) {
+            $.ajax({
+                url: 'checkUnit.php?t=' + target, // Replace with your API endpoint
+                success: function (response) {
+                    if (response) { // use "response" for single variable 
+                        // or use "item = JSON.parse(response)" for multiple variable
+                        // let item =  JSON.parse(response);
+
+                        $(("body")).removeAttr("hidden");
+                        sessionStorage.setItem("j_Tab", target);
+                        details(target);
+                    }
+                    else {
+                    }
+                },
+
+                error: function (jqXHR, textStatus, errorThrown) {
+                    // document.getElementById('username').innerHTML="";
+                }
+            });
+        }
+
         $.ajax({
             url: 'getUnitName.php?u=' + sessionStorage.getItem('j_Tab'), // Replace with your API endpoint
             success: function (response) {
