@@ -97,9 +97,9 @@ $conn->close();
                 <input type="radio" name="proc" value="i3" id="i3"><label for="i3">i3</label>
                 <input type="radio" name="proc" value="i5" id="i5"><label for="i5">i5</label>
                 <input type="radio" name="proc" value="i7" id="i7"><label for="i7">i7</label>
-                <input type="radio" name="proc" id="otherProcRadio">
+                <input type="radio" name="proc" id="otherProcRadio" value=" ">
                 <label for="otherProcRadio">Others:</label>
-                <input type="text" id="otherProcTxtBox" disabled>
+                <input type="text" id="otherProcTxtBox" disabled onkeyup="setOtherProcValue()">
             </div>
 
             <label for="ram">RAM:</label>
@@ -135,10 +135,6 @@ $conn->close();
         <p>&copy; 2025 ZSMS. All rights reserved.</p>
     </footer>
 
-    <script>document.getElementById("<?php echo $data['jenis_kakitangan'] ?>").checked=true;</script>
-    <script>document.getElementById("<?php echo $data['jenis_processor'] ?>").checked=true;</script>
-    <script>document.getElementById("ram_<?php echo $data['saiz_ram'] ?>").selected=true;</script>
-    <script>document.getElementById("<?php echo $data['jenis_sistem'] ?>").checked=true;</script>
     <script>
         $.ajax({
             url: 'getUnitList.php', // Replace with your API endpoint
@@ -159,6 +155,37 @@ $conn->close();
                 // document.getElementById('username').innerHTML="";
             }
         });
+
+        // toggle processor textbox
+        $("input[type='radio']").click(function(){
+            const otherProc = $("input[id='otherProcRadio']:checked").val();
+            if (otherProc){
+                $("#otherProcTxtBox").removeAttr("disabled").focus();
+            }
+            else $("#otherProcTxtBox").attr("disabled",true);
+        })
+
+        // update other process value
+        function setOtherProcValue(){
+            $("#otherProcRadio").val( $("#otherProcTxtBox").val() );
+        }
+    </script>
+
+    <!-- script to load data to form -->
+    <script>
+        if(document.getElementById("<?php echo $data['jenis_kakitangan'] ?>"))
+            document.getElementById("<?php echo $data['jenis_kakitangan'] ?>").checked=true;
+        if(document.getElementById("<?php echo $data['jenis_processor'] ?>"))
+            document.getElementById("<?php echo $data['jenis_processor'] ?>").checked=true;
+        else{
+            document.getElementById("otherProcRadio").checked=true;  
+            document.getElementById("otherProcRadio").value="<?php echo $data['jenis_processor'] ?>";
+            document.getElementById("otherProcTxtBox").value="<?php echo $data['jenis_processor'] ?>";
+            document.getElementById("otherProcTxtBox").removeAttribute("disabled");
+        }
+        document.getElementById("ram_<?php echo $data['saiz_ram'] ?>").selected=true;
+        if(document.getElementById("<?php echo $data['jenis_sistem'] ?>"))
+            document.getElementById("<?php echo $data['jenis_sistem'] ?>").checked=true;
     </script>
 </body>
 

@@ -4,8 +4,13 @@
 <head>
     <meta charset="utf-8" />
     <title>SPESIFIKASI KOMPUTER JKR KEDAH</title>
+
     <link rel="stylesheet" href="css/mystyle.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.min.js"></script>
+    
     <style>
         /* The Modal (background) */
         .modal {
@@ -192,40 +197,16 @@
         <a id="tambahButton" href="details-form.html" class="btnAdd">Tambah maklumat</a>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
-
-    <script src="js/homepage.js"></script>
-
-    <script src="js/pagecookie.js"></script>
-    <script src="js/myAlert.js"></script>
-
-    <script>
-        let j_Tab = getCookie("j_Tab");
-        deleteCookie("j_Tab");
-
-        // #use unique value checkup
-        if (j_Tab != "") { // directed from login.html / cookie
-            validateUser(j_Tab);
-
-            // $("head").val(j_Tab);
-            // history.replaceState(j_Tab,"");
-        }
-        else if (sessionStorage.getItem("j_Tab") != null) {
-            validateUser(sessionStorage.getItem("j_Tab"));
-        }
-        else {
-            location.href = "login.html";
-        }
-        showAlert();
-
-    </script>
 
     <!-- Footer -->
     <footer class="footer">
         <p>&copy; 2025 Jabatan Kerja Raya. All rights reserved.</p>
     </footer>
-
+    
+    <script src="js/pagecookie.js"></script>
+    <script src="js/myAlert.js"></script>
+    <script src="js/script.js"></script>
+    
 </body>
 
 </html>

@@ -1,7 +1,9 @@
-let idx = 0;
-let namelist = [];
+// let idx = 0;
+// let namelist = [];
 // let table = new DataTable('#printTable');
 
+
+// Spesifikasi
 
 // # convert to ajax
 function details(target) {
@@ -15,8 +17,8 @@ function details(target) {
                 // let item =  JSON.parse(response);
                 $('#computerlist').empty();
                 response.forEach(item => {
-                    idx += 1;
-                    namelist.push(item.nama_penuh);
+                    // idx += 1;
+                    // namelist.push(item.nama_penuh);
                     $("#nama_bahagian").html(item.nama)
                     $('#computerlist').append(`
                         <tr>
@@ -101,3 +103,24 @@ $('#printTable').on('click', '.delete_details', function () {
     }
     // details();
 });
+
+let j_Tab = getCookie("j_Tab");
+deleteCookie("j_Tab");
+
+// #use unique value checkup
+if (j_Tab != "") { // directed from login.html / cookie
+    validateUser(j_Tab);
+
+    // $("head").val(j_Tab);
+    // history.replaceState(j_Tab,"");
+}
+else if (sessionStorage.getItem("j_Tab") != null) {
+    validateUser(sessionStorage.getItem("j_Tab"));
+}
+else {
+    location.href = "login.html";
+}
+showAlert();
+
+
+// ADD/EDIT Form

@@ -7,6 +7,7 @@
     <title>Add - ZSMS</title>
     <link rel="stylesheet" href="css/mystyle.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
 </head>
 
 <body>
@@ -111,78 +112,8 @@
     </footer>
 
     <script src="js/pagecookie.js"></script>
-    <script src="js/details.js"></script>
-    <script>
-        let j_Tab = getCookie("j_Tab");
-        deleteCookie("j_Tab");
-
-        // #use unique value checkup
-        if (j_Tab != "") { // directed from login.html / cookie
-            validateUser(j_Tab);
-
-            // $("head").val(j_Tab);
-            // history.replaceState(j_Tab,"");
-        }
-        else if (sessionStorage.getItem("j_Tab") != null) {
-            validateUser(sessionStorage.getItem("j_Tab"));
-        }
-        else {
-            location.href = "login.html";
-        }
-        function validateUser(target) {
-            $.ajax({
-                url: 'checkUnit.php?t=' + target, // Replace with your API endpoint
-                success: function (response) {
-                    if (response) { // use "response" for single variable 
-                        // or use "item = JSON.parse(response)" for multiple variable
-                        // let item =  JSON.parse(response);
-
-                        $(("body")).removeAttr("hidden");
-                        sessionStorage.setItem("j_Tab", target);
-                        details(target);
-                    }
-                    else {
-                    }
-                },
-
-                error: function (jqXHR, textStatus, errorThrown) {
-                    // document.getElementById('username').innerHTML="";
-                }
-            });
-        }
-
-        $.ajax({
-            url: 'getUnitName.php?u=' + sessionStorage.getItem('j_Tab'), // Replace with your API endpoint
-            success: function (response) {
-                if (response) { // use "response" for single variable 
-                    $("#nama_bahagian").html(response);
-                    // or use "item = JSON.parse(response)" for multiple variable
-                    // let item =  JSON.parse(response);
-                    
-                }
-                else {
-                }
-            },
-
-            error: function (jqXHR, textStatus, errorThrown) {
-                // document.getElementById('username').innerHTML="";
-            }
-        });
-
-        // toggle processor textbox
-        $("input[type='radio']").click(function(){
-            const otherProc = $("input[id='otherProcRadio']:checked").val();
-            if (otherProc){
-                $("#otherProcTxtBox").removeAttr("disabled").focus();
-            }
-            else $("#otherProcTxtBox").attr("disabled",true);
-        })
-
-        // update other process value
-        function setOtherProcValue(){
-            $("#otherProcRadio").val( $("#otherProcTxtBox").val() );
-        }
-    </script>
+    <script src="js/myAlert.js"></script>
+    <script src="js/script.js"></script>
 </body>
 
 </html>

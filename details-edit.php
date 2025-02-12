@@ -31,7 +31,8 @@ $conn->close();
     <title>Add - ZSMS</title>
     <link rel="stylesheet" href="css/mystyle.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-</head>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+    </head>
 
 <body>
     <!-- Top Bar -->
@@ -95,9 +96,9 @@ $conn->close();
                 <input type="radio" name="proc" value="i3" id="i3"><label for="i3">i3</label>
                 <input type="radio" name="proc" value="i5" id="i5"><label for="i5">i5</label>
                 <input type="radio" name="proc" value="i7" id="i7"><label for="i7">i7</label>
-                <input type="radio" name="proc" id="otherProcRadio">
+                <input type="radio" name="proc" id="otherProcRadio" value=" ">
                 <label for="otherProcRadio">Others:</label>
-                <input type="text" id="otherProcTxtBox" disabled>
+                <input type="text" id="otherProcTxtBox" disabled onkeyup="setOtherProcValue()">
             </div>
 
             <label for="ram">RAM:</label>
@@ -132,68 +133,26 @@ $conn->close();
     <footer class="footer">
         <p>&copy; 2025 ZSMS. All rights reserved.</p>
     </footer>
-
-    <script>document.getElementById("<?php echo $data['jenis_kakitangan'] ?>").checked=true;</script>
-    <script>document.getElementById("<?php echo $data['jenis_processor'] ?>").checked=true;</script>
-    <script>document.getElementById("ram_<?php echo $data['saiz_ram'] ?>").selected=true;</script>
-    <script>document.getElementById("<?php echo $data['jenis_sistem'] ?>").checked=true;</script>
+    
     <script src="js/pagecookie.js"></script>
+    <script src="js/myAlert.js"></script>
+    <script src="js/script.js"></script>
+    
+    <!-- script to load data to form -->
     <script>
-        let j_Tab = getCookie("j_Tab");
-        deleteCookie("j_Tab");
-
-        // #use unique value checkup
-        if (j_Tab != "") { // directed from login.html / cookie
-            validateUser(j_Tab);
-
-            // $("head").val(j_Tab);
-            // history.replaceState(j_Tab,"");
+        if(document.getElementById("<?php echo $data['jenis_kakitangan'] ?>"))
+            document.getElementById("<?php echo $data['jenis_kakitangan'] ?>").checked=true;
+        if(document.getElementById("<?php echo $data['jenis_processor'] ?>"))
+            document.getElementById("<?php echo $data['jenis_processor'] ?>").checked=true;
+        else{
+            document.getElementById("otherProcRadio").checked=true;  
+            document.getElementById("otherProcRadio").value="<?php echo $data['jenis_processor'] ?>";
+            document.getElementById("otherProcTxtBox").value="<?php echo $data['jenis_processor'] ?>";
+            document.getElementById("otherProcTxtBox").removeAttribute("disabled");
         }
-        else if (sessionStorage.getItem("j_Tab") != null) {
-            validateUser(sessionStorage.getItem("j_Tab"));
-        }
-        else {
-            location.href = "login.html";
-        }
-        function validateUser(target) {
-            $.ajax({
-                url: 'checkUnit.php?t=' + target, // Replace with your API endpoint
-                success: function (response) {
-                    if (response) { // use "response" for single variable 
-                        // or use "item = JSON.parse(response)" for multiple variable
-                        // let item =  JSON.parse(response);
-
-                        $(("body")).removeAttr("hidden");
-                        sessionStorage.setItem("j_Tab", target);
-                        details(target);
-                    }
-                    else {
-                    }
-                },
-
-                error: function (jqXHR, textStatus, errorThrown) {
-                    // document.getElementById('username').innerHTML="";
-                }
-            });
-        }
-
-        $.ajax({
-            url: 'getUnitName.php?u=' + sessionStorage.getItem('j_Tab'), // Replace with your API endpoint
-            success: function (response) {
-                if (response) { // use "response" for single variable 
-                    // or use "item = JSON.parse(response)" for multiple variable
-                    // let item =  JSON.parse(response);
-                    $("#nama_bahagian").html(response);
-                    
-                }
-                else {
-                }
-            },
-
-            error: function (jqXHR, textStatus, errorThrown) {
-                // document.getElementById('username').innerHTML="";
-            }
-        });
+        document.getElementById("ram_<?php echo $data['saiz_ram'] ?>").selected=true;
+        if(document.getElementById("<?php echo $data['jenis_sistem'] ?>"))
+            document.getElementById("<?php echo $data['jenis_sistem'] ?>").checked=true;
     </script>
 </body>
 
