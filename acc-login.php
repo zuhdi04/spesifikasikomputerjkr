@@ -46,7 +46,7 @@ if (isset($_POST["signin"])) {
                 }
                 else{
                     setcookie("j_Tab", $row['unitCode'], time() + (30), "/");
-                    header("Location: main.php");
+                    header("Location: STAFF-computer_details.html");
                 }
                 exit;
             } else {
