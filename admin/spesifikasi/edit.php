@@ -1,13 +1,17 @@
 <?php
 $title = "";
-require 'valid.php';
+require '../valid.php';
 
 $id=$_GET['form'];
-
-// POST
+// if($request_method === "GET"){
+//     include '../layout/header.php';
+//     include '../layout/edit_spesifikasi.php';
+//     include '../layout/footer.php';
+// }
 if($request_method === "POST"){
+    
     $staffname = $_POST['NamaPenuh'];
-    // $second = $_POST['bahagian'];
+    $second = $_POST['cawangan'];
     $third = $_POST['jawatangred'];
     $kakitangan = isset($_POST['kakitangan'])?$_POST['kakitangan']:"";
     $fifth = $_POST['jenispc'];
@@ -19,10 +23,19 @@ if($request_method === "POST"){
     $ipaddress = $_POST['ipaddress'];
     $catatan = $_POST['catatan'];
     $id = isset($_POST['id'])?intval($_POST['id']):0;
-    
 
-    include 'db_connect.php';
+    include '../db_connect.php';
+    $sql = "SELECT id FROM unit WHERE nama=?";
+    $check = $conn->prepare($sql);
+    $check->bind_param("s",$second);
+    $check->execute();
+    $check->store_result();
+    $check->bind_result($data);
+    $check->fetch();
+    $check->close();
+
     $sql = "UPDATE pc SET nama_penuh=?,
+    unitID=?,
     jawatan_gred=?,
     jenis_kakitangan=?,
     jenis_komputer=?,
@@ -35,10 +48,10 @@ if($request_method === "POST"){
     catatan=?
     WHERE pcID=?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssssssssssi", $staffname, $third, $kakitangan, $fifth, $pcage, $proc, $ram, $systemtype, $antivirus, $ipaddress, $catatan, $id);
-    
+    $stmt->bind_param("sissssssssssi", $staffname, $data, $third, $kakitangan, $fifth, $pcage, $proc, $ram, $systemtype, $antivirus, $ipaddress, $catatan, $id);
+
     if ($stmt->execute()) {
-        $_SESSION["notify"] = ['' => '','text' => 'Update successful'];
+        $_SESSION["notify"] = ['text' => 'Update successful'];
         // echo json_encode(['message' => 'Update successful']);
     } else {
         // echo json_encode(['message' => 'Update failed: ' . $stmt->error]);
@@ -46,41 +59,40 @@ if($request_method === "POST"){
     $stmt->close();
     $conn->close();
     
-    header("Location: ".$pages->spesifikasi->edit."?form=$id");
+        header("Location: ".$pages->spesifikasi->edit."?form=$id");
     exit;
-
 }
-
 ?>
 
 <?php
-include 'db_connect.php';
-$sql = "SELECT * FROM pc LEFT JOIN unit ON pc.unitID = unit.id WHERE pcID=? AND unitCode=?";
-// $sql = "SELECT * FROM pc WHERE pcID=?";
+// GET
+include '../db_connect.php';
+$sql = "SELECT * FROM pc WHERE pcID=?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("is",$id,$_SESSION['j_Tab']);
-// $stmt->bind_param("i",$id);
+$stmt->bind_param("i",$id);
 $stmt->execute();
 $result = $stmt->get_result();
 $data = $result->fetch_array(MYSQLI_ASSOC);
 $stmt->close();
 $conn->close();
-
 if($data == null){
     header("Location: .");
     exit;
 }
+include '../layout/header.php';?>
 
-include('layout/header.php'); ?>
-
+<div class="content">
 <!-- Form Section -->
 <form id="editdetailsform" method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>" class="form-container">
     <input type="text" name="id" value="<?php echo $data['pcID']; ?>" hidden>
     <label for="fullname">Nama Penuh:</label>
     <input type="text" name="NamaPenuh" id="fullname" placeholder="Masukkan nama penuh" value="<?php echo $data['nama_penuh']; ?>" required>
 
-    <label for="bahagian" hidden>Bahagian / Cawangan / Daerah:</label>
+    <label for="bahagian">Bahagian / Cawangan / Daerah:</label>
     <input type="text" name="bahagian" id="bahagian" placeholder="Bahagian atau daerah" value="" hidden>
+    <select name="cawangan">
+        <?php include '../component/units.php'; ?>
+    </select>
 
     <label for="jawatangred">Jawatan dan Gred:</label>
     <input type="text" name="jawatangred" id="jawatangred" placeholder="Jawatan dan gred" value="<?php echo $data['jawatan_gred']; ?>">
@@ -138,6 +150,7 @@ include('layout/header.php'); ?>
     <input name="SAVE" class="button" type="submit" value="SAVE">
     <input type="reset" class="reset" type="reset" value="RESET">
 </form>
+</div>
 
 <script>
     if(document.getElementById("<?php echo $data['jenis_kakitangan'] ?>"))
@@ -154,4 +167,6 @@ include('layout/header.php'); ?>
     if(document.getElementById("<?php echo $data['jenis_sistem'] ?>"))
         document.getElementById("<?php echo $data['jenis_sistem'] ?>").checked=true;
 </script>
-<?php include('layout/footer.php'); ?>
+
+
+<?php include '../layout/footer.php';?>

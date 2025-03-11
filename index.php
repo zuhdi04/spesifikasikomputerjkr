@@ -1,8 +1,9 @@
 <?php
-require 'validate_acc.php';
+require 'valid.php';
 
 $tab = isset($_SESSION['j_Tab'])?$_SESSION['j_Tab']:"";
 if(isset($_SESSION['j_Tab'])){
+    include 'db_connect.php';
     $stmt = $conn->prepare("SELECT * FROM pc INNER JOIN unit ON pc.unitID=unit.id WHERE unitCode=? ORDER BY nama_penuh");
     $stmt->bind_param("s", $tab);
     $stmt->execute();
@@ -16,7 +17,7 @@ $PCs = json_encode($data);
 $conn->close();
 ?>
 
-<?php include('header.php'); ?>
+<?php include('layout/header.php'); ?>
 
 <table id="printTable" class="display" border="display">
     <thead>
@@ -49,8 +50,8 @@ $conn->close();
                     <td> $pc->antivirus </td>
                     <td> $pc->ipv4_address </td>
                     <td> $pc->catatan </td>
-                    <td><a href='".$pages->edit->url."?form=$pc->pcID '>Edit</a>
-                    <a href='delete' class='delete_details' data-nama=' $pc->nama_penuh' data-id=' $pc->pcID' onclick='return false;'><form hidden id='deleteForm' action='".$pages->delete->url."' method='POST'><input type='hidden' name='delete' value='$pc->pcID'></form>Delete</a>
+                    <td><a href='".$pages->spesifikasi->edit."?form=$pc->pcID '>Edit</a>
+                    <a href='delete' class='delete_details' data-nama=' $pc->nama_penuh' data-id=' $pc->pcID' onclick='return false;'><form hidden id='deleteForm' action='".$pages->spesifikasi->delete."' method='POST'><input type='hidden' name='delete' value='$pc->pcID'></form>Delete</a>
                     </td>
                 </tr>";
             }
@@ -61,7 +62,7 @@ $conn->close();
     </tbody>
 </table>
 <!-- </div> -->
-<a id="tambahButton" href="<?php echo $pages->create->url ?>" class="btnAdd">Tambah maklumat</a>
+<a id="tambahButton" href="<?php echo $pages->spesifikasi->create ?>" class="btnAdd">Tambah maklumat</a>
 
 <script>
     $('#printTable').on('click', '.delete_details', function () {
@@ -95,4 +96,4 @@ $conn->close();
     });
 </script>
 
-<?php include('footer.php'); ?>
+<?php include('layout/footer.php'); ?>

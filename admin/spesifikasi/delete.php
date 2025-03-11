@@ -1,8 +1,8 @@
 <?php
-require 'valid.php';
-
+require '../valid.php';
+if($request_method === "POST"){
 $target = $_POST['delete'];
-include 'db_connect.php';
+include '../db_connect.php';
 $stmt = $conn->prepare("DELETE FROM pc WHERE pcID=?");
 $stmt ->bind_param("i", $target);
 if ($stmt->execute()) {
@@ -16,4 +16,5 @@ $conn->close();
 
 header("Location: ".$pages->spesifikasi->index);
 exit;
+}
 ?>

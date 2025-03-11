@@ -1,21 +1,15 @@
 <?php
 if (isset($_POST["signin"])) {
-    // session_start();
     $username = $_POST['uname'];
     $key = $_POST['psw'];
     $remember_user = isset($_POST['remember'])?$_POST['remember']:null;
     
-    // MySQL database connection
-    $con = new mysqli('localhost', 'root', '', 'zuhdiscmsdb');
-    
-    // Check connection
-    if ($con->connect_error) {
-        die("Connection failed: " . $con->connect_error);
-    }
+    require 'valid.php';
 
+    include 'db_connect.php';
     $sql = "SELECT username,password_encrypt,unitID,unitCode FROM admin LEFT JOIN unit ON unitID=unit.id WHERE username = ?";
     // Prepare the statement
-    if ($stmt = $con->prepare($sql)) {
+    if ($stmt = $conn->prepare($sql)) {
         // Bind parameters to the prepared statement
         $stmt->bind_param("s", $username); // "s" indicates the parameter is a string
 
@@ -39,14 +33,14 @@ if (isset($_POST["signin"])) {
 
                 // Redirect to the homepage after login
                 $stmt->close();
-                $con->close();
+                $conn->close();
                 if($row['unitID']===0){
-                    setcookie("j_Tab", "test", time() + (30), "/");
-                    header("Location: admin/ADMIN-staff_details.html");
+                    $_SESSION['j_Tab_admin'] = $row['unitID'];
+                    header("Location: admin/akaun/");
                 }
                 else{
-                    setcookie("j_Tab", $row['unitCode'], time() + (30), "/");
-                    header("Location: STAFF-computer_details.html");
+                    $_SESSION['j_Tab'] = $row['unitCode'];
+                    header("Location: ".$pages->spesifikasi->index);
                 }
                 exit;
             } else {
@@ -64,7 +58,7 @@ if (isset($_POST["signin"])) {
     }
     
     // Close the database connection
-    $con->close();
+    $conn->close();
     echo "<script type='text/javascript'>alert('Login failed!');document.location='login.html';</script>";
     // header("Location: login.html");
     // exit;
