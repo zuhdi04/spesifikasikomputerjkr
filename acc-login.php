@@ -36,11 +36,22 @@ if (isset($_POST["signin"])) {
                 $conn->close();
                 if($row['unitID']===0){
                     $_SESSION['j_Tab_admin'] = $row['unitID'];
-                    header("Location: admin/akaun/");
+                    if( isset($_SESSION['j_From'])){
+                        $j_From = $_SESSION['j_From'];
+                        $_SESSION['j_From'] = null;
+                        header("Location: ".$j_From);}
+                    else
+                        header("Location: admin/akaun/");
                 }
                 else{
                     $_SESSION['j_Tab'] = $row['unitCode'];
-                    header("Location: ".$pages->spesifikasi->index);
+                    
+                    if( isset($_SESSION['j_From'])){
+                        $j_From = $_SESSION['j_From'];
+                        $_SESSION['j_From'] = null;
+                        header("Location: ".$j_From);}
+                    else
+                        header("Location: ".$pages->spesifikasi->index);
                 }
                 exit;
             } else {
@@ -64,6 +75,9 @@ if (isset($_POST["signin"])) {
     // exit;
 
 }
-
+else{
+    header("Location: login");
+    exit;
+}
 
 ?>

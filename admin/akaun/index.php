@@ -149,6 +149,7 @@ function unitCount($target){
                     </tr> -->
                 </tbody>
             </table>
+            <br>
             <button id="tambahunit" class="btnAdd">Tambah Admin</button>
         </div>
     </div>

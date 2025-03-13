@@ -65,6 +65,8 @@ $conn->close();
 <a id="tambahButton" href="<?php echo $pages->spesifikasi->create ?>" class="btnAdd">Tambah maklumat</a>
 
 <script>
+    $('#printTable').DataTable();
+
     $('#printTable').on('click', '.delete_details', function () {
 
     // let p = $(this).data('id');

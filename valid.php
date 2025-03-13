@@ -1,7 +1,15 @@
 <?php
 session_start();
-$link = basename(parse_url($_SERVER['PHP_SELF'], PHP_URL_PATH));
+$link = basename($_SERVER['PHP_SELF']);
+
+// if( isset($_SESSION['j_From']) && $link!="acc-login.php" ){
+//     echo $_SESSION['j_From'];
+//     // $_SESSION['j_From'] = null;
+// }
+
 if(!isset($_SESSION["j_Tab"])&&$link!="acc-login.php"){
+    $_SESSION["j_From"] = $_SERVER['REQUEST_URI'];
+    if($_SERVER['QUERY_STRING']!='') $_SESSION["j_From"] .= '?'.$_SERVER['QUERY_STRING'];
     header("Location: login");
     exit;
 }

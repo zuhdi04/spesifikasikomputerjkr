@@ -14,6 +14,15 @@ $PCs = json_encode($data);
 
 <?php include('../layout/header.php'); ?>
 <div class="content1">
+    <h1>SPESIFIKASI KOMPUTER KAKITANGAN JKR KEDAH</h1>
+    <br>
+    <div>
+        <label for="unit">CAWANGAN/ DAERAH/ UNIT/ BAHAGIAN:</label><br>
+        <select name="unit_select" id="unit_select">
+            <option></option>
+            <?php include '../component/units.php'; ?>
+        </select>
+    </div>
 <table id="printTable" class="display" border="display">
     <thead>
         <tr>
@@ -64,14 +73,31 @@ $PCs = json_encode($data);
 </div>
 
 <script>
+    $('#printTable').DataTable();
+    
     $('#printTable').on('click', '.delete_details', function () {
-
     let n = $(this).data('nama');
 
     if (confirm("Adakah anda mahu memadam maklumat: " + n + "?")) {
         $(this).children().submit();
     }
     });
+
+    if (location.hash!="") {
+        const kategori = location.hash.slice(1);// unit_select
+        const target_kategori = "unit_".concat(kategori);
+        document.getElementById(target_kategori).selected=true;
+        select_kategori();}
+
+    $('select').on("change", function () {
+        select_kategori();
+    })
+    
+    function select_kategori(){
+        const selectedUnit = $('select option:selected').html();
+        const table = new DataTable('#printTable');
+        table.search(selectedUnit).draw();
+    }
 </script>
 
 <?php include('../layout/footer.php'); ?>

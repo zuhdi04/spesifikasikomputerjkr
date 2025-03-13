@@ -1,9 +1,57 @@
 RewriteEngine On
 # If the request doesn't end in .php (Case insensitive) continue processing rules
-RewriteCond %{REQUEST_URI} !\.(.+)$ [NC]
-# If the request doesn't end in a slash continue processing the rules
-RewriteCond %{REQUEST_URI} [^/]$
-# Rewrite the request with a .php extension. L means this is the 'Last' rule
-RewriteRule ^(.*)$ $1.php [L]
+# RewriteCond %{REQUEST_URI} !\.(.+)$ [NC]
+# # If the request doesn't end in a slash continue processing the rules
+# RewriteCond %{REQUEST_URI} [^/]$
+# # Rewrite the request with a .php extension. L means this is the 'Last' rule
+# RewriteRule ^(.*)$ $1.php [L]
 
 RewriteRule ^login login.html [L]
+
+# Enable URL rewriting
+RewriteEngine On
+
+# # Redirect to www version of the website if it's not already there
+# RewriteCond %{HTTP_HOST} ^yourdomain\.com [NC]
+# RewriteRule ^(.*)$ http://www.yourdomain.com/$1 [L,R=301]
+
+# # Clean URLs - Remove ".php" extensions from URLs
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([a-zA-Z0-9_-]+)$ $1.php [L]
+
+# # Force HTTPS (optional but recommended for security)
+# RewriteCond %{HTTPS} off
+# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Protect .htaccess file from being accessed
+<Files .htaccess>
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# Disable directory browsing
+Options -Indexes
+
+# # Set custom error pages (optional)
+# ErrorDocument 404 /404.php
+# ErrorDocument 500 /500.php
+
+# # Prevent access to sensitive files (e.g., database configuration)
+# <FilesMatch "(^db\.php|^config\.php|\.ini|\.bak|\.tar|\.sql)">
+#     Order Allow,Deny
+#     Deny from all
+# </FilesMatch>
+
+# # Prevent PHP from being executed in specific folders (e.g., uploaded files)
+# <Directory "/path/to/uploads">
+#     php_flag engine off
+# </Directory>
+
+# # Cache Control - Set expiration for images, CSS, JS (improves performance)
+# <FilesMatch "\.(jpg|jpeg|png|gif|css|js|ico|woff|woff2)$">
+#     Header set Cache-Control "max-age=31536000, public"
+# </FilesMatch>
+
+# # Handle 404 error gracefully and provide a clean URL
+# ErrorDocument 404 /404.php
