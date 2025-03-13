@@ -84,6 +84,10 @@ body {
   font-size: large;
 }
 
+.menu-bar a.active {
+  color: #ffcc00;
+}
+
 .menu-bar a:hover {
   color: #ffcc00;
 }

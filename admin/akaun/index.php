@@ -132,18 +132,17 @@ function unitCount($target){
                     </tr>
                 </thead>
                 <tbody id="stafflist">
-                    <?php
-                    // foreach ($data as $row){
-                    while($admin = $result->fetch_object()){
-                        echo "<tr>
-                                <td>$admin->username</td>
-                                <td><input type='password' value='$admin->password' id='password-field-$admin->username' disabled='' style='width:85%'><span toggle='#password-field-$admin->username' class='fa fa-fw fa-eye-slash field-icon toggle-password' value='1'></span></div></td>
-                                <td>$admin->nama</td>
-                                <td>".unitCount($admin->unitID)."</td>
-                                <td><a href='delete' class='delete_details' data-name='$admin->username' onclick='return false;'>Delete</a></td>
-                            </tr>"; 
-                    }
-                    ?>
+                    <?php while($admin = $result->fetch_object()): ?>
+
+                        <tr>
+                            <td><?php echo $admin->username ?></td>
+                            <td><input type="password" value="<?php echo $admin->password ?>" id="password-field-<?php echo $admin->username ?>" disabled="" style="width:85%"><span toggle="#password-field-<?php echo $admin->username ?>" class="fa fa-fw fa-eye-slash field-icon toggle-password" value="1"></span></div></td>
+                            <td><?php echo $admin->nama ?></td>
+                            <td><?php unitCount($admin->unitID) ?></td>
+                            <td><a href="delete" class="delete_details" data-name="<?php echo $admin->username ?>" onclick="return false;">Delete</a></td>
+                        </tr> 
+                        
+                    <?php endwhile; ?>
                     <!-- <tr>
                         <td>1</td>
                     </tr> -->

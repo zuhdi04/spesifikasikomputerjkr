@@ -11,6 +11,7 @@
 // $stmt->fetch();
 // $stmt->close();
 // $conn->close();
+include '../component/navlink.php';
 ?>
 
 <!DOCTYPE html>
@@ -43,8 +44,8 @@
     <!-- Navigation Menu -->
     <nav class="menu-bar">
         <ul>
-            <li><a href="<?php echo $pages->akaun->index ?>">Admin</a></li>
-            <li><a href="<?php echo $pages->spesifikasi->index ?>">Spesifikasi</a></li>
+            <li><a <?php navlink($pages->akaun->index); ?>>Admin</a></li>
+            <li><a <?php navlink($pages->spesifikasi->index); ?>>Spesifikasi</a></li>
         </ul>
     </nav>
 

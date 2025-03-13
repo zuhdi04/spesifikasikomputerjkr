@@ -37,25 +37,26 @@ $conn->close();
         </tr>
     </thead>
     <tbody id="computerlist">
-        <?php foreach (json_decode($PCs) as $pc) {
-            echo "<tr>
-                    <td> $pc->nama_penuh </td>
-                    <td> $pc->jawatan_gred </td>
-                    <td> $pc->jenis_kakitangan </td>
-                    <td> $pc->jenis_komputer </td>
-                    <td> $pc->umur_komputer </td>
-                    <td> $pc->jenis_processor </td>
-                    <td> $pc->saiz_ram </td>
-                    <td> $pc->jenis_sistem </td>
-                    <td> $pc->antivirus </td>
-                    <td> $pc->ipv4_address </td>
-                    <td> $pc->catatan </td>
-                    <td><a href='".$pages->spesifikasi->edit."?form=$pc->pcID '>Edit</a>
-                    <a href='delete' class='delete_details' data-nama=' $pc->nama_penuh' data-id=' $pc->pcID' onclick='return false;'><form hidden id='deleteForm' action='".$pages->spesifikasi->delete."' method='POST'><input type='hidden' name='delete' value='$pc->pcID'></form>Delete</a>
-                    </td>
-                </tr>";
-            }
-        ?>
+        <?php foreach (json_decode($PCs) as $pc): ?>
+            <tr>
+                <td><?php echo $pc->nama_penuh ?></td>
+                <td><?php echo $pc->jawatan_gred ?></td>
+                <td><?php echo $pc->jenis_kakitangan ?></td>
+                <td><?php echo $pc->jenis_komputer ?></td>
+                <td><?php echo $pc->umur_komputer ?></td>
+                <td><?php echo $pc->jenis_processor ?></td>
+                <td><?php echo $pc->saiz_ram ?></td>
+                <td><?php echo $pc->jenis_sistem ?></td>
+                <td><?php echo $pc->antivirus ?></td>
+                <td><?php echo $pc->ipv4_address ?></td>
+                <td><?php echo $pc->catatan ?></td>
+                <td><a href="<?php echo $pages->spesifikasi->edit ?>?form=<?php echo $pc->pcID ?>">Edit</a>
+                    <a href="delete" class="delete_details" data-nama="<?php echo $pc->nama_penuh ?>" data-id="<?php echo $pc->pcID ?>" onclick="return false;">
+                    <form hidden id="deleteForm" action="<?php echo $pages->spesifikasi->delete ?>" method="POST"><input type="hidden" name="delete" value="<?php echo $pc->pcID ?>"></form>Delete</a>
+                </td>
+            </tr>
+            
+        <?php endforeach; ?>
         <!-- <tr>
             <td>1</td>
         </tr> -->
