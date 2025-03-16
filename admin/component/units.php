@@ -7,8 +7,8 @@ $units = $result->fetch_all(MYSQLI_ASSOC);
 $stmt->close();
 $conn->close();
 
-foreach ($units as $x=>$y){
-    $unit=$y['nama'];
-    echo '<option value="'.$unit.'">'.$unit.'</option>';
+foreach ($units as $x => $y) {
+    $unit = $y['nama'];
+    echo '<option value="' . $unit . '">' . $unit . '</option>';
 }
 ?>

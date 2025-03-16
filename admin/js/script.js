@@ -1,9 +1,9 @@
-let promiseGetUnit = new Promise(function(myResolve){
+let promiseGetUnit = new Promise(function (myResolve) {
     $.ajax({
         url: 'getUnitList.php', // Replace with your API endpoint
         method: 'GET',
         success: function (response) {
-            if (response) { 
+            if (response) {
                 myResolve(response);
             }
             else {
@@ -15,19 +15,19 @@ let promiseGetUnit = new Promise(function(myResolve){
         }
     });
 });
-function enlist(arr){
+function enlist(arr) {
     arr.forEach(item => {
         $('#list_unit').append(`
             <tr>
                 <td><a href="ADMIN-computer_details.html#`+ item.nama + `">` + item.nama + `</a></td>
-                <td id="unit_count_`+item.id+`"></td>
+                <td id="unit_count_`+ item.id + `"></td>
                 <td><a href="#" class="delete_details" data-id="`+ item.id + `" onclick="return false;">Padam</a></td>
             </tr>`);
         getPCcount(item.id);
     });
 }
 
-function loadModal(){
+function loadModal() {
     // Get the modal
     var modal = document.getElementById("myModal");
 
@@ -55,21 +55,21 @@ function loadModal(){
     }
 }
 loadModal();
-function getPCcount(target){
-    const countCellName = '#unit_count_'+target;
+function getPCcount(target) {
+    const countCellName = '#unit_count_' + target;
     $.ajax({
-        url: 'countUnitPC.php?t='+target, // Replace with your API endpoint
+        url: 'countUnitPC.php?t=' + target, // Replace with your API endpoint
         success: function (response) {
             if (response != "") { // use "response" for single variable 
-            // or use "item = JSON.parse(response)" for multiple variable
-            // let item =  JSON.parse(response);
+                // or use "item = JSON.parse(response)" for multiple variable
+                // let item =  JSON.parse(response);
                 $(countCellName).html(response);
             }
             else {
                 $(countCellName).html("0");
             }
         },
-        
+
         error: function (jqXHR, textStatus, errorThrown) {
             // document.getElementById('username').innerHTML="";
         }

@@ -20,7 +20,8 @@
         </div>
         <div>
             <a href="ADMIN-computer_details.html" class="btnBack">Back</a>
-            <a onclick="if(confirm('You are about to be logout'))sessionStorage.removeItem('j_Tab');else return false;" class="logout" href="login.html">Logout</a>
+            <a onclick="if(confirm('You are about to be logout'))sessionStorage.removeItem('j_Tab');else return false;"
+                class="logout" href="login.html">Logout</a>
         </div>
     </header>
 
@@ -59,7 +60,8 @@
             <label>Kakitangan Persekutuan / Negeri:</label>
             <div class="radio-group">
                 <input type="radio" name="kakitangan" value="NEGERI" id="negeri"><label for="negeri">Negeri</label>
-                <input type="radio" name="kakitangan" value="PERSEKUTUAN" id="persekutuan"><label for="persekutuan">Persekutuan</label>
+                <input type="radio" name="kakitangan" value="PERSEKUTUAN" id="persekutuan"><label
+                    for="persekutuan">Persekutuan</label>
             </div>
 
             <label for="jenispc">Jenis Komputer :</label>
@@ -114,36 +116,36 @@
     <script>
         $.ajax({
             url: 'getUnitList.php', // Replace with your API endpoint
-            success: function(response) {
-                if(response){ // use "response" for single variable 
+            success: function (response) {
+                if (response) { // use "response" for single variable 
                     // or use "item = JSON.parse(response)" for multiple variable
                     // let item =  JSON.parse(response);
                     response.forEach(item => {
                         // $("#nama_bahagian").html(item.nama);
-                        $('#unit_select').append(`<option>`+item.nama+`</option>`);
+                        $('#unit_select').append(`<option>` + item.nama + `</option>`);
                     });
                 }
-                else{
+                else {
                 }
             },
-            
-            error: function(jqXHR, textStatus, errorThrown) {
+
+            error: function (jqXHR, textStatus, errorThrown) {
                 // document.getElementById('username').innerHTML="";
             }
         });
 
         // toggle processor textbox
-        $("input[type='radio']").click(function(){
+        $("input[type='radio']").click(function () {
             const otherProc = $("input[id='otherProcRadio']:checked").val();
-            if (otherProc){
+            if (otherProc) {
                 $("#otherProcTxtBox").removeAttr("disabled").focus();
             }
-            else $("#otherProcTxtBox").attr("disabled",true);
+            else $("#otherProcTxtBox").attr("disabled", true);
         })
 
         // update other process value
-        function setOtherProcValue(){
-            $("#otherProcRadio").val( $("#otherProcTxtBox").val() );
+        function setOtherProcValue() {
+            $("#otherProcRadio").val($("#otherProcTxtBox").val());
         }
     </script>
 </body>

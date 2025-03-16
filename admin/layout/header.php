@@ -50,11 +50,11 @@ include '../component/navlink.php';
     </nav>
 
     <?php
-        // show notify
-        echo $notify_text;
+    // show notify
+    echo $notify_text;
     ?>
 
     <!-- <div class="content">
         <h1>SPESIFIKASI KOMPUTER KAKITANGAN JKR KEDAH BAHAGIAN/CAWANGAN/UNIT/DAERAH: 
             <?php echo $unit_name ?></h1> -->
-            <!-- <span id="nama_bahagian">UNIT PENTADBIRAN & KEWANGAN</span></h1> -->
+    <!-- <span id="nama_bahagian">UNIT PENTADBIRAN & KEWANGAN</span></h1> -->

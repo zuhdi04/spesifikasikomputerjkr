@@ -5,9 +5,9 @@ require '../valid.php';
 // include '../db_connect.php';
 
 // POST
-if($request_method === "POST"){
+if ($request_method === "POST") {
     echo 'posted!';
-    header("Location: ".$_SERVER['PHP_SELF']);
+    header("Location: " . $_SERVER['PHP_SELF']);
 }
 ?>
 

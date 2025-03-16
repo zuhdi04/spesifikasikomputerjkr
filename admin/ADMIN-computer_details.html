@@ -239,7 +239,7 @@
                         </tr>`);
                         });
                         $('#printTable').DataTable();
-                        if(kategori!="") select_kategori();
+                        if (kategori != "") select_kategori();
                     }
                     else {
                     }
@@ -255,7 +255,7 @@
         $('#printTable').on('click', '.delete_details', function () {
             let p = $(this).data('id');
             let n = $(this).data('nama');
-            
+
             if (confirm("Adakah anda mahu memadam maklumat: " + n + "?")) {
                 // Perform AJAX request
                 $.ajax({
@@ -288,9 +288,9 @@
                     // let item =  JSON.parse(response);
                     response.forEach(item => {
                         // $("#nama_bahagian").html(item.nama);
-                        $('#unit_select').append(`<option id="unit_`+item.nama+`">` + item.nama + `</option>`);
+                        $('#unit_select').append(`<option id="unit_` + item.nama + `">` + item.nama + `</option>`);
                     });
-                    if(kategori!="") document.getElementById(target_kategori).selected=true;
+                    if (kategori != "") document.getElementById(target_kategori).selected = true;
                 }
                 else {
                 }
@@ -305,7 +305,7 @@
             select_kategori();
         })
 
-        function select_kategori(){
+        function select_kategori() {
             var selectedUnit = $('select option:selected').html();
             var table = new DataTable('#printTable');
             table.search(selectedUnit).draw();

@@ -1,16 +1,16 @@
 <?php
 require '../validate_acc.php';
 
-$tab = isset($_SESSION['j_Tab'])?$_SESSION['j_Tab']:"";
-if(isset($_SESSION['j_Tab'])){
+$tab = isset($_SESSION['j_Tab']) ? $_SESSION['j_Tab'] : "";
+if (isset($_SESSION['j_Tab'])) {
     $stmt = $conn->prepare("SELECT * FROM pc INNER JOIN unit ON pc.unitID=unit.id WHERE unitCode=? ORDER BY nama_penuh");
     $stmt->bind_param("s", $tab);
     $stmt->execute();
     $result = $stmt->get_result();
     $data = $result->fetch_all(MYSQLI_ASSOC);
     $stmt->close();
-}
-else $data=[];
+} else
+    $data = [];
 $PCs = json_encode($data);
 
 $conn->close();
@@ -49,11 +49,11 @@ $conn->close();
                     <td> $pc->antivirus </td>
                     <td> $pc->ipv4_address </td>
                     <td> $pc->catatan </td>
-                    <td><a href='".$pages->edit->url."?form=$pc->pcID '>Edit</a>
-                    <a href='delete' class='delete_details' data-nama=' $pc->nama_penuh' data-id=' $pc->pcID' onclick='return false;'><form hidden id='deleteForm' action='".$pages->delete->url."' method='POST'><input type='hidden' name='delete' value='$pc->pcID'></form>Delete</a>
+                    <td><a href='" . $pages->edit->url . "?form=$pc->pcID '>Edit</a>
+                    <a href='delete' class='delete_details' data-nama=' $pc->nama_penuh' data-id=' $pc->pcID' onclick='return false;'><form hidden id='deleteForm' action='" . $pages->delete->url . "' method='POST'><input type='hidden' name='delete' value='$pc->pcID'></form>Delete</a>
                     </td>
                 </tr>";
-            }
+        }
         ?>
         <!-- <tr>
             <td>1</td>
@@ -66,32 +66,32 @@ $conn->close();
 <script>
     $('#printTable').on('click', '.delete_details', function () {
 
-    // let p = $(this).data('id');
-    let n = $(this).data('nama');
+        // let p = $(this).data('id');
+        let n = $(this).data('nama');
 
-    if (confirm("Adakah anda mahu memadam maklumat: " + n + "?")) {
-        $(this).children().submit();
-        
-        // Perform AJAX request
-        // $.ajax({
-        //     url: 'deleteList.php', // Replace with your API endpoint
-        //     method: 'POST', // Use POST for updates
-        //     data: {
-        //         target: p
-        //     },
-        //     success: function (response) {
-        //         // Handle successful response
-        //         console.log('Update successful:', response);
-        //         alert('Maklumat telah dipadam!');
-        //         details(sessionStorage.getItem('j_Tab'));
-        //     },
-        //     error: function (jqXHR, textStatus, errorThrown) {
-        //         // Handle error
-        //         console.error('Update failed:', textStatus, errorThrown);
-        //         alert('Error updating data.');
-        //     }
-        // });
-    }
+        if (confirm("Adakah anda mahu memadam maklumat: " + n + "?")) {
+            $(this).children().submit();
+
+            // Perform AJAX request
+            // $.ajax({
+            //     url: 'deleteList.php', // Replace with your API endpoint
+            //     method: 'POST', // Use POST for updates
+            //     data: {
+            //         target: p
+            //     },
+            //     success: function (response) {
+            //         // Handle successful response
+            //         console.log('Update successful:', response);
+            //         alert('Maklumat telah dipadam!');
+            //         details(sessionStorage.getItem('j_Tab'));
+            //     },
+            //     error: function (jqXHR, textStatus, errorThrown) {
+            //         // Handle error
+            //         console.error('Update failed:', textStatus, errorThrown);
+            //         alert('Error updating data.');
+            //     }
+            // });
+        }
     });
 </script>
 

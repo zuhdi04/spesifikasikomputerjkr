@@ -314,20 +314,20 @@ button,
 }
 
 /* Alternating Row Colors */
-#staffTable tbody tr:nth-child(odd) ,
+#staffTable tbody tr:nth-child(odd),
 #printTable tbody tr:nth-child(odd) {
   background-color: #f2f2f2;
   /* Light gray for odd rows */
 }
 
-#staffTable tbody tr:nth-child(even) ,
+#staffTable tbody tr:nth-child(even),
 #printTable tbody tr:nth-child(even) {
   background-color: #e6f7ff;
   /* Light blue for even rows */
 }
 
 /* Hover Effect */
-#staffTable tbody tr:hover ,
+#staffTable tbody tr:hover,
 #printTable tbody tr:hover {
   background-color: #cceeff;
   /* Brighter blue on hover */
@@ -335,7 +335,7 @@ button,
 }
 
 /* Center Align Header */
-#staffTable th ,
+#staffTable th,
 #printTable th {
   text-align: center;
 }

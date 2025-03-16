@@ -18,15 +18,15 @@ if ($conn->connect_error) {
 //     $data = $result->fetch_all(MYSQLI_ASSOC);
 //     $stmt->close();
 // }
-if(isset($_GET['u'])){
+if (isset($_GET['u'])) {
     $stmt = $conn->prepare("SELECT * FROM pc INNER JOIN unit ON pc.unitID=unit.id WHERE unitCode=? ORDER BY nama_penuh");
     $stmt->bind_param("s", $_GET['u']);
     $stmt->execute();
     $result = $stmt->get_result();
     $data = $result->fetch_all(MYSQLI_ASSOC);
     $stmt->close();
-}
-else $data=[];
+} else
+    $data = [];
 $res = json_encode($data);
 
 $conn->close();

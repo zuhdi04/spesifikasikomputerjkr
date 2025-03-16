@@ -1,45 +1,42 @@
 <?php
 require '../valid.php';
 
-if($request_method === "POST"){
-    
+if ($request_method === "POST") {
+
     $admin_username = $_POST['username'];
     $admin_password = $_POST['password'];
-    $admin_cawangan = isset( $_POST['cawangan'] ) ? strtoupper( $_POST['cawangan'] ) : null;
-    
+    $admin_cawangan = isset($_POST['cawangan']) ? strtoupper($_POST['cawangan']) : null;
+
     include '../db_connect.php';
     $stmt = $conn->prepare("SELECT username FROM admin WHERE username=?");
-    $stmt->bind_param("s",$admin_username);
+    $stmt->bind_param("s", $admin_username);
     $stmt->execute();
     $stmt->store_result();
     $stmt->bind_result($existing_username);
     $stmt->fetch();
-    
+
     $stmt = $conn->prepare("SELECT nama FROM unit WHERE nama=?");
-    $stmt->bind_param("s",$admin_cawangan);
+    $stmt->bind_param("s", $admin_cawangan);
     $stmt->execute();
     $stmt->store_result();
     $stmt->bind_result($existing_cawangan);
     $stmt->fetch();
-    
-    if($existing_username!=null){
-        $_SESSION['notify']=["text" => "Username telah digunakan!"];
-    }
-    else if($existing_cawangan!=null){
-        $_SESSION['notify']=["text" => "Cawangan telah ada!"];
 
-    }
-    else{
+    if ($existing_username != null) {
+        $_SESSION['notify'] = ["text" => "Username telah digunakan!"];
+    } else if ($existing_cawangan != null) {
+        $_SESSION['notify'] = ["text" => "Cawangan telah ada!"];
+
+    } else {
         $uniqcode = uniqid();
         $stmt = $conn->prepare("SELECT unitCode FROM unit WHERE unitCode=?");
-        $stmt->bind_param("s",$uniqcode);
+        $stmt->bind_param("s", $uniqcode);
         $stmt->execute();
         $stmt->store_result();
         $stmt->bind_result($existing_code);
         $stmt->fetch();
-    // insert
-        if($existing_code==null)
-        {
+        // insert
+        if ($existing_code == null) {
             $stmt = $conn->prepare("INSERT INTO unit(nama,unitCode) VALUES (?,?)");
             $stmt->bind_param("ss", $admin_cawangan, $uniqcode);
 
@@ -65,7 +62,7 @@ if($request_method === "POST"){
 
     $stmt->close();
     $conn->close();
-    header("Location: ".$pages->akaun->index);
+    header("Location: " . $pages->akaun->index);
     exit;
 }
 
@@ -78,11 +75,12 @@ $stmt->close();
 $conn->close();
 
 // $admins = json_encode($data);
-function unitCount($target){
+function unitCount($target)
+{
     include '../db_connect.php';
     $sql = "SELECT COUNT(unitID) FROM pc WHERE unitID=?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i",$target);
+    $stmt->bind_param("i", $target);
     $stmt->execute();
     $stmt->store_result();
     $stmt->bind_result($count);
@@ -132,26 +130,32 @@ function unitCount($target){
                     </tr>
                 </thead>
                 <tbody id="stafflist">
-                    <?php while($admin = $result->fetch_object()): ?>
+                    <?php while ($admin = $result->fetch_object()): ?>
 
                         <tr>
                             <td><?php echo $admin->username ?></td>
-                            <td><input type="password" value="<?php echo $admin->password ?>" id="password-field-<?php echo $admin->username ?>" disabled="" style="width:85%"><span toggle="#password-field-<?php echo $admin->username ?>" class="fa fa-fw fa-eye-slash field-icon toggle-password" value="1"></span></div></td>
-                            <td><?php echo $admin->nama ?></td>
-                            <td><?php unitCount($admin->unitID) ?></td>
-                            <td><a href="delete" class="delete_details" data-name="<?php echo $admin->username ?>" onclick="return false;">Delete</a></td>
-                        </tr> 
-                        
-                    <?php endwhile; ?>
-                    <!-- <tr>
+                            <td><input type="password" value="<?php echo $admin->password ?>"
+                                    id="password-field-<?php echo $admin->username ?>" disabled="" style="width:85%"><span
+                                    toggle="#password-field-<?php echo $admin->username ?>"
+                                    class="fa fa-fw fa-eye-slash field-icon toggle-password" value="1"></span>
+            </div>
+            </td>
+            <td><?php echo $admin->nama ?></td>
+            <td><?php unitCount($admin->unitID) ?></td>
+            <td><a href="delete" class="delete_details" data-name="<?php echo $admin->username ?>"
+                    onclick="return false;">Delete</a></td>
+            </tr>
+
+        <?php endwhile; ?>
+        <!-- <tr>
                         <td>1</td>
                     </tr> -->
-                </tbody>
-            </table>
-            <br>
-            <button id="tambahunit" class="btnAdd">Tambah Admin</button>
-        </div>
+        </tbody>
+        </table>
+        <br>
+        <button id="tambahunit" class="btnAdd">Tambah Admin</button>
     </div>
+</div>
 </div>
 
 <!-- The Modal -->
@@ -160,8 +164,9 @@ function unitCount($target){
     <!-- Modal content -->
     <div class="modal-content content">
         <span class="close">&times;</span>
-        <h2>Admin Management</h2>
-        <form class="form-container" method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>" id="admin-form">
+        <h2>Admin Management</h2><br>
+        <form class="form-container" method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>"
+            id="admin-form">
             <label for="username">Username</label>
             <input type="text" id="username" name="username" placeholder="Enter Username" required>
 
@@ -178,16 +183,16 @@ function unitCount($target){
 </div>
 
 <script>
-    $("#stafflist").on('click','.toggle-password',function() {
+    $("#stafflist").on('click', '.toggle-password', function () {
         $(this).toggleClass("fa-eye fa-eye-slash");
         var input = $($(this).attr("toggle"));
         if (input.attr("type") == "password") {
-        input.attr("type", "text");
+            input.attr("type", "text");
         } else {
-        input.attr("type", "password");
+            input.attr("type", "password");
         }
     });
-    function loadModal(){
+    function loadModal() {
         // Get the modal
         var modal = document.getElementById("myModal");
 

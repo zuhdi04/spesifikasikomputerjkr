@@ -10,9 +10,12 @@ body {
   font-family: 'Arial', sans-serif;
   background-color: #f8f9fa;
   background-image: url(../img/lakipmpuanweb.png);
-  background-size: cover; /* Ensures the image covers the entire background */
-  background-position: center; /* Centers the image */
-  background-repeat: no-repeat; /* Prevents repeating the image */
+  background-size: cover;
+  /* Ensures the image covers the entire background */
+  background-position: center;
+  /* Centers the image */
+  background-repeat: no-repeat;
+  /* Prevents repeating the image */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -59,7 +62,8 @@ label {
   color: #333;
 }
 
-input[type="text"], input[type="password"] {
+input[type="text"],
+input[type="password"] {
   width: 100%;
   padding: 10px;
   margin-bottom: 15px;
@@ -130,14 +134,17 @@ input[type="text"], input[type="password"] {
 /* Media Queries for Smaller Screens */
 @media (max-width: 768px) {
   body {
-    background-size: contain; /* Adjusts the image to fit smaller screens */
-    background-attachment: fixed; /* Keeps the background fixed while scrolling */
+    background-size: contain;
+    /* Adjusts the image to fit smaller screens */
+    background-attachment: fixed;
+    /* Keeps the background fixed while scrolling */
   }
 }
 
 @media (max-width: 480px) {
   body {
     background-size: contain;
-    background-position: top; /* Adjust the position for very small screens */
+    background-position: top;
+    /* Adjust the position for very small screens */
   }
 }

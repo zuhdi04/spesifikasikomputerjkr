@@ -2,7 +2,7 @@
 <html lang="en">
 
 <?php
-$id=$_GET['form'];
+$id = $_GET['form'];
 
 // Create a connection
 $conn = new mysqli('localhost', 'root', '', 'zuhdiscmsdb');
@@ -15,7 +15,7 @@ if ($conn->connect_error) {
 
 $sql = "SELECT * FROM pc WHERE pcID=?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("i",$id);
+$stmt->bind_param("i", $id);
 $stmt->execute();
 $result = $stmt->get_result();
 $data = $result->fetch_array(MYSQLI_ASSOC);
@@ -32,7 +32,7 @@ $conn->close();
     <link rel="stylesheet" href="css/mystyle.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
-    </head>
+</head>
 
 <body>
     <!-- Top Bar -->
@@ -60,19 +60,21 @@ $conn->close();
     <!-- Main Content -->
     <main class="content">
         <h1>SPESIFIKASI KOMPUTER KAKITANGAN JKR KEDAH BAHAGIAN/CAWANGAN/UNIT/DAERAH: <span id="nama_bahagian">UNIT
-        PENTADBIRAN & KEWANGAN</span></h1>
+                PENTADBIRAN & KEWANGAN</span></h1>
 
         <!-- Form Section -->
         <form id="editdetailsform" method="POST" action="editList.php" class="form-container">
             <input type="text" name="id" value="<?php echo $data['pcID']; ?>" hidden>
             <label for="fullname">Nama Penuh:</label>
-            <input type="text" name="NamaPenuh" id="fullname" placeholder="Masukkan nama penuh" value="<?php echo $data['nama_penuh']; ?>" required>
+            <input type="text" name="NamaPenuh" id="fullname" placeholder="Masukkan nama penuh"
+                value="<?php echo $data['nama_penuh']; ?>" required>
 
             <label for="bahagian" hidden>Bahagian / Cawangan / Daerah:</label>
             <input type="text" name="bahagian" id="bahagian" placeholder="Bahagian atau daerah" value="" hidden>
 
             <label for="jawatangred">Jawatan dan Gred:</label>
-            <input type="text" name="jawatangred" id="jawatangred" placeholder="Jawatan dan gred" value="<?php echo $data['jawatan_gred']; ?>">
+            <input type="text" name="jawatangred" id="jawatangred" placeholder="Jawatan dan gred"
+                value="<?php echo $data['jawatan_gred']; ?>">
 
             <!-- <label for="kakitangan">Kakitangan Persekutuan / Negeri:</label>
             <select name="kakitangan" id="kakitangan">
@@ -82,14 +84,17 @@ $conn->close();
             <label>Kakitangan Persekutuan / Negeri:</label>
             <div class="radio-group">
                 <input type="radio" name="kakitangan" value="NEGERI" id="NEGERI"><label for="negeri">Negeri</label>
-                <input type="radio" name="kakitangan" value="PERSEKUTUAN" id="PERSEKUTUAN"><label for="persekutuan">Persekutuan</label>
+                <input type="radio" name="kakitangan" value="PERSEKUTUAN" id="PERSEKUTUAN"><label
+                    for="persekutuan">Persekutuan</label>
             </div>
 
             <label for="jenispc">Jenis Komputer:</label>
-            <input type="text" name="jenispc" id="jenispc" placeholder="Jenis komputer" value="<?php echo $data['jenis_komputer']; ?>">
+            <input type="text" name="jenispc" id="jenispc" placeholder="Jenis komputer"
+                value="<?php echo $data['jenis_komputer']; ?>">
 
             <label for="tahun">Umur Komputer (Tahun):</label>
-            <input type="number" name="tahun" id="tahun" placeholder="Umur komputer" value="<?php echo $data['umur_komputer']; ?>">
+            <input type="number" name="tahun" id="tahun" placeholder="Umur komputer"
+                value="<?php echo $data['umur_komputer']; ?>">
 
             <label>Jenis Processor:</label>
             <div class="radio-group">
@@ -116,13 +121,16 @@ $conn->close();
             </div>
 
             <label for="antivirus">Antivirus:</label>
-            <input type="text" name="antivirus" id="antivirus" placeholder="Antivirus digunakan" value="<?php echo $data['antivirus']; ?>">
+            <input type="text" name="antivirus" id="antivirus" placeholder="Antivirus digunakan"
+                value="<?php echo $data['antivirus']; ?>">
 
             <label for="ipaddress">IPv4 Address:</label>
-            <input type="text" name="ipaddress" id="ipaddress" placeholder="Contoh: 192.168.0.1" value="<?php echo $data['ipv4_address']; ?>">
+            <input type="text" name="ipaddress" id="ipaddress" placeholder="Contoh: 192.168.0.1"
+                value="<?php echo $data['ipv4_address']; ?>">
 
             <label for="catatan">Catatan:</label>
-            <textarea name="catatan" id="catatan" placeholder="Tambahan informasi" value="<?php echo $data['catatan']; ?>"></textarea>
+            <textarea name="catatan" id="catatan" placeholder="Tambahan informasi"
+                value="<?php echo $data['catatan']; ?>"></textarea>
 
             <input name="SAVE" class="button" type="submit" value="SAVE">
             <input type="reset" class="reset" type="reset" value="RESET">
@@ -133,26 +141,26 @@ $conn->close();
     <footer class="footer">
         <p>&copy; 2025 ZSMS. All rights reserved.</p>
     </footer>
-    
+
     <script src="js/pagecookie.js"></script>
     <script src="js/myAlert.js"></script>
     <script src="js/script.js"></script>
-    
+
     <!-- script to load data to form -->
     <script>
-        if(document.getElementById("<?php echo $data['jenis_kakitangan'] ?>"))
-            document.getElementById("<?php echo $data['jenis_kakitangan'] ?>").checked=true;
-        if(document.getElementById("<?php echo $data['jenis_processor'] ?>"))
-            document.getElementById("<?php echo $data['jenis_processor'] ?>").checked=true;
-        else{
-            document.getElementById("otherProcRadio").checked=true;  
-            document.getElementById("otherProcRadio").value="<?php echo $data['jenis_processor'] ?>";
-            document.getElementById("otherProcTxtBox").value="<?php echo $data['jenis_processor'] ?>";
+        if (document.getElementById("<?php echo $data['jenis_kakitangan'] ?>"))
+            document.getElementById("<?php echo $data['jenis_kakitangan'] ?>").checked = true;
+        if (document.getElementById("<?php echo $data['jenis_processor'] ?>"))
+            document.getElementById("<?php echo $data['jenis_processor'] ?>").checked = true;
+        else {
+            document.getElementById("otherProcRadio").checked = true;
+            document.getElementById("otherProcRadio").value = "<?php echo $data['jenis_processor'] ?>";
+            document.getElementById("otherProcTxtBox").value = "<?php echo $data['jenis_processor'] ?>";
             document.getElementById("otherProcTxtBox").removeAttribute("disabled");
         }
-        document.getElementById("ram_<?php echo $data['saiz_ram'] ?>").selected=true;
-        if(document.getElementById("<?php echo $data['jenis_sistem'] ?>"))
-            document.getElementById("<?php echo $data['jenis_sistem'] ?>").checked=true;
+        document.getElementById("ram_<?php echo $data['saiz_ram'] ?>").selected = true;
+        if (document.getElementById("<?php echo $data['jenis_sistem'] ?>"))
+            document.getElementById("<?php echo $data['jenis_sistem'] ?>").checked = true;
     </script>
 </body>
 

@@ -13,7 +13,7 @@ if ($conn->connect_error) {
 $target = $_GET['t'];
 $sql = "SELECT COUNT(unitID) FROM pc WHERE unitID=?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("i",$target);
+$stmt->bind_param("i", $target);
 $stmt->execute();
 $stmt->store_result();
 $stmt->bind_result($data);

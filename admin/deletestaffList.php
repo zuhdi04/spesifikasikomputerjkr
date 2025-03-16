@@ -12,7 +12,7 @@ if ($conn->connect_error) {
 
 $target = $_POST['target'];
 $stmt = $conn->prepare("DELETE FROM admin WHERE username=?");
-$stmt ->bind_param("s", $target);
+$stmt->bind_param("s", $target);
 if ($stmt->execute()) {
     echo json_encode(['message' => 'Update successful']);
 } else {

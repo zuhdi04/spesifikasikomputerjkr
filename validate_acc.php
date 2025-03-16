@@ -1,14 +1,14 @@
 <?php
 session_start();
 $link = basename(parse_url($_SERVER['PHP_SELF'], PHP_URL_PATH));
-if(!isset($_SESSION["j_Tab"])&&$link!="acc-login.php"){
+if (!isset($_SESSION["j_Tab"]) && $link != "acc-login.php") {
     header("Location: login.html");
     exit;
 }
 
-if(isset($_SESSION["notification"])){
+if (isset($_SESSION["notification"])) {
     echo $_SESSION["notification"];
-    $_SESSION["notification"]=null;
+    $_SESSION["notification"] = null;
 }
 
 include 'db_connect.php';
@@ -53,6 +53,7 @@ $request_method = $_SERVER['REQUEST_METHOD'];
 
 $path = parse_url($_SERVER['PHP_SELF'], PHP_URL_PATH);
 $lastPathname = basename($path);
-$page = chop($lastPathname,".php");
-if($pages->{$page}->method != $request_method) header("Location:".$pages->notfound->url); // handle wrong method: display error page
+$page = chop($lastPathname, ".php");
+if ($pages->{$page}->method != $request_method)
+    header("Location:" . $pages->notfound->url); // handle wrong method: display error page
 ?>

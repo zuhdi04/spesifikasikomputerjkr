@@ -2,8 +2,8 @@
 if (isset($_POST["signin"])) {
     $username = $_POST['uname'];
     $key = $_POST['psw'];
-    $remember_user = isset($_POST['remember'])?$_POST['remember']:null;
-    
+    $remember_user = isset($_POST['remember']) ? $_POST['remember'] : null;
+
     require 'valid.php';
 
     include 'db_connect.php';
@@ -28,30 +28,30 @@ if (isset($_POST["signin"])) {
             if (password_verify($key, $row['password_encrypt'])) {
                 // $_SESSION[$row['username']] = true;
                 // Password is correct, store user data in cookies and redirect
-                if ($remember_user!=null) ;
+                if ($remember_user != null)
+                    ;
                 // setcookie("user", $row['username'], time() + (86400 * 30 * 30), "/");
 
                 // Redirect to the homepage after login
                 $stmt->close();
                 $conn->close();
-                if($row['unitID']===0){
+                if ($row['unitID'] === 0) {
                     $_SESSION['j_Tab_admin'] = $row['unitID'];
-                    if( isset($_SESSION['j_From'])){
+                    if (isset($_SESSION['j_From'])) {
                         $j_From = $_SESSION['j_From'];
                         $_SESSION['j_From'] = null;
-                        header("Location: ".$j_From);}
-                    else
+                        header("Location: " . $j_From);
+                    } else
                         header("Location: admin/akaun/");
-                }
-                else{
+                } else {
                     $_SESSION['j_Tab'] = $row['unitCode'];
-                    
-                    if( isset($_SESSION['j_From'])){
+
+                    if (isset($_SESSION['j_From'])) {
                         $j_From = $_SESSION['j_From'];
                         $_SESSION['j_From'] = null;
-                        header("Location: ".$j_From);}
-                    else
-                        header("Location: ".$pages->spesifikasi->index);
+                        header("Location: " . $j_From);
+                    } else
+                        header("Location: " . $pages->spesifikasi->index);
                 }
                 exit;
             } else {
@@ -67,15 +67,14 @@ if (isset($_POST["signin"])) {
         // Close the statement
         $stmt->close();
     }
-    
+
     // Close the database connection
     $conn->close();
     echo "<script type='text/javascript'>alert('Login failed!');document.location='login.html';</script>";
     // header("Location: login.html");
     // exit;
 
-}
-else{
+} else {
     header("Location: login");
     exit;
 }

@@ -13,7 +13,7 @@ if ($conn->connect_error) {
 $target = $_GET['u'];
 $sql = "SELECT nama FROM unit WHERE unitCode=?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("s",$target);
+$stmt->bind_param("s", $target);
 $stmt->execute();
 $stmt->store_result();
 $stmt->bind_result($data);
