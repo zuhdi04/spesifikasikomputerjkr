@@ -53,6 +53,12 @@ body {
   background-color: #e84118;
 }
 
+@media screen and (max-width: 750px) {
+  .title {
+    display: none; 
+  }
+}
+
 .title {
   font-size: large;
   font-weight: bold;
@@ -149,6 +155,15 @@ textarea {
   display: flex;
   gap: 5px;
   align-items: center;
+}
+
+input[type='radio'] {
+  width: auto;
+  margin-left: 10px;
+}
+
+.radio-group label {
+  font-weight: normal;
 }
 
 .button {

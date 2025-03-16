@@ -151,6 +151,15 @@ textarea {
   align-items: center;
 }
 
+input[type='radio'] {
+  width: auto;
+  margin-left: 10px;
+}
+
+.radio-group label {
+  font-weight: normal;
+}
+
 .button {
   /* width: 100%; */
   padding: 10px;
@@ -274,6 +283,12 @@ button,
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+@media screen and (max-width: 750px) {
+  .title {
+    display: none; 
+  }
 }
 
 .title {

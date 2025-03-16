@@ -119,11 +119,12 @@ function unitCount($target)
             <h2>Admin Accounts</h2>
             <br>
             <!-- Admin items will appear here -->
+    <div style="overflow-x:auto;">
             <table id="staffTable" class="display" border="display">
                 <thead>
                     <tr>
                         <th>USERNAME</th>
-                        <th>PASS</th>
+                        <th>PASSWORD</th>
                         <th>CAWANGAN/ DAERAH/ UNIT/ BAHAGIAN</th>
                         <th>JUMLAH</th>
                         <th>OPERASI</th>
@@ -148,6 +149,7 @@ function unitCount($target)
                     <?php endwhile; ?>
                 </tbody>
             </table>
+                    </div>
             <br>
             <button id="tambahunit" class="btnAdd">Tambah Admin</button>
         </div>

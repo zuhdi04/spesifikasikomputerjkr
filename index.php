@@ -25,6 +25,7 @@ $conn->close();
     </h1>
     <!-- <span id="nama_bahagian">UNIT PENTADBIRAN & KEWANGAN</span></h1> -->
 
+    <div style="overflow-x:auto;">
     <table id="printTable" class="display" border="display">
         <thead>
             <tr>
@@ -71,7 +72,7 @@ $conn->close();
         </tr> -->
         </tbody>
     </table>
-    <!-- </div> -->
+    </div>
     <a id="tambahButton" href="<?php echo $pages->spesifikasi->create ?>" class="btnAdd">Tambah Maklumat</a>
 
     <script>
