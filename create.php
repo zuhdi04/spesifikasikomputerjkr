@@ -71,11 +71,6 @@ if ($request_method === "POST") {
         <label for="jawatangred">Jawatan dan Gred:</label>
         <input type="text" name="jawatangred" id="jawatangred" placeholder="Jawatan dan gred">
 
-        <!-- <label for="kakitangan">Kakitangan Persekutuan / Negeri:</label>
-    <select name="kakitangan" id="kakitangan">
-        <option value="NEGERI">Negeri</option>
-        <option value="PERSEKUTUAN">Persekutuan</option>
-    </select> -->
         <label>Kakitangan Persekutuan / Negeri:</label>
         <div class="radio-group">
             <input type="radio" name="kakitangan" value="NEGERI" id="negeri"><label for="negeri">Negeri</label>

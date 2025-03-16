@@ -88,7 +88,7 @@ function unitCount($target)
     $stmt->close();
     $conn->close();
 
-    return $count;
+    echo $count;
 }
 
 ?>
@@ -138,24 +138,20 @@ function unitCount($target)
                                     id="password-field-<?php echo $admin->username ?>" disabled="" style="width:85%"><span
                                     toggle="#password-field-<?php echo $admin->username ?>"
                                     class="fa fa-fw fa-eye-slash field-icon toggle-password" value="1"></span>
-            </div>
-            </td>
-            <td><?php echo $admin->nama ?></td>
-            <td><?php unitCount($admin->unitID) ?></td>
-            <td><a href="delete" class="delete_details" data-name="<?php echo $admin->username ?>"
-                    onclick="return false;">Delete</a></td>
-            </tr>
+                            </td>
+                            <td><?php echo $admin->nama ?></td>
+                            <td><?php unitCount($admin->unitID) ?></td>
+                            <td><a href="delete" class="delete_details" data-name="<?php echo $admin->username ?>"
+                                    onclick="return false;">Delete</a></td>
+                        </tr>
 
-        <?php endwhile; ?>
-        <!-- <tr>
-                        <td>1</td>
-                    </tr> -->
-        </tbody>
-        </table>
-        <br>
-        <button id="tambahunit" class="btnAdd">Tambah Admin</button>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
+            <br>
+            <button id="tambahunit" class="btnAdd">Tambah Admin</button>
+        </div>
     </div>
-</div>
 </div>
 
 <!-- The Modal -->

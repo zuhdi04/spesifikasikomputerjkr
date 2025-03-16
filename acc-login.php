@@ -37,9 +37,9 @@ if (isset($_POST["signin"])) {
                 $conn->close();
                 if ($row['unitID'] === 0) {
                     $_SESSION['j_Tab_admin'] = $row['unitID'];
-                    if (isset($_SESSION['j_From'])) {
-                        $j_From = $_SESSION['j_From'];
-                        $_SESSION['j_From'] = null;
+                    if (isset($_SESSION['j_From_admin'])) {
+                        $j_From = $_SESSION['j_From_admin'];
+                        $_SESSION['j_From_admin'] = null;
                         header("Location: " . $j_From);
                     } else
                         header("Location: admin/akaun/");

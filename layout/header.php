@@ -31,11 +31,17 @@ $conn->close();
 
 <body>
     <div class="top-bar">
-        <img class="icon" src="img/logo.png" alt="Avatar" class="avatar" width="100px" height="100px">
-        <h3 class="title">JABATAN KERJA RAYA NEGERI KEDAH DARUL AMAN</h3>
-        <!-- <a onclick="sessionStorage.removeItem('j_Tab');alert('You are going to logout');" class="logout" href="login.html">Logout</a> -->
-        <a onclick="if(confirm('You are about to be logout'))sessionStorage.removeItem('j_Tab');else return false;"
-            class="logout" href="<?php echo $pages->account->logout ?>">Logout</a>
+        <div class="logo-section">
+            <img class="icon" src="img/logo.png" alt="Company Logo" width="100px" height="100px">
+        </div>
+        <div>
+            <h3 class="title">JABATAN KERJA RAYA NEGERI KEDAH DARUL AMAN</h3>
+        </div>
+        <div>
+            <?php include 'component/backbutton.php'; ?>
+            <a onclick="if(confirm('You are about to be logout'))sessionStorage.removeItem('j_Tab');else return false;"
+                class="logout" href="<?php echo $pages->account->logout ?>">Logout</a>
+        </div>
     </div>
 
     <!-- Navigation Menu -->

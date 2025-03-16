@@ -8,9 +8,9 @@ $link = basename($_SERVER['PHP_SELF']);
 // }
 
 if (!isset($_SESSION["j_Tab_admin"]) && $link != "acc-login.php") {
-    $_SESSION["j_From"] = $_SERVER['REQUEST_URI'];
+    $_SESSION["j_From_admin"] = $_SERVER['REQUEST_URI'];
     if ($_SERVER['QUERY_STRING'] != '')
-        $_SESSION["j_From"] .= '?' . $_SERVER['QUERY_STRING'];
+        $_SESSION["j_From_admin"] .= '?' . $_SERVER['QUERY_STRING'];
     header("Location: ../../login");
     exit;
 }
@@ -39,7 +39,7 @@ $teststring = '
         "delete":"../spesifikasi/delete.php"},
     "account":{
         "login":"login",
-        "logout":"logout"}
+        "logout":"../logout"}
 }
 ';
 $pages = json_decode($teststring);
