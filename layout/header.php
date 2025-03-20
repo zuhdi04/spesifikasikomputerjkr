@@ -48,7 +48,8 @@ $conn->close();
     <!-- Navigation Menu -->
     <nav class="menu-bar">
         <ul>
-            <li><a href="<?php echo $pages->spesifikasi->index ?>" class="active">Spesifikasi</a></li>
+            <li><a href="<?php echo $pages->spesifikasi->index ?>">Spesifikasi</a></li>
+            <li><a href="<?php echo $pages->spesifikasi->create ?>"> Tambah Maklumat</a></li>
         </ul>
     </nav>
 

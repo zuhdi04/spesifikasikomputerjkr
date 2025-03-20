@@ -11,6 +11,11 @@
 // $stmt->fetch();
 // $stmt->close();
 // $conn->close();
+
+// $current = explode("/", $_SERVER['REQUEST_URI']);
+// echo $current[count($current)-1];
+// $current = $_SERVER['PHP_SELF'];
+// echo basename($current);
 include '../component/navlink.php';
 ?>
 
@@ -53,7 +58,8 @@ include '../component/navlink.php';
         <ul>
             <li><a <?php navlink($pages->akaun->index); ?>>Admin</a></li>
             <li><a <?php navlink($pages->spesifikasi->index); ?>>Spesifikasi</a></li>
-        </ul>
+            <li><a <?php navlink($pages->spesifikasi->create); ?>>Tambah Maklumat</a></li>
+            </ul>
     </nav>
 
     <?php

@@ -7,8 +7,13 @@ $units = $result->fetch_all(MYSQLI_ASSOC);
 $stmt->close();
 $conn->close();
 
-foreach ($units as $x => $y) {
-    $unit = $y['nama'];
-    echo '<option value="' . $unit . '">' . $unit . '</option>';
-}
+// <?=$row['month'] == 'January' ? ' selected="selected"' : '';
+
+// foreach ($units as $x => $y) {
+//     $unit = $y['nama'];
+//     echo '<option value="' . $unit . '">' . $unit . '</option>';
+// }
+foreach ($units as $x => $y):
 ?>
+<option value="<?=$y['nama']?>" <?php if(isset($data)) echo $data['unitID'] == $y['id'] ? ' selected="selected"' : ''?>><?=$y['nama']?></option>
+<?php endforeach; ?>

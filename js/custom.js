@@ -1,4 +1,4 @@
-// toggle processor textbox
+// toggle "other processor" textbox
 $("input[type='radio']").click(function(){
     const otherProc = $("input[id='otherProcRadio']:checked").val();
     if (otherProc){
@@ -6,8 +6,3 @@ $("input[type='radio']").click(function(){
     }
     else $("#otherProcTxtBox").attr("disabled",true);
 })
-
-// update other process value
-function setOtherProcValue(){
-    $("#otherProcRadio").val( $("#otherProcTxtBox").val() );
-}
