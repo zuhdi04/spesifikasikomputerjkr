@@ -1,6 +1,6 @@
 <?php
 include '../db_connect.php';
-$stmt = $conn->prepare("SELECT nama,id FROM unit ORDER BY nama");
+$stmt = $conn->prepare("SELECT nama,unitID FROM unit ORDER BY nama");
 $stmt->execute();
 $result = $stmt->get_result();
 $units = $result->fetch_all(MYSQLI_ASSOC);
@@ -13,7 +13,8 @@ $conn->close();
 //     $unit = $y['nama'];
 //     echo '<option value="' . $unit . '">' . $unit . '</option>';
 // }
-foreach ($units as $x => $y):
+$selectedunit = isset($data['unitID']) ? htmlspecialchars($data['unitID']) : -1 ;
+foreach ($units as $x => $unit):
 ?>
-<option value="<?=$y['nama']?>" <?php if(isset($data)) echo $data['unitID'] == $y['id'] ? ' selected="selected"' : ''?>><?=$y['nama']?></option>
+<option value="<?=$unit['nama']?>" <?=$selectedunit == $unit['unitID'] ? 'selected="selected"' : ''?>><?=$unit['nama']?></option>
 <?php endforeach; ?>

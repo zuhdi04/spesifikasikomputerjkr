@@ -2,7 +2,7 @@
 <?php
 include 'db_connect.php';
 $target = $_SESSION['j_Tab'];
-$sql = "SELECT nama FROM unit WHERE unitCode=?";
+$sql = "SELECT nama FROM unit WHERE code=?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $target);
 $stmt->execute();

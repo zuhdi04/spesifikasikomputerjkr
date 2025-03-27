@@ -1,7 +1,7 @@
 <div class="content">
     <!-- Form Section - SPESIFIKASI -->
-    <form id="detailsform" method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>"
-        class="form-container">
+    <form id="detailsform" method="POST" action="ver.php"
+        class="form-container" enctype="multipart/form-data">
         <input id="targetid" type="text" name="id" value="<?php echo htmlspecialchars($data['pcID']); ?>" hidden>
 
         <!-- NAMA -->
@@ -22,6 +22,10 @@
         <label for="jawatangred">Jawatan dan Gred :</label>
         <input type="text" name="jawatangred" id="jawatangred" placeholder="Jawatan dan gred"
             value="<?php echo htmlspecialchars($data['jawatan_gred']); ?>">
+        
+        <!-- GAMBAR -->
+        <label for="gambar">GAMBAR</label>
+        <input type="file" id="gambar" name="gambar" accept="image/*">
     
         <!-- JENIS KAKITANGAN -->
         <label>Kakitangan Persekutuan / Negeri:</label>
@@ -34,8 +38,15 @@
     
         <!-- JENIS PC -->
         <label for="jenispc">Jenis Komputer :</label>
-        <input type="text" name="jenispc" id="jenispc" placeholder="Jenis komputer"
-            value="<?=htmlspecialchars($data['jenis_komputer']); ?>">
+        <div class="">
+            <input type="radio" name="jenispc" value="BAHAGIAN TEK" id="jenis1" <?= $data['jenis_komputer'] == 'BAHAGIAN TEK' ? 'checked="true"' : ''; ?> ><label for="jenis1">Bahagian Tek...</label><br>
+            <input type="radio" name="jenispc" value="SEWAAN JKR" id="jenis2" <?= $data['jenis_komputer'] == 'SEWAAN JKR' ? 'checked="true"' : ''; ?> ><label for="jenis2">Sewaan JKR</label><br>
+            <input type="radio" name="jenispc" value="SUK" id="jenis3" <?= $data['jenis_komputer'] == 'SUK' ? 'checked="true"' : ''; ?> ><label for="jenis3">SUK</label><br>
+            <input type="radio" name="jenispc" value="PROJEK" id="projekRadio" <?= $data['jenis_komputer'] == 'PROJEK' ? 'checked="true"' : ''; ?>><label for="projekRadio">Projek</label>
+            <input type="date" name="project_date" value="<?= $data['jenis_komputer'] == 'PROJEK' ? $data['tarikhtamat'] : ''; ?>" id="projekDateInput" <?= $data['jenis_komputer'] == 'PROJEK' ? '' : 'disabled'; ?> >
+        </div>
+        <!-- <input type="text" name="jenispc" id="jenispc" placeholder="Jenis komputer"
+            value="<?=htmlspecialchars($data['jenis_komputer']); ?>"> -->
     
         <!-- UMUR PC -->
         <label for="tahun">Umur Komputer (Tahun) :</label>

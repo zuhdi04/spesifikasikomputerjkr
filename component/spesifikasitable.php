@@ -26,7 +26,7 @@
                 <?php if($current === 'admin' ): ?><td><?php echo $pc->nama ?></td><?php endif; ?>
                 <td><?php echo $pc->jawatan_gred ?></td>
                 <td><?php echo $pc->jenis_kakitangan ?></td>
-                <td><?php echo $pc->jenis_komputer ?></td>
+                <td><?php echo $pc->jenis_komputer; if( $pc->tarikhtamat != '' ) echo "\nTarikh tamat: $pc->tarikhtamat";  ?></td>
                 <td><?php echo $pc->umur_komputer ?></td>
                 <td><?php echo $pc->jenis_processor ?></td>
                 <td><?php echo $pc->saiz_ram ?></td>

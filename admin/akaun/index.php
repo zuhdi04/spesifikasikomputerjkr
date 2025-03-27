@@ -29,7 +29,7 @@ if ($request_method === "POST") {
 
     } else {
         $uniqcode = uniqid();
-        $stmt = $conn->prepare("SELECT unitCode FROM unit WHERE unitCode=?");
+        $stmt = $conn->prepare("SELECT code FROM unit WHERE code=?");
         $stmt->bind_param("s", $uniqcode);
         $stmt->execute();
         $stmt->store_result();
@@ -37,7 +37,7 @@ if ($request_method === "POST") {
         $stmt->fetch();
         // insert
         if ($existing_code == null) {
-            $stmt = $conn->prepare("INSERT INTO unit(nama,unitCode) VALUES (?,?)");
+            $stmt = $conn->prepare("INSERT INTO unit(nama,code) VALUES (?,?)");
             $stmt->bind_param("ss", $admin_cawangan, $uniqcode);
 
             if ($stmt->execute()) {
@@ -67,7 +67,7 @@ if ($request_method === "POST") {
 }
 
 include '../db_connect.php';
-$stmt = $conn->prepare("SELECT username, unit.nama, password, admin.unitID FROM admin INNER JOIN unit ON admin.unitID=unit.id ORDER BY unit.nama");
+$stmt = $conn->prepare("SELECT username, unit.nama, password, admin.unitID FROM admin INNER JOIN unit ON admin.unitID=unit.unitID ORDER BY unit.nama");
 $stmt->execute();
 $result = $stmt->get_result();
 // $data = $result->fetch_all(MYSQLI_ASSOC);

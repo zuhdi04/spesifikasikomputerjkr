@@ -15,7 +15,9 @@ if ($request_method === "POST") {
     $second = $_POST['cawangan'];
     $third = $_POST['jawatangred'];
     $kakitangan = isset($_POST['kakitangan']) ? $_POST['kakitangan'] : "";
-    $fifth = $_POST['jenispc'];
+    $fifth = isset($_POST['jenispc']) ? $_POST['jenispc'] : "";
+    $tarikh = "";
+    if( $fifth == "PROJEK" ) $tarikh = isset( $_POST['project_date'] ) ? $_POST['project_date'] : "";
     $pcage = $_POST['tahun'];
     $proc = isset($_POST['proc']) ? $_POST['proc'] : "";
     if( $proc == " " ) $proc = isset( $_POST['otherproc'] ) ? $_POST['otherproc'] : "";
@@ -26,7 +28,7 @@ if ($request_method === "POST") {
     $catatan = $_POST['catatan'];
 
     include '../db_connect.php';
-    $sql = "SELECT id FROM unit WHERE nama=?";
+    $sql = "SELECT unitID FROM unit WHERE nama=?";
     $check = $conn->prepare($sql);
     $check->bind_param("s", $second);
     $check->execute();
@@ -40,6 +42,7 @@ if ($request_method === "POST") {
     jawatan_gred=?,
     jenis_kakitangan=?,
     jenis_komputer=?,
+    tarikhtamat=?,
     umur_komputer=?,
     jenis_processor=?,
     saiz_ram=?,
@@ -49,7 +52,7 @@ if ($request_method === "POST") {
     catatan=?
     WHERE pcID=?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sissssssssssi", $staffname, $data, $third, $kakitangan, $fifth, $pcage, $proc, $ram, $systemtype, $antivirus, $ipaddress, $catatan, $id);
+    $stmt->bind_param("sisssssssssssi", $staffname, $data, $third, $kakitangan, $fifth, $tarikh, $pcage, $proc, $ram, $systemtype, $antivirus, $ipaddress, $catatan, $id);
 
     if ($stmt->execute()) {
         $_SESSION["notify"] = ['text' => 'Update successful'];

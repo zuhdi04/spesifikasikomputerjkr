@@ -2,7 +2,7 @@
 require '../valid.php';
 
 include '../db_connect.php';
-$stmt = $conn->prepare("SELECT * FROM pc INNER JOIN unit ON pc.unitID=unit.id ORDER BY nama_penuh");
+$stmt = $conn->prepare("SELECT * FROM pc INNER JOIN unit ON pc.unitID=unit.unitID ORDER BY nama_penuh");
 $stmt->execute();
 $result = $stmt->get_result();
 $data = $result->fetch_all(MYSQLI_ASSOC);

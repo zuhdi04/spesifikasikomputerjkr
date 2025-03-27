@@ -69,5 +69,5 @@ include '../component/navlink.php';
 
     <!-- <div class="content">
         <h1>SPESIFIKASI KOMPUTER KAKITANGAN JKR KEDAH BAHAGIAN/CAWANGAN/UNIT/DAERAH: 
-            <?php echo $unit_name ?></h1> -->
+            <?php //echo $unit_name ?></h1> -->
     <!-- <span id="nama_bahagian">UNIT PENTADBIRAN & KEWANGAN</span></h1> -->

@@ -10,7 +10,9 @@ if ($request_method === "POST") {
     // $second = $_POST['bahagian'];
     $third = $_POST['jawatangred'];
     $kakitangan = isset($_POST['kakitangan']) ? $_POST['kakitangan'] : "";
-    $fifth = $_POST['jenispc'];
+    $fifth = isset($_POST['jenispc']) ? $_POST['jenispc'] : "";
+    $tarikh = "";
+    if( $fifth == "PROJEK" ) $tarikh = isset( $_POST['project_date'] ) ? $_POST['project_date'] : "";
     $pcage = $_POST['tahun'];
     $proc = isset($_POST['proc']) ? $_POST['proc'] : "";
     if( $proc == " " ) $proc = isset( $_POST['otherproc'] ) ? $_POST['otherproc'] : "";
@@ -20,13 +22,28 @@ if ($request_method === "POST") {
     $ipaddress = $_POST['ipaddress'];
     $catatan = $_POST['catatan'];
     $id = isset($_POST['id']) ? intval($_POST['id']) : 0;
+    $imageData = null;
+    if(isset($_FILES['gambar'])){
+        // Get the uploaded image file
+        $image = $_FILES['gambar'];
 
+        // Check for image upload errors
+        if ($image['error'] !== UPLOAD_ERR_OK) {
+            echo "File upload error.";
+            exit;
+        }
+
+        // Get the image name and its content
+        // $imageName = $image['name'];
+        $imageData = file_get_contents($image['tmp_name']);
+    }
 
     include 'db_connect.php';
     $sql = "UPDATE pc SET nama_penuh=?,
     jawatan_gred=?,
     jenis_kakitangan=?,
     jenis_komputer=?,
+    tarikhtamat=?,
     umur_komputer=?,
     jenis_processor=?,
     saiz_ram=?,
@@ -36,7 +53,7 @@ if ($request_method === "POST") {
     catatan=?
     WHERE pcID=?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssssssssssi", $staffname, $third, $kakitangan, $fifth, $pcage, $proc, $ram, $systemtype, $antivirus, $ipaddress, $catatan, $id);
+    $stmt->bind_param("ssssssssssssi", $staffname, $third, $kakitangan, $fifth, $tarikh, $pcage, $proc, $ram, $systemtype, $antivirus, $ipaddress, $catatan, $id);
 
     if ($stmt->execute()) {
         $_SESSION["notify"] = ['' => '', 'text' => 'Update successful'];
@@ -56,7 +73,7 @@ if ($request_method === "POST") {
 
 <?php
 include 'db_connect.php';
-$sql = "SELECT * FROM pc LEFT JOIN unit ON pc.unitID = unit.id WHERE pcID=? AND unitCode=?";
+$sql = "SELECT * FROM pc LEFT JOIN unit ON pc.unitID = unit.unitID WHERE pcID=? AND unit.code=?";
 // $sql = "SELECT * FROM pc WHERE pcID=?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("is", $id, $_SESSION['j_Tab']);

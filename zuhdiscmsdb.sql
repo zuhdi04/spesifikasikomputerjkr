@@ -60,6 +60,7 @@ CREATE TABLE `pc` (
   `jawatan_gred` text NOT NULL,
   `jenis_kakitangan` text NOT NULL,
   `jenis_komputer` text NOT NULL,
+  `tarikhtamat` text NOT NULL,
   `umur_komputer` text NOT NULL,
   `jenis_processor` text NOT NULL,
   `saiz_ram` text NOT NULL,
@@ -67,24 +68,24 @@ CREATE TABLE `pc` (
   `antivirus` text NOT NULL,
   `ipv4_address` text NOT NULL,
   `catatan` text NOT NULL,
-  `unitID` int(10) NOT NULL
+  `unitID` int(10) NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `pc`
 --
 
-INSERT INTO `pc` (`pcID`, `nama_penuh`, `jawatan_gred`, `jenis_kakitangan`, `jenis_komputer`, `umur_komputer`, `jenis_processor`, `saiz_ram`, `jenis_sistem`, `antivirus`, `ipv4_address`, `catatan`, `unitID`) VALUES
-(1, 'a', '', 'PC PERSEKUTUAN', 'aset', '3', 'i5', '6', '64BIT', '', '', '', 3),
-(3, 'Demo 1', '', 'PC PERSEKUTUAN', 'ASET', '6', ' ', '8', '32BIT', '', '172.27.20.98', '', 2),
-(34, 'azmi', '', 'PC NEGERI', 'aset', '3', 'i3', '6', '64BIT', '', '255.255.255.1', '', 1),
-(39, 'AIZA', '', 'PC PERSEKUTUAN', 'ASET', '1', 'i7', '6', '64BIT', '', '', '', 3),
-(40, 'atalia', '', 'PC PERSEKUTUAN', 'aset', '2', 'i5', '6', '64BIT', '', '255.255.254.2', '', 1),
-(42, 'YESRA', '', 'PC PERSEKUTUAN', 'PROJEK', '1', 'i7', '8', '64BIT', '', '99.9.54.8', '', 2),
-(44, 'amzan', '', 'PC NEGERI', 'projek', '1', 'i5', '6', '64BIT', '', '', '', 1),
-(45, 'hasnila', '', 'PC PERSEKUTUAN', 'projek', '5', 'i5', '4', '64BIT', '', '', '', 2),
-(46, 'antonio', 'AK6', 'PC PERSEKUTUAN', 'aset', '1', 'i5', '6', '64BIT', '', '', '', 1),
-(47, 'BELLA', 'G', 'PC NEGERI', 'ASET', '2', 'i3', '2', '64BIT', '', '', '', 3);
+-- INSERT INTO `pc` (`pcID`, `nama_penuh`, `jawatan_gred`, `jenis_kakitangan`, `jenis_komputer`, `umur_komputer`, `jenis_processor`, `saiz_ram`, `jenis_sistem`, `antivirus`, `ipv4_address`, `catatan`, `unitID`) VALUES
+-- (1, 'a', '', 'PC PERSEKUTUAN', 'aset', '3', 'i5', '6', '64BIT', '', '', '', 3),
+-- (3, 'Demo 1', '', 'PC PERSEKUTUAN', 'ASET', '6', ' ', '8', '32BIT', '', '172.27.20.98', '', 2),
+-- (34, 'azmi', '', 'PC NEGERI', 'aset', '3', 'i3', '6', '64BIT', '', '255.255.255.1', '', 1),
+-- (39, 'AIZA', '', 'PC PERSEKUTUAN', 'ASET', '1', 'i7', '6', '64BIT', '', '', '', 3),
+-- (40, 'atalia', '', 'PC PERSEKUTUAN', 'aset', '2', 'i5', '6', '64BIT', '', '255.255.254.2', '', 1),
+-- (42, 'YESRA', '', 'PC PERSEKUTUAN', 'PROJEK', '1', 'i7', '8', '64BIT', '', '99.9.54.8', '', 2),
+-- (44, 'amzan', '', 'PC NEGERI', 'projek', '1', 'i5', '6', '64BIT', '', '', '', 1),
+-- (45, 'hasnila', '', 'PC PERSEKUTUAN', 'projek', '5', 'i5', '4', '64BIT', '', '', '', 2),
+-- (46, 'antonio', 'AK6', 'PC PERSEKUTUAN', 'aset', '1', 'i5', '6', '64BIT', '', '', '', 1),
+-- (47, 'BELLA', 'G', 'PC NEGERI', 'ASET', '2', 'i3', '2', '64BIT', '', '', '', 3);
 
 -- --------------------------------------------------------
 
@@ -93,19 +94,19 @@ INSERT INTO `pc` (`pcID`, `nama_penuh`, `jawatan_gred`, `jenis_kakitangan`, `jen
 --
 
 CREATE TABLE `unit` (
-  `id` int(11) NOT NULL,
+  `unitID` int(11) NOT NULL,
   `nama` text NOT NULL,
-  `unitCode` varchar(10) NOT NULL
+  `code` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `unit`
 --
 
-INSERT INTO `unit` (`id`, `nama`, `unitCode`) VALUES
-(1, 'PENTADBIRAN DAN KEWANGAN', 'gysVJ'),
-(2, 'ARKITEK', 'EUubk'),
-(3, 'PENDANG', 'cpiXY');
+-- INSERT INTO `unit` (`id`, `nama`, `unitCode`) VALUES
+-- (1, 'PENTADBIRAN DAN KEWANGAN', 'gysVJ'),
+-- (2, 'ARKITEK', 'EUubk'),
+-- (3, 'PENDANG', 'cpiXY');
 
 --
 -- Indexes for dumped tables
@@ -122,13 +123,13 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `pc`
   ADD PRIMARY KEY (`pcID`),
-  ADD KEY `pc_FK` (`unitID`);
+  -- ADD KEY `pc_FK` (`unitID`);
 
 --
 -- Indexes for table `unit`
 --
 ALTER TABLE `unit`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`unitID`);
 
 --
 -- AUTO_INCREMENT for dumped tables

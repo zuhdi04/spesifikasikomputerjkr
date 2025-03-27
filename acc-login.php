@@ -7,7 +7,7 @@ if (isset($_POST["signin"])) {
     require 'valid.php';
 
     include 'db_connect.php';
-    $sql = "SELECT username,password_encrypt,unitID,unitCode FROM admin LEFT JOIN unit ON unitID=unit.id WHERE username = ?";
+    $sql = "SELECT username,password_encrypt,admin.unitID,code FROM admin LEFT JOIN unit ON admin.unitID=unit.unitID WHERE username = ?";
     // Prepare the statement
     if ($stmt = $conn->prepare($sql)) {
         // Bind parameters to the prepared statement
@@ -44,7 +44,7 @@ if (isset($_POST["signin"])) {
                     } else
                         header("Location: admin/akaun/");
                 } else {
-                    $_SESSION['j_Tab'] = $row['unitCode'];
+                    $_SESSION['j_Tab'] = $row['code'];
 
                     if (isset($_SESSION['j_From'])) {
                         $j_From = $_SESSION['j_From'];
@@ -71,8 +71,8 @@ if (isset($_POST["signin"])) {
     // Close the database connection
     $conn->close();
     echo "<script type='text/javascript'>alert('Login failed!');document.location='login.html';</script>";
-    // header("Location: login.html");
-    // exit;
+    header("Location: login.html");
+    exit;
 
 } else {
     header("Location: login");
