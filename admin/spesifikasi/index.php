@@ -16,6 +16,7 @@ $PCs = json_encode($data);
 <div class="content1">
     <h1>SPESIFIKASI KOMPUTER KAKITANGAN JKR KEDAH</h1>
     <br>
+    <a href="summary">Muat turun ringkasan</a><br><br>
     <div>
         <label for="unit">CAWANGAN/ DAERAH/ UNIT/ BAHAGIAN:</label><br>
         <select name="unit_select" id="unit_select">

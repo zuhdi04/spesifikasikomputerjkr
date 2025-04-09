@@ -27,10 +27,6 @@ $PCs = json_encode($data);
     <br>
     <a id="tambahButton" href="<?php echo $pages->spesifikasi->create ?>" class="btnAdd">Tambah Maklumat</a>
     <br><br>
-    <h1>Generate Excel from Database</h1>
-    <form action="generate_excel.php" method="post">
-        <button type="submit" name="generate_excel">Generate Excel</button>
-    </form>
 
     <script>
         $('#printTable').DataTable();

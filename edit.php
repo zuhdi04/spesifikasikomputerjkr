@@ -22,20 +22,20 @@ if ($request_method === "POST") {
     $ipaddress = $_POST['ipaddress'];
     $catatan = $_POST['catatan'];
     $id = isset($_POST['id']) ? intval($_POST['id']) : 0;
-    $imageData = null;
-    if(isset($_FILES['gambar'])){
-        // Get the uploaded image file
-        $image = $_FILES['gambar'];
 
-        // Check for image upload errors
-        if ($image['error'] !== UPLOAD_ERR_OK) {
-            echo "File upload error.";
+    $imageData = null;
+    if(isset($_FILES['gambar']) && $_FILES['gambar']['error'] == 0){
+        // Get the uploaded image file
+        $imageTmpName = $_FILES['gambar']['tmp_name'];
+        $imageSize = $_FILES['gambar']['size'];
+
+        // Ensure image size is reasonable (optional)
+        if ($imageSize > 5000000) { // 5MB max
+            echo "File is too large.";
             exit;
         }
-
-        // Get the image name and its content
-        // $imageName = $image['name'];
-        $imageData = file_get_contents($image['tmp_name']);
+        // Read image file into binary data
+        $imageData = file_get_contents($imageTmpName);
     }
 
     include 'db_connect.php';
@@ -74,6 +74,7 @@ if ($request_method === "POST") {
 <?php
 include 'db_connect.php';
 $sql = "SELECT * FROM pc LEFT JOIN unit ON pc.unitID = unit.unitID WHERE pcID=? AND unit.code=?";
+// $sql = "SELECT * FROM pc LEFT JOIN unit ON pc.unitID = unit.unitID WHERE pcID=?";
 // $sql = "SELECT * FROM pc WHERE pcID=?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("is", $id, $_SESSION['j_Tab']);

@@ -1,6 +1,6 @@
 <div class="content">
     <!-- Form Section - SPESIFIKASI -->
-    <form id="detailsform" method="POST" action="ver.php"
+    <form id="detailsform" method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>"
         class="form-container" enctype="multipart/form-data">
         <input id="targetid" type="text" name="id" value="<?php echo htmlspecialchars($data['pcID']); ?>" hidden>
 
@@ -24,8 +24,8 @@
             value="<?php echo htmlspecialchars($data['jawatan_gred']); ?>">
         
         <!-- GAMBAR -->
-        <label for="gambar">GAMBAR</label>
-        <input type="file" id="gambar" name="gambar" accept="image/*">
+        <label for="gambar" hidden>GAMBAR</label>
+        <input type="file" id="gambar" name="gambar" accept="image/*" hidden>
     
         <!-- JENIS KAKITANGAN -->
         <label>Kakitangan Persekutuan / Negeri:</label>

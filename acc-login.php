@@ -12,17 +12,20 @@ if (isset($_POST["signin"])) {
     if ($stmt = $conn->prepare($sql)) {
         // Bind parameters to the prepared statement
         $stmt->bind_param("s", $username); // "s" indicates the parameter is a string
-
+        
         // Execute the statement
         $stmt->execute();
-
+        
         // Get the result
         $result = $stmt->get_result();
-
+        
         // Check if there are any matching rows
         if ($result && $result->num_rows > 0) {
             // Fetch the result as an associative array
             $row = $result->fetch_array(MYSQLI_ASSOC);
+            // $r = json_encode($row);
+            // echo "<script type='text/javascript'>console.log('$r');</script>";
+            // exit;
 
             // Verify the password using password_verify() function
             if (password_verify($key, $row['password_encrypt'])) {
@@ -35,8 +38,8 @@ if (isset($_POST["signin"])) {
                 // Redirect to the homepage after login
                 $stmt->close();
                 $conn->close();
-                if ($row['unitID'] === 0) {
-                    $_SESSION['j_Tab_admin'] = $row['unitID'];
+                if ($row['unitID'] === null) {
+                    $_SESSION['j_Tab_admin'] = "row['unitID']";
                     if (isset($_SESSION['j_From_admin'])) {
                         $j_From = $_SESSION['j_From_admin'];
                         $_SESSION['j_From_admin'] = null;
@@ -59,6 +62,7 @@ if (isset($_POST["signin"])) {
                 // setcookie("error", "default", time() + (30 * 30), "/");
             }
         } else {
+            // echo "<script type='text/javascript'>alert('Login failed!');document.location='login.html';</script>";
             // Handle login failure (e.g., wrong email)
             // setcookie("error", "default", time() + (86400 * 30), "/");
             // echo "No results found or query error!";
@@ -71,8 +75,8 @@ if (isset($_POST["signin"])) {
     // Close the database connection
     $conn->close();
     echo "<script type='text/javascript'>alert('Login failed!');document.location='login.html';</script>";
-    header("Location: login.html");
-    exit;
+    // header("Location: login.html");
+    // exit;
 
 } else {
     header("Location: login");

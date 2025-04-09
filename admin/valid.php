@@ -1,11 +1,6 @@
 <?php
 session_start();
 $link = basename($_SERVER['PHP_SELF']);
-$dev_mode_on = true;
-
-if( $dev_mode_on && !isset($_SESSION["j_Tab_admin"]) ){
-    $_SESSION["j_Tab_admin"] = "j_Tab_admin";
-}
 
 if (!isset($_SESSION["j_Tab_admin"]) && $link != "acc-login.php") {
     $_SESSION["j_From_admin"] = $_SERVER['REQUEST_URI'];
